@@ -23,9 +23,9 @@ public class SystemVar extends BaseVariable {
 
     public SystemConfig systemConfig() {
         SystemConfig config = new SystemConfig();
-        config.setWebSiteName(appConfigService.getSystemConfigValue(SYS_WEBSITE_NAME, SYS_DEFAULT_WEBSITE_NAME));
-        config.setWebSiteDescription(appConfigService.getSystemConfigValue(SYS_WEBSITE_DESCRIPTION, SYS_DEFAULT_WEBSITE_DESCRIPTION));
-        config.setWebSiteKeywords(appConfigService.getSystemConfigValue(SYS_WEBSITE_KEYWORDS, SYS_DEFAULT_WEBSITE_KEYWORDS));
+        config.setWebSiteName(appConfigService.getSystemConfigValue(SYS_WEBSITE_NAME, () -> SYS_DEFAULT_WEBSITE_NAME));
+        config.setWebSiteDescription(appConfigService.getSystemConfigValue(SYS_WEBSITE_DESCRIPTION, () -> SYS_DEFAULT_WEBSITE_DESCRIPTION));
+        config.setWebSiteKeywords(appConfigService.getSystemConfigValue(SYS_WEBSITE_KEYWORDS, () -> SYS_DEFAULT_WEBSITE_KEYWORDS));
         return config;
     }
 }

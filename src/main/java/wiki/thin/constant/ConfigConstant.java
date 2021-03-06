@@ -40,5 +40,9 @@ public class ConfigConstant {
      */
     public static final String SYS_WEBSITE_KEYWORDS = "website_keywords";
 
+    /**
+     * 记住密码的key
+     */
+    public static final String SYS_REMEMBER_ME_SECRET_KEY = "remember_me_secret_key";
 
 }

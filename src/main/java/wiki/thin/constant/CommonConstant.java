@@ -20,6 +20,11 @@ public final class CommonConstant {
     public static final int DEFAULT_REMEMBER_ME_EXPIRY = 60 * 60 * 24 * 14 * 1000;
 
     /**
+     * 记住密码的 jwt issuer
+     */
+    public static final String DEFAULT_REMEMBER_ME_JWT_ISSUER = "thin-wiki";
+
+    /**
      * @author Beldon
      */
     public static final class Session {

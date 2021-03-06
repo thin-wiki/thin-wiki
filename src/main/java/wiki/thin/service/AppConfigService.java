@@ -4,6 +4,7 @@ import wiki.thin.constant.ConfigConstant;
 import wiki.thin.entity.AppConfig;
 
 import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * @author beldon
@@ -87,14 +88,16 @@ public interface AppConfigService {
     /**
      * get config value
      *
-     * @param type         type
-     * @param key          key
-     * @param defaultValue default value
+     * @param type                 type
+     * @param key                  key
+     * @param defaultValueSupplier default value supplier
      * @return config value
      */
-    default String getConfigValue(String type, String key, String defaultValue) {
+    default String getConfigValue(String type, String key, Supplier<String> defaultValueSupplier) {
         final AppConfig config = getConfig(type, key);
         if (config.getValue() == null) {
+            final String defaultValue = defaultValueSupplier.get();
+            updateConfig(type, key, defaultValue);
             return defaultValue;
         }
         return config.getValue();
@@ -108,22 +111,18 @@ public interface AppConfigService {
      * @return config value
      */
     default Optional<String> getConfigValue(String type, String key) {
-        return Optional.of(getConfigValue(type, key, null));
+        return Optional.of(getConfigValue(type, key, () -> null));
     }
 
     /**
      * get system config
      *
-     * @param key          key
-     * @param defaultValue default value
+     * @param key                  key
+     * @param defaultValueSupplier default value supplier
      * @return config value
      */
-    default String getSystemConfigValue(String key, String defaultValue) {
-        final AppConfig config = getConfig(ConfigConstant.CONFIG_TYPE_SYS, key, defaultValue);
-        if (config.getValue() == null) {
-            return defaultValue;
-        }
-        return config.getValue();
+    default String getSystemConfigValue(String key, Supplier<String> defaultValueSupplier) {
+        return getConfigValue(ConfigConstant.CONFIG_TYPE_SYS, key, defaultValueSupplier);
     }
 
     /**
@@ -133,6 +132,6 @@ public interface AppConfigService {
      * @return config value
      */
     default Optional<String> getSystemConfigValue(String key) {
-        return Optional.of(getSystemConfigValue(key, null));
+        return Optional.of(getSystemConfigValue(key, () -> null));
     }
 }

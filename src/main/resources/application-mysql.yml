@@ -6,9 +6,6 @@ spring:
 #  main:
 #    lazy-initialization: true
 
-
-app:
-  jwt-secret-key: 3jlpWLEUjJtiv3u7gcgCm6HixXCBNK2r
 logging:
   level:
     wiki.thin: debug

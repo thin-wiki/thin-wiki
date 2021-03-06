@@ -6,7 +6,9 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.SignatureException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import wiki.thin.config.properties.CommonProperties;
+import wiki.thin.constant.CommonConstant;
+import wiki.thin.constant.ConfigConstant;
+import wiki.thin.service.AppConfigService;
 import wiki.thin.service.JwtService;
 
 import javax.crypto.SecretKey;
@@ -26,22 +28,10 @@ import static java.time.temporal.ChronoUnit.SECONDS;
 @Service
 public class JwtServiceImpl implements JwtService {
 
-    private final String issuer;
+    private final AppConfigService appConfigService;
 
-    private final SecretKey secretKey;
-
-    private final Long expiration;
-
-    private final JwtParser jwtParser;
-
-    public JwtServiceImpl(CommonProperties commonProperties) {
-        secretKey = new SecretKeySpec(commonProperties.getJwtSecretKey().getBytes(StandardCharsets.UTF_8),
-                SignatureAlgorithm.HS512.getJcaName());
-        issuer = commonProperties.getJwtIssuer();
-        expiration = commonProperties.getJwtExpiration();
-
-        jwtParser = Jwts.parserBuilder().setSigningKey(secretKey)
-                .build();
+    public JwtServiceImpl(AppConfigService appConfigService) {
+        this.appConfigService = appConfigService;
     }
 
     @Override
@@ -62,15 +52,34 @@ public class JwtServiceImpl implements JwtService {
         return Jwts.builder()
                 .setSubject(account)
                 .setId(UUID.randomUUID().toString())
-                .setIssuer(issuer)
-                .setExpiration(Date.from(OffsetDateTime.now().plus(expiration, SECONDS).toInstant()))
+                .setIssuer(getIssuer())
+                .setExpiration(Date.from(OffsetDateTime.now().plus(getExpiration(), SECONDS).toInstant()))
                 .setIssuedAt(new Date())
-                .signWith(secretKey)
+                .signWith(getSecretKey())
                 .compact();
     }
 
     @Override
     public String parseToken(String token) {
-        return jwtParser.parseClaimsJws(token).getBody().getSubject();
+        return getJwtParser().parseClaimsJws(token).getBody().getSubject();
     }
+
+    private SecretKey getSecretKey() {
+        final String jwtSecretKey = appConfigService.getSystemConfigValue(ConfigConstant.SYS_REMEMBER_ME_SECRET_KEY,
+                () -> UUID.randomUUID().toString());
+        return new SecretKeySpec(jwtSecretKey.getBytes(StandardCharsets.UTF_8), SignatureAlgorithm.HS512.getJcaName());
+    }
+
+    private JwtParser getJwtParser() {
+        return Jwts.parserBuilder().setSigningKey(getSecretKey()).build();
+    }
+
+    private String getIssuer() {
+        return CommonConstant.DEFAULT_REMEMBER_ME_JWT_ISSUER;
+    }
+
+    private int getExpiration() {
+        return CommonConstant.DEFAULT_REMEMBER_ME_EXPIRY;
+    }
+
 }
