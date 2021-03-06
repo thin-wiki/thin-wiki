@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wiki.thin.mapper.ArticleMapper">
+
+    <insert id="insertSelective" parameterType="wiki.thin.entity.Article">
+        insert into article
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            id,
+            title,
+            sharable,
+            <if test="content != null">
+                content,
+            </if>
+            <if test="parentId != null">
+                parent_id,
+            </if>
+            <if test="columnId != null">
+                column_id,
+            </if>
+            <if test="version != null">
+                `version`,
+            </if>
+            <if test="createdBy != null">
+                created_by,
+            </if>
+            <if test="lastModifiedBy != null">
+                last_modified_by,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{id},
+            #{title},
+            #{sharable},
+            <if test="content != null">
+                #{content},
+            </if>
+            <if test="parentId != null">
+                #{parentId},
+            </if>
+            <if test="columnId != null">
+                #{columnId},
+            </if>
+            <if test="version != null">
+                #{version},
+            </if>
+            <if test="createdBy != null">
+                #{createdBy},
+            </if>
+            <if test="lastModifiedBy != null">
+                #{last_modified_by},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByIdSelective" parameterType="wiki.thin.entity.Article">
+        update article
+        <set>
+            <if test="title != null">
+                title = #{title},
+            </if>
+            <if test="content != null">
+                content = #{content},
+            </if>
+            <if test="parentId != null">
+                parent_id = #{parentId},
+            </if>
+            <if test="columnId != null">
+                column_id = #{columnId},
+            </if>
+            <if test="lastModifiedBy != null">
+                last_modified_by = #{lastModifiedBy},
+            </if>
+            version = version + 1
+        </set>
+        where id = #{id}
+    </update>
+    <select id="findSharedListByColumnId" resultType="wiki.thin.entity.mini.ArticleList">
+        select
+        id, `title`, `parent_id`
+        from article
+        where column_id = #{columnId}
+        and sharable in
+        <foreach item="item" index="index" open="(" separator="," close=")" collection="sharableList">
+            #{item}
+        </foreach>
+        order by title,created_date
+    </select>
+</mapper>

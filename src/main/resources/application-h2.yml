@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    username: root
+    password: root
+    url: jdbc:h2:./data/data;AUTO_SERVER=TRUE
+    driverClassName: org.h2.Driver
+  jpa:
+    database: h2
+    database-platform: org.hibernate.dialect.H2Dialect
+    properties:
+      hibernate:
+        show_sql: true
+#        use_sql_comments: true
+        format_sql: true
+  h2:
+    console:
+      path: /h2-console
+      enabled: true
+  main:
+    lazy-initialization: true
+app:
+  jwt-secret-key: 3jlpWLEUjJtiv3u7gcgCm6HixXCBNK2r

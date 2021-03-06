@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wiki.thin.mapper.AppConfigMapper">
+
+    <insert id="insertSelective" parameterType="wiki.thin.entity.AppConfig">
+        insert into app_config
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            `id`,
+            `type`,
+            `key`,
+            <if test="value != null">
+                value,
+            </if>
+            <if test="description != null">
+                `description`,
+            </if>
+            <if test="createdBy != null">
+                created_by,
+            </if>
+            <if test="lastModifiedBy != null">
+                last_modified_by
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{id},
+            #{type},
+            #{key},
+            <if test="value != null">
+                #{value},
+            </if>
+            <if test="description != null">
+                #{description},
+            </if>
+            <if test="createdBy != null">
+                #{createdBy},
+            </if>
+            <if test="lastModifiedBy != null">
+                #{lastModifiedBy}
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByIdSelective" parameterType="wiki.thin.entity.AppConfig">
+        update app_config
+        <set>
+            <if test="type != null">
+                `type` = #{type},
+            </if>
+            <if test="key != null">
+                `key` = #{key},
+            </if>
+            <if test="value != null">
+                `value` = #{value},
+            </if>
+            <if test="description != null">
+                `description` = #{description},
+            </if>
+            <if test="lastModifiedBy != null">
+                last_modified_by = #{lastModifiedBy},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <update id="updateValue">
+        update app_config
+        <set>
+            <if test="value != null">
+                `value` = #{value},
+            </if>
+            <if test="lastModifiedBy != null">
+                last_modified_by = #{lastModifiedBy},
+            </if>
+        </set>
+        where `key` = #{key} and `value` = #{value}
+    </update>
+</mapper>

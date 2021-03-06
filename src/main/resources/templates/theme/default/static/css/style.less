@@ -1,0 +1,101 @@
+@import "base";
+@import "ztree";
+@import "simplealert";
+@import "storage";
+
+.bd-navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1071;
+    background-color: #7952b3;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, .05), inset 0 -1px 0 rgba(0, 0, 0, .1);
+}
+
+.main-container{
+    width: calc(100% - 60px);
+    margin: 0 auto;
+
+
+    .bd-sidebar {
+        position: sticky;
+        top: 4rem;
+        z-index: 1000;
+        height: calc(100vh - 4rem);
+        order-right: 1px solid rgba(0, 0, 0, .1);
+        order: 0;
+        border-bottom: 1px solid rgba(0, 0, 0, .1);
+        border-right: 1px solid rgba(0, 0, 0, .1);
+        width: 272px;
+        overflow-x: auto;
+        overflow-y: auto;
+
+        .nav-column{
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            display: block;
+            width: 100%;
+        }
+
+        .nav-column:hover{
+            text-decoration: none;
+            background-color: #E3E3E3;
+        }
+
+    }
+
+    .bd-content {
+        /*margin-top: 20px;*/
+        padding: 20px 70px;
+        height: calc(100vh - 4rem);
+        overflow-y: auto;
+        width: calc(100% - 273px);
+
+
+        .detail-title{
+            margin: 0;
+        }
+        .detail-body{
+            margin-top: 15px;
+
+            img {
+                cursor: pointer;
+            }
+
+            .mce-toc {
+                position: sticky;
+                top: 0;
+                float: right;
+                max-width: 350px;
+                z-index: 200;
+                //background: beige;
+            }
+        }
+
+        .mce-content-body {
+            padding: 20px 20px !important;
+        }
+    }
+
+    .edit-content {
+        max-width: 1380px;
+        width: 100%;
+        margin: 13px auto 0 auto;
+    }
+
+    @media screen and (max-width: 1440px) {
+        .bd-content {
+            padding: 20px 0;
+        }
+    }
+}
+
+.index-main-box{
+    max-width: 980px;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.mce-content-body {
+    padding: 10px 10px !important;
+}

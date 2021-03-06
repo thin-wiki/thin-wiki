@@ -1,0 +1,80 @@
+@middle-content-width: 940px;
+@mobile-screen-width: 768px;
+@small-mobile-screen-width: 375px;
+
+body{
+  margin: 0;
+  padding: 0;
+  color: #34495e;
+  //font-family: Source Sans Pro,Helvetica Neue,Arial,sans-serif;
+  //font-family: 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  font-family: "lucida grande", "lucida sans unicode", lucida, helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+  font-size: 15px;
+  letter-spacing: 0;
+  overflow-x: hidden;
+}
+
+//html,body{ overflow-y:scroll;}
+
+html{ overflow:-moz-scrollbars-vertical;}
+
+/* 滚动槽 */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  border-radius: 2px;
+  background: rgba(0,0,0,0.06);
+  -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.08);
+}
+/* 滚动条滑块 */
+::-webkit-scrollbar-thumb {
+  border-radius: 2px;
+  background: rgba(0,0,0,0.12);
+  -webkit-box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
+}
+
+h1,h2,h3,h4,h5,h6{
+    padding: 5px 12px;
+    margin: 12px 0;
+    display: block;
+    font-weight: bold;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+h1{
+    border-left: 3px solid #ed2000;
+    font-size: 2em;
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
+}
+h2{
+    border-left: 3px solid #FF1493;
+    font-size: 1.5em;
+    margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+}
+h3 {
+    border-left: 3px solid #4169E1;
+    font-size: 1.17em;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+}
+h4 {
+    border-left: 3px solid #3CB371;
+    margin-block-start: 1.33em;
+    margin-block-end: 1.33em;
+}
+h5 {
+    border-left: 3px solid #FFC0CB;
+    font-size: 0.83em;
+    margin-block-start: 1.67em;
+    margin-block-end: 1.67em;
+}
+h6 {
+    border-left: 3px solid #585E8B;
+    font-size: 0.67em;
+    margin-block-start: 2.33em;
+    margin-block-end: 2.33em;
+}

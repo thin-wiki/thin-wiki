@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wiki.thin.mapper.LocalStorageMapper">
+
+    <insert id="insertSelective" parameterType="wiki.thin.entity.LocalStorage">
+        insert into local_storage
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            id,
+            `name`,
+            <if test="description != null">
+                `description`,
+            </if>
+            <if test="basePath != null">
+                base_path,
+            </if>
+            <if test="createdBy != null">
+                created_by,
+            </if>
+            <if test="lastModifiedBy != null">
+                last_modified_by,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{id},
+            #{name},
+            <if test="description != null">
+                #{description},
+            </if>
+            <if test="basePath != null">
+                #{basePath},
+            </if>
+            <if test="createdBy != null">
+                #{createdBy},
+            </if>
+            <if test="lastModifiedBy != null">
+                #{lastModifiedBy},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByIdSelective" parameterType="wiki.thin.entity.LocalStorage">
+        update local_storage
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="description != null">
+                `description` = #{description},
+            </if>
+            <if test="basePath != null">
+                base_path = #{basePath},
+            </if>
+            <if test="lastModifiedBy != null">
+                last_modified_by = #{lastModifiedBy},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+</mapper>

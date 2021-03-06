@@ -1,0 +1,59 @@
+server:
+  port: 9887
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain,application/javascript,text/css,application/font-woff
+  undertow:
+    threads:
+      io: 1
+
+spring:
+  profiles:
+    active: @profileActive@
+  application:
+    name: thin-wiki
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+
+  freemarker:
+    suffix: .ftlh
+  web:
+    resources:
+      static-locations:
+        - classpath:/templates/
+  flyway:
+    enabled: true
+    clean-disabled: true
+    locations:
+      - classpath:db/migration
+    table: schemas_version
+    baseline-version: 1
+    validate-on-migrate: true
+    check-location: true
+    baseline-on-migrate: true
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: wiki.thin.entity
+  configuration:
+    map-underscore-to-camel-case: true
+  type-handlers-package: wiki.thin.common.mybatis.convert
+
+logging:
+  file:
+    path: logs/
+    name: wiki.log
+
+javamelody:
+  enabled: true
+  init-parameters:
+    log: true
+    monitoring-path: /admin/performance
+    authorized-users: thinwiki:thinwiki
+    rum-enabled: true
+    # to exclude images, css, fonts and js urls from the monitoring:
+    #    url-exclude-pattern: (.*\.css|.*\.js|.*\.map)
+    # to aggregate digits in http requests:
+    http-transform-pattern: \d+
+#  management-endpoint-monitoring-enabled: true

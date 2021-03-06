@@ -1,0 +1,25 @@
+package wiki.thin.backup;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class BackupServiceTest {
+
+    @Autowired
+    private BackupService backupService;
+
+    @Test
+    void backup() throws Exception{
+        backupService.backup();
+    }
+
+    @Test
+    void list() {
+    }
+
+    @Test
+    void restore() {
+    }
+}

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wiki.thin.mapper.ArticleHistoryMapper">
+
+    <insert id="insertSelective" parameterType="wiki.thin.entity.ArticleHistory">
+        insert into article_history
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            id,
+            article_id,
+            title,
+            sharable,
+            <if test="content != null">
+                `content`,
+            </if>
+            <if test="parentId != null">
+                parent_id,
+            </if>
+            <if test="columnId != null">
+                column_id,
+            </if>
+            <if test="version != null">
+                `version`,
+            </if>
+            <if test="modifiedBy != null">
+                modified_by,
+            </if>
+            <if test="modifiedDate != null">
+                modified_date,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{id},
+            #{articleId},
+            #{title},
+            #{sharable},
+            <if test="content != null">
+                #{content},
+            </if>
+            <if test="parentId != null">
+                #{parentId},
+            </if>
+            <if test="columnId != null">
+                #{columnId},
+            </if>
+            <if test="version != null">
+                #{version},
+            </if>
+            <if test="modifiedBy != null">
+                #{modifiedBy},
+            </if>
+            <if test="modifiedDate != null">
+                #{modifiedDate},
+            </if>
+        </trim>
+    </insert>
+
+</mapper>
