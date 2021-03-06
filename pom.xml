@@ -198,38 +198,6 @@
                     <showWarnings>true</showWarnings>
                 </configuration>
             </plugin>
-
-            <!--			<plugin>-->
-            <!--				<groupId>cn.joylau.code</groupId>-->
-            <!--				<artifactId>joylau-compressor-plugins</artifactId>-->
-            <!--				<version>1.2.RELEASE</version>-->
-            <!--				<executions>-->
-            <!--					<execution>-->
-            <!--						<id>resource-compressor</id>-->
-            <!--						<phase>compile</phase>-->
-            <!--						<goals>-->
-            <!--							<goal>resource-compressor</goal>-->
-            <!--						</goals>-->
-            <!--					</execution>-->
-            <!--				</executions>-->
-            <!--				<configuration>-->
-            <!--					<cssConfigs>-->
-            <!--						<cssConfig>-->
-            <!--							<dir>/templates/theme</dir>-->
-            <!--							<include>*.css</include>-->
-            <!--							<exclude>*.min.css</exclude>-->
-            <!--						</cssConfig>-->
-            <!--					</cssConfigs>-->
-            <!--					<jsConfigs>-->
-            <!--						<jsConfig>-->
-            <!--							<dir>/templates/theme</dir>-->
-            <!--							<include>*.js</include>-->
-            <!--							<exclude>*.min.js</exclude>-->
-            <!--							<munge>true</munge>-->
-            <!--						</jsConfig>-->
-            <!--					</jsConfigs>-->
-            <!--				</configuration>-->
-            <!--			</plugin>-->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -280,6 +248,13 @@
                         <phase>compile</phase>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-source-plugin</artifactId>
