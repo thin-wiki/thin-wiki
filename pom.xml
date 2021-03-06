@@ -18,7 +18,7 @@
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
     </properties>
     <scm>
-        <developerConnection>scm:git:git@github.com:beldon/thin-wiki</developerConnection>
+        <developerConnection>scm:git:git@github.com:thin-wiki/thin-wiki</developerConnection>
       <tag>HEAD</tag>
   </scm>
 
