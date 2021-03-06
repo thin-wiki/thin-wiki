@@ -4,14 +4,6 @@ spring:
     password: root
     url: jdbc:h2:./data/data;AUTO_SERVER=TRUE
     driverClassName: org.h2.Driver
-  jpa:
-    database: h2
-    database-platform: org.hibernate.dialect.H2Dialect
-    properties:
-      hibernate:
-        show_sql: true
-#        use_sql_comments: true
-        format_sql: true
   h2:
     console:
       path: /h2-console
