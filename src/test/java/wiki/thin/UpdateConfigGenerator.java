@@ -5,6 +5,7 @@ import org.update4j.Configuration;
 import org.update4j.FileMetadata;
 import wiki.thin.common.util.RsaUtils;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -29,15 +30,17 @@ public class UpdateConfigGenerator {
 
         var cb = Configuration.builder()
                 .baseUri("https://update.thin.wiki/")
-                .basePath("${user.dir}")
-                .signer(key);
+                .basePath("${user.dir}");
+//                .signer(key);
 
         cb.property("app.name", "Thin Wiki");
         cb.property("build.version", buildProperties.getProperty("build.version", ""));
         cb.property("build.time", buildProperties.getProperty("build.time", ""));
 
-        cb.file(FileMetadata.readFrom(Path.of("target/thin-wiki.jar"))
-                .uri("${build.version}/thin-wiki.jar")
+//        System.out.println(Path.of("target", "thin-wiki.jar").toFile().getAbsoluteFile());
+//        cb.file(FileMetadata.readFrom(Path.of("target", "thin-wiki.jar"))
+        cb.file(FileMetadata.readFrom(new File("/Users/beldon/Documents/work/me/thin-wiki/target/thin-wiki.jar").toPath())
+                .uri("version/${build.version}/thin-wiki.jar")
                 .path("lib/thin-wiki.jar"));
 
 //        final Path path = Paths.get("target", "thin", "root");

@@ -5,12 +5,14 @@ package wiki.thin.common.util;
  */
 public class VersionUtils {
 
+    private static final String SNAPSHOT_TAG = "-";
+
     public static boolean isNewVersion(String localVersion, String onlineVersion) {
         if (localVersion.equals(onlineVersion)) {
             return false;
         }
-        String[] localArray = localVersion.split("\\.");
-        String[] onlineArray = onlineVersion.split("\\.");
+        String[] localArray = split(localVersion);
+        String[] onlineArray = split(onlineVersion);
 
         int length = Math.min(localArray.length, onlineArray.length);
 
@@ -23,5 +25,12 @@ public class VersionUtils {
             return onlineVar > localVar;
         }
         return true;
+    }
+
+    private static String[] split(String version) {
+        if (version.contains(SNAPSHOT_TAG)) {
+            version = version.substring(0, version.indexOf(SNAPSHOT_TAG));
+        }
+        return version.split("\\.");
     }
 }

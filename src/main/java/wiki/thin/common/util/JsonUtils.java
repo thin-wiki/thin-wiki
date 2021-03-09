@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import wiki.thin.exception.UnexpectedException;
 
 import java.io.IOException;
 
@@ -42,7 +43,7 @@ public class JsonUtils {
             return OBJECT_MAPPER.readValue(json, tClass);
         } catch (IOException e) {
             log.error("json解析出错：" + json, e);
-            return null;
+            throw new UnexpectedException("json解析出错：", e);
         }
     }
 
