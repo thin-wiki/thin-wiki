@@ -26,6 +26,7 @@ public class SystemUpgrader {
 
     private final AppUpgradeProperties appUpgradeProperties;
     private final RestTemplate restTemplate;
+    private volatile boolean installed = false;
 
     public SystemUpgrader(AppUpgradeProperties appUpgradeProperties) {
         this.appUpgradeProperties = appUpgradeProperties;
@@ -65,6 +66,7 @@ public class SystemUpgrader {
 
     public void install() throws IOException {
         Archive.read(getUpdateFilePath()).install();
+        installed = true;
     }
 
     /**
@@ -81,11 +83,15 @@ public class SystemUpgrader {
      *
      * @return 最新版本
      */
-    private String getNewestVersion() {
+    public String getNewestVersion() {
         String url = appUpgradeProperties.getBaseUrl() + appUpgradeProperties.getNewestVersionCheckUrl();
         final String newestVersionStr = restTemplate.getForObject(url, String.class);
         final NewestVersion newestVersion = JsonUtils.parse(newestVersionStr, NewestVersion.class);
         return newestVersion.getVersion();
+    }
+
+    public boolean isInstalled() {
+        return installed;
     }
 
     private Path getUpdateFilePath() {

@@ -1,8 +1,6 @@
 package wiki.thin.web.controller.api;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import wiki.thin.common.AppSystem;
 import wiki.thin.common.upgrade.SystemUpgrader;
 import wiki.thin.web.vo.ResponseVO;
@@ -22,30 +20,21 @@ public class UpgradeApiController {
         this.systemUpgrader = systemUpgrader;
     }
 
-    @GetMapping("/has_update")
-    public ResponseVO hasUpdate() {
-        final boolean hasNewVersion = systemUpgrader.hasNewVersion();
-        return ResponseVO.successWithData(hasNewVersion);
-    }
-
-    @GetMapping("/download")
-    public ResponseVO download() throws IOException {
-        systemUpgrader.downloadNewest();
+    @PutMapping
+    public ResponseVO upgrade() {
+        if (systemUpgrader.isInstalled()) {
+            return ResponseVO.success("已安装");
+        }
+        try {
+            systemUpgrader.downloadNewest();
+            systemUpgrader.install();
+        } catch (IOException e) {
+            return ResponseVO.error(e.getMessage());
+        }
         return ResponseVO.success();
     }
 
-    @GetMapping("/downloaded")
-    public ResponseVO downloaded() {
-        return ResponseVO.successWithData(systemUpgrader.isDownloaded());
-    }
-
-    @GetMapping("/install")
-    public ResponseVO install() throws IOException {
-        systemUpgrader.install();
-        return ResponseVO.success();
-    }
-
-    @GetMapping("/restart")
+    @PutMapping("/restart")
     public ResponseVO restart() throws IOException {
         AppSystem.restart();
         return ResponseVO.success();
