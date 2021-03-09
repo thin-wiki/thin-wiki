@@ -2,3 +2,8 @@ https://github.com/marketplace/actions/push-directory-to-another-repository
 https://github.com/marketplace/actions/push-a-file-to-another-repository
 
 mvn release:prepare -Darguments="-DskipTests"
+
+github-cards
+<script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
+
+ mvn test -Dmaven.test.skip=false -Dtest=ConfigBuildTest#test

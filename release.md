@@ -1,1 +1,2 @@
-the first version
+- 更新从数据库获取记住登录的秘钥
+- 移除 JWT

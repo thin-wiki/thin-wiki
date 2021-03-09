@@ -6,10 +6,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import wiki.thin.mapper.UserMapper;
 import wiki.thin.security.SecurityFilter;
-import wiki.thin.security.remember.JwtRememberMeService;
+import wiki.thin.security.remember.AesTokenRememberMeService;
 import wiki.thin.security.remember.RememberMeFilter;
 import wiki.thin.security.remember.RememberMeService;
-import wiki.thin.service.JwtService;
+import wiki.thin.service.AppConfigService;
 
 /**
  * 配置.
@@ -37,8 +37,8 @@ public class SecurityConfig {
     }
 
     @Bean
-    public RememberMeService rememberMeService(UserMapper userMapper, JwtService jwtService) {
-        return new JwtRememberMeService(userMapper, jwtService);
+    public RememberMeService rememberMeService(UserMapper userMapper, AppConfigService appConfigService) {
+        return new AesTokenRememberMeService(userMapper, appConfigService);
     }
 
 }

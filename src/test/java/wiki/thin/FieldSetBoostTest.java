@@ -20,12 +20,14 @@ import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.search.highlight.*;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.io.StringReader;
 import java.nio.file.Paths;
 
+@Disabled
 public class FieldSetBoostTest {
     //索引目录
     String indexDir = "E:\\LuceneIndex";

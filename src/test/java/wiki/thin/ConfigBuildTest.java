@@ -1,11 +1,26 @@
 package wiki.thin;
 
+import org.junit.jupiter.api.Test;
 import org.update4j.Configuration;
 import org.update4j.FileMetadata;
+import wiki.thin.common.util.RsaUtils;
+
+import java.security.KeyPair;
+import java.security.PrivateKey;
 
 public class ConfigBuildTest {
+
+    @Test
+    public void test() {
+//        mvn test -DskipTests=false -Dtest=ConfigBuildTest#test
+//        mvn test -Dmaven.test.skip=false -Dtest=ConfigBuildTest#test
+        System.out.println("d-----------------------");
+    }
+
     public static void main(String[] args) {
 //        PrivateKey key = ... // Load a private key
+        final KeyPair keyPair = RsaUtils.generateKeyPair(1024);
+        final PrivateKey key = keyPair.getPrivate();
 
         var cb = Configuration.builder()
 
@@ -16,7 +31,7 @@ public class ConfigBuildTest {
                 // base path where to save on client machine, overridable in
                 // each individual file setting
                 .basePath("/home/myapp/")
-//                .signer(key) // used to sign the files
+                .signer(key) // used to sign the files
 
                 // List this property
                 .property("app.name", "MyApplication")
