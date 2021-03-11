@@ -8,6 +8,8 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Repository;
+import wiki.thin.install.InstallApplication;
+import wiki.thin.install.InstallManager;
 
 /**
  * @author Beldon
@@ -20,7 +22,13 @@ import org.springframework.stereotype.Repository;
 public class ThinApplication {
 
     public static void main(String[] args) {
-        SpringApplication app = new SpringApplication(ThinApplication.class);
+        SpringApplication app;
+        if (InstallManager.isInstalled()) {
+            app = new SpringApplication(ThinApplication.class);
+        } else {
+            app = new SpringApplication(InstallApplication.class);
+            app.setAdditionalProfiles("install");
+        }
         app.addListeners(new ApplicationPidFileWriter("app.pid"));
         app.run(args);
     }
