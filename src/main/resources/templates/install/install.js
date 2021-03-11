@@ -201,7 +201,7 @@ $(document).ready(function () {
                     return;
                 }
                 alert.msg("重启成功中，请稍后");
-                setTimeout("location.reload()",5000)
+                setTimeout("location.reload()",7000)
             },
             error: function (message) {
                 alert.close(index)

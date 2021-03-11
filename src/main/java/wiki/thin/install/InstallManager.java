@@ -83,7 +83,7 @@ public class InstallManager {
     }
 
     Path getAuthFilePath() {
-        final Path path = Path.of(System.getProperty("user.dir"), "lib", "install.txt");
+        final Path path = Path.of(System.getProperty("user.dir"), "config", "install.txt");
         path.getParent().toFile().mkdirs();
         return path;
     }
@@ -166,7 +166,7 @@ public class InstallManager {
     }
 
     private static Path getConfigFilePath() {
-        final Path path = Path.of(System.getProperty("user.dir"), "lib", "application.properties");
+        final Path path = Path.of(System.getProperty("user.dir"), "config", "application.properties");
         path.getParent().toFile().mkdirs();
         return path;
     }

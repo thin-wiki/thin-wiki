@@ -63,11 +63,11 @@
                     </div>
                     <div class="mb-3">
                         <label for="dbname" class="form-label">数据库名称 </label>
-                        <input type="text" class="form-control" id="dbname" value="test">
+                        <input type="text" class="form-control" id="dbname" value="">
                     </div>
                     <div class="mb-3">
                         <label for="dbuser" class="form-label">数据库账户 </label>
-                        <input type="text" class="form-control" id="dbuser" value="root">
+                        <input type="text" class="form-control" id="dbuser" value="">
                     </div>
                     <div class="mb-3">
                         <label for="dbpass" class="form-label">数据库密码 </label>
