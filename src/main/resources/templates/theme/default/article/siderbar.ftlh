@@ -88,18 +88,6 @@
         const zTree_Menu = $.fn.zTree.getZTreeObj("treeMenu");
         const node = zTree_Menu.getNodeByParam('id', ${(articleId!0)?c});
         zTree_Menu.selectNode(node);
-
-        $(".bd-content .detail-body img").click(function () {
-            layer.open({
-                type: 1,
-                title: false,
-                closeBtn: 0,
-                area: ['auto'],
-                skin: 'layui-layer-nobg',
-                shadeClose: true,
-                content: $(this),
-            });
-        });
     });
 </script>
 

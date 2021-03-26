@@ -4,9 +4,17 @@
 
 <#if columnOptional.present>
     <#assign column=columnOptional.get()/>
+
+    <@css>
+        <link rel="stylesheet" href="/static/prism/prism.css">
+        <link href="https://cdn.bootcdn.net/ajax/libs/viewerjs/1.9.0/viewer.min.css" rel="stylesheet">
+    </@css>
+
     <@javascript>
         <#if secVar.isLogin()>
             <script src="/static/layer/layer.js" referrerpolicy="origin"></script>
+            <script src="/static/prism/prism.js" referrerpolicy="origin"></script>
+            <script src="https://cdn.bootcdn.net/ajax/libs/viewerjs/1.9.0/viewer.min.js"></script>
             <script>
                 $(function () {
                     $(document).keydown(function (e) {
@@ -36,6 +44,7 @@
                         });
                     });
                 })
+                const gallery = new Viewer(document.getElementById('detail-body'));
             </script>
         </#if>
     </@javascript>
@@ -63,7 +72,7 @@
                         </div>
                     </#if>
                 </div>
-                <div class="detail-body">
+                <div class="detail-body" id="detail-body">
                     ${column.content!?no_esc}
                 </div>
             </main>
