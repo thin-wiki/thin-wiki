@@ -3,11 +3,13 @@ package wiki.thin.entity.mini;
 import lombok.Data;
 import wiki.thin.constant.enums.SharableEnum;
 
+import java.io.Serializable;
+
 /**
  * @author Beldon
  */
 @Data
-public class ArticleColumnList {
+public class ArticleColumnList implements Serializable {
     private Long id;
     private String path;
     private String title;

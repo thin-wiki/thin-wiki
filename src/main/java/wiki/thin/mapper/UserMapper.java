@@ -1,9 +1,7 @@
 package wiki.thin.mapper;
 
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.cache.decorators.SoftCache;
 import org.springframework.stereotype.Repository;
 import wiki.thin.entity.User;
 
@@ -15,6 +13,7 @@ import java.util.Optional;
  */
 @Mapper
 @Repository
+@CacheNamespace(eviction = SoftCache.class, flushInterval = 1000 * 60 * 60)
 public interface UserMapper {
     /**
      * find
