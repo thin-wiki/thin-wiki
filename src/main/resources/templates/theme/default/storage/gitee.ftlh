@@ -1,8 +1,8 @@
 <#include "../layout/_layout.ftlh"/>
 
 <@javascript>
-    <script src="/static/layer/layer.js" referrerpolicy="origin"></script>
-    <script src="${theme.themePath}static/js/gitee-storage.js"></script>
+    <script src="${resVar.resourceBashPath}static/layer/layer.js" referrerpolicy="origin"></script>
+    <script src="${resVar.resourceBashPath}${theme.themePath}static/js/gitee-storage.js"></script>
 </@javascript>
 <@layout title="存储管理">
     <input type="hidden" value="gitee" id="currentTreeId">

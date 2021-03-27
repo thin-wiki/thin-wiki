@@ -1,6 +1,6 @@
 <#include "../layout/_layout.ftlh"/>
 <@css>
-    <link rel="stylesheet" href="/static/prism/prism.css">
+    <link rel="stylesheet" href="${resVar.resourceBashPath}/static/prism/prism.css">
     <style>
         body{
             overflow-y: inherit !important;
@@ -15,11 +15,11 @@
 </@css>
 
 <@javascript>
-    <script src="/static/tinymce/tinymce.min.js" referrerpolicy="origin"></script>
-    <script src="/static/prism/prism.js" referrerpolicy="origin"></script>
-    <script src="${theme.themePath}static/js/tinymce-editor.js"></script>
-    <script src="/static/layer/layer.js" referrerpolicy="origin"></script>
-    <script src="${theme.themePath}static/js/column.js"></script>
+    <script src="${resVar.resourceBashPath}static/tinymce/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="${resVar.resourceBashPath}static/prism/prism.js" referrerpolicy="origin"></script>
+    <script src="${resVar.resourceBashPath}${theme.themePath}static/js/tinymce-editor.js"></script>
+    <script src="${resVar.resourceBashPath}static/layer/layer.js" referrerpolicy="origin"></script>
+    <script src="${resVar.resourceBashPath}${theme.themePath}static/js/column.js"></script>
 </@javascript>
 
 <@layout>

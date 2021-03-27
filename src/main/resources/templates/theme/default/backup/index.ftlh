@@ -14,8 +14,8 @@
     </style>
 </@css>
 <@javascript>
-    <script src="/static/layer/layer.js" referrerpolicy="origin"></script>
-    <script src="${theme.themePath}static/js/backup.js"></script>
+    <script src="${resVar.resourceBashPath}static/layer/layer.js" referrerpolicy="origin"></script>
+    <script src="${resVar.resourceBashPath}${theme.themePath}static/js/backup.js"></script>
 </@javascript>
 <@layout title="数据备份">
     <div class="row flex-xl-nowrap storages">

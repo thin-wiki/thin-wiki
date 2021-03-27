@@ -1,8 +1,8 @@
 <#include "../layout/_layout.ftlh"/>
 
 <@javascript>
-    <script src="/static/layer/layer.js" referrerpolicy="origin"></script>
-    <script src="${theme.themePath}static/js/config.js"></script>
+    <script src="${resVar.resourceBashPath}static/layer/layer.js" referrerpolicy="origin"></script>
+    <script src="${resVar.resourceBashPath}${theme.themePath}static/js/config.js"></script>
 </@javascript>
 <@layout title="系统配置">
     <#assign config=sysVar.systemConfig()>

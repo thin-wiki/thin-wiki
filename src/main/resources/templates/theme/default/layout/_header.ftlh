@@ -44,7 +44,7 @@
                         <a class="dropdown-item" href="/upgrade">升级管理</a>
                         <a class="dropdown-item" href="/backup">数据备份</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/admin/performance">监控</a>
+                        <a class="dropdown-item" target="_blank" href="/admin/performance">监控</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="/logout">登出</a>
                     </div>

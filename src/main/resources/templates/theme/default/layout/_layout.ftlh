@@ -12,13 +12,13 @@
         <title>${title}-${systemConfig.webSiteName}</title>
         <meta name=”Keywords” Content="${systemConfig.webSiteKeywords}">
         <meta name=”Description” Content="${systemConfig.webSiteDescription}">
-        <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/thin-wiki/thin-wiki@main/src/main/resources/static/img/favicon.ico" />
+        <link rel="shortcut icon" href="${resVar.resourceBashPath}static/img/favicon.ico" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"
               integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
               crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ztree/ztree_v3@3.5.46/css/zTreeStyle/zTreeStyle.css">
-        <link href="${theme.themePath}static/css/style.css" rel="stylesheet">
+        <link href="${resVar.resourceBashPath}${theme.themePath}static/css/style.css" rel="stylesheet">
 
         ${cssContent!}
 

@@ -57,12 +57,12 @@ public interface AppConfigService {
     /**
      * get config
      *
-     * @param type         type
-     * @param key          key
-     * @param defaultValue default value
+     * @param type                 type
+     * @param key                  key
+     * @param defaultValueSupplier default value
      * @return app config
      */
-    AppConfig getConfig(String type, String key, String defaultValue);
+    AppConfig getConfig(String type, String key, Supplier<String> defaultValueSupplier);
 
     /**
      * get config
@@ -94,7 +94,7 @@ public interface AppConfigService {
      * @return config value
      */
     default String getConfigValue(String type, String key, Supplier<String> defaultValueSupplier) {
-        final AppConfig config = getConfig(type, key);
+        final AppConfig config = getConfig(type, key, defaultValueSupplier);
         if (config.getValue() == null) {
             final String defaultValue = defaultValueSupplier.get();
             updateConfig(type, key, defaultValue);

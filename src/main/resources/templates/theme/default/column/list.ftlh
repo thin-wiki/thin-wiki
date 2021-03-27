@@ -13,7 +13,7 @@
 </@css>
 
 <@javascript>
-    <script src="/static/layer/layer.js" referrerpolicy="origin"></script>
+    <script src="${resVar.resourceBashPath}static/layer/layer.js" referrerpolicy="origin"></script>
     <script>
         const alert = layer;
         $(document).ready(function(){

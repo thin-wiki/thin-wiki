@@ -1,6 +1,6 @@
 <script src="https://cdn.jsdelivr.net/npm/@ztree/ztree_v3@3.5.46/js/jquery.ztree.core.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@ztree/ztree_v3@3.5.46/js/jquery.ztree.exedit.min.js"></script>
-<script src="/static/layer/layer.js"></script>
+<script src="${resVar.resourceBashPath}static/layer/layer.js"></script>
 <script type="text/javascript">
     const alert = layer;
     const setting = {

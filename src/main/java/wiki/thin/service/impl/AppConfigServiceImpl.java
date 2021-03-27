@@ -6,6 +6,7 @@ import wiki.thin.mapper.AppConfigMapper;
 import wiki.thin.service.AppConfigService;
 
 import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * @author beldon
@@ -40,10 +41,10 @@ public class AppConfigServiceImpl implements AppConfigService {
     }
 
     @Override
-    public AppConfig getConfig(String type, String key, String defaultValue) {
+    public AppConfig getConfig(String type, String key, Supplier<String> defaultValueSupplier) {
         final Optional<AppConfig> configOptional = appConfigMapper.findByTypeAndKey(type, key);
         if (configOptional.isEmpty()) {
-            updateConfig(type, key, defaultValue, null);
+            updateConfig(type, key, defaultValueSupplier.get(), null);
             return getConfig(type, key);
         }
         return configOptional.get();

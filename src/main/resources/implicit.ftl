@@ -6,6 +6,7 @@
 [#-- @ftlvariable name="secVar" type="wiki.thin.theme.ftlh.variable.SecurityVariable" --]
 [#-- @ftlvariable name="articleVar" type="wiki.thin.theme.ftlh.variable.ArticleVariable" --]
 [#-- @ftlvariable name="columnVar" type="wiki.thin.theme.ftlh.variable.ColumnVariable" --]
+[#-- @ftlvariable name="resVar" type="wiki.thin.theme.ftlh.variable.ResourceVariable" --]
 [#-- @ftlvariable name="version" type="java.lang.String" --]
 [#-- @ftlvariable name="columnPath" type="java.lang.String" --]
 [#-- @ftlvariable name="articleId" type="java.lang.Long" --]

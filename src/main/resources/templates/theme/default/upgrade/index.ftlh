@@ -1,7 +1,7 @@
 <#include "../layout/_layout.ftlh"/>
 <@javascript>
-    <script src="/static/layer/layer.js" referrerpolicy="origin"></script>
-    <script src="${theme.themePath}static/js/upgrade.js"></script>
+    <script src="${resVar.resourceBashPath}static/layer/layer.js" referrerpolicy="origin"></script>
+    <script src="${resVar.resourceBashPath}${theme.themePath}static/js/upgrade.js"></script>
 </@javascript>
 <@layout title="升级管理">
     <div class="row flex-xl-nowrap storages">

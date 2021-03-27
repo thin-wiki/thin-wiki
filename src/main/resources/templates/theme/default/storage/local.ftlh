@@ -17,8 +17,8 @@
 </@css>
 
 <@javascript>
-    <script src="/static/layer/layer.js" referrerpolicy="origin"></script>
-    <script src="${theme.themePath}static/js/local-storage.js"></script>
+    <script src="${resVar.resourceBashPath}static/layer/layer.js" referrerpolicy="origin"></script>
+    <script src="${resVar.resourceBashPath}${theme.themePath}static/js/local-storage.js"></script>
 </@javascript>
 <@layout title="存储管理">
     <input type="hidden" value="local" id="currentTreeId">

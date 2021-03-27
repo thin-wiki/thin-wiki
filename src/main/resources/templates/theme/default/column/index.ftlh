@@ -6,14 +6,14 @@
     <#assign column=columnOptional.get()/>
 
     <@css>
-        <link rel="stylesheet" href="/static/prism/prism.css">
+        <link rel="stylesheet" href="${resVar.resourceBashPath}static/prism/prism.css">
         <link href="https://cdn.bootcdn.net/ajax/libs/viewerjs/1.9.0/viewer.min.css" rel="stylesheet">
     </@css>
 
     <@javascript>
         <#if secVar.isLogin()>
-            <script src="/static/layer/layer.js" referrerpolicy="origin"></script>
-            <script src="/static/prism/prism.js" referrerpolicy="origin"></script>
+            <script src="${resVar.resourceBashPath}static/layer/layer.js" referrerpolicy="origin"></script>
+            <script src="${resVar.resourceBashPath}static/prism/prism.js" referrerpolicy="origin"></script>
             <script src="https://cdn.bootcdn.net/ajax/libs/viewerjs/1.9.0/viewer.min.js"></script>
             <script>
                 $(function () {

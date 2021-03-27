@@ -3,7 +3,7 @@
 
 <@css>
 <#--    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.4.1/build/styles/default.min.css">-->
-    <link rel="stylesheet" href="/static/prism/prism.css">
+    <link rel="stylesheet" href="${resVar.resourceBashPath}static/prism/prism.css">
 
     <style>
         body{
@@ -19,11 +19,11 @@
 </@css>
 
 <@javascript>
-    <script src="/static/tinymce/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="${resVar.resourceBashPath}static/tinymce/tinymce.min.js" referrerpolicy="origin"></script>
 <#--    <script src="/static/prism/prism.js" referrerpolicy="origin"></script>-->
-    <script src="/static/layer/layer.js" referrerpolicy="origin"></script>
-    <script src="${theme.themePath}static/js/tinymce-editor.js"></script>
-    <script src="${theme.themePath}static/js/article.js"></script>
+    <script src="${resVar.resourceBashPath}static/layer/layer.js" referrerpolicy="origin"></script>
+    <script src="${resVar.resourceBashPath}${theme.themePath}static/js/tinymce-editor.js"></script>
+    <script src="${resVar.resourceBashPath}${theme.themePath}static/js/article.js"></script>
 </@javascript>
 
 <@layout title="编辑">

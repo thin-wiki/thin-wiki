@@ -9,6 +9,6 @@ import org.springframework.stereotype.Component;
 public class ThemeManager {
 
     public String getThemePath() {
-        return "/theme/default/";
+        return "theme/default/";
     }
 }

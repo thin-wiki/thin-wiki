@@ -45,4 +45,14 @@ public class ConfigConstant {
      */
     public static final String SYS_REMEMBER_ME_SECRET_KEY = "remember_me_secret_key";
 
+    /**
+     * 网站资源基本路径 key
+     */
+    public static final String SYS_RESOURCE_BASE_URL_TYPE_KEY = "resource_base_url_type";
+
+    /**
+     * 网站资源指定的路径
+     */
+    public static final String SYS_RESOURCE_BASE_URL_KEY = "resource_base_url";
+
 }
