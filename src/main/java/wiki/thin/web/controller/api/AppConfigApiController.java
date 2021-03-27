@@ -27,6 +27,7 @@ public class AppConfigApiController {
         appConfigService.updateSysConfig(ConfigConstant.SYS_WEBSITE_NAME, systemConfig.getWebSiteName());
         appConfigService.updateSysConfig(ConfigConstant.SYS_WEBSITE_KEYWORDS, systemConfig.getWebSiteKeywords());
         appConfigService.updateSysConfig(ConfigConstant.SYS_WEBSITE_DESCRIPTION, systemConfig.getWebSiteDescription());
+        appConfigService.updateSysConfig(ConfigConstant.SYS_RESOURCE_BASE_URL_TYPE_KEY, systemConfig.getResourceBaseUrlType());
         return ResponseVO.success();
     }
 

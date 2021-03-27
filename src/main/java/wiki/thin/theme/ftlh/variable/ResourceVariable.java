@@ -17,7 +17,7 @@ import static wiki.thin.constant.enums.ResourceBaseUrlType.*;
 public class ResourceVariable extends BaseVariable {
 
     private static final String LOCAL_RESOURCE_BASE_URL = "/";
-    private static final String JSDELIVER_BASE_URL_TEMPLAGE = "https://cdn.jsdelivr.net/gh/thin-wiki/thin-wiki@{TAG}/src/main/resources/";
+    private static final String JSDELIVER_BASE_URL_TEMPLAGE = "https://cdn.jsdelivr.net/gh/thin-wiki/thin-wiki@{TAG}/src/main/resources/templates/";
     private static final String SNAPSHOT_KEY = "SNAPSHOT";
     private String jsdeliverBaseUrl;
 
@@ -31,7 +31,7 @@ public class ResourceVariable extends BaseVariable {
 
     public String getResourceBashPath() {
         final String baseUrlType = appConfigService.getSystemConfigValue(
-                ConfigConstant.SYS_RESOURCE_BASE_URL_TYPE_KEY, () -> "");
+                ConfigConstant.SYS_RESOURCE_BASE_URL_TYPE_KEY, LOCAL::getType);
 
         if (!StringUtils.hasText(baseUrlType) || LOCAL.getType().equals(baseUrlType)) {
             return LOCAL_RESOURCE_BASE_URL;

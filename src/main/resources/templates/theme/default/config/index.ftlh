@@ -23,6 +23,13 @@
                     <textarea class="form-control" id="webSiteDescription"
                               rows="3">${config.webSiteDescription}</textarea>
                 </div>
+                <div class="form-group">
+                    <label for="resourceBaseUrlType">资源路径类型</label>
+                    <select class="custom-select form-control" id="resourceBaseUrlType">
+                        <option value="local" <#if config.resourceBaseUrlType == "local">selected</#if>>本地</option>
+                        <option value="jsdelivr" <#if config.resourceBaseUrlType == "jsdelivr">selected</#if>>jsdelivr</option>
+                    </select>
+                </div>
 
                 <a href="#" type="submit" id="updateConfig" class="btn btn-primary">更新配置</a>
             </form>

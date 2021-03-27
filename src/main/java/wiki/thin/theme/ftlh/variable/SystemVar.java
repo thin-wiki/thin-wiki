@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import wiki.thin.common.bean.SystemConfig;
 import wiki.thin.common.env.EnvManager;
 import wiki.thin.common.upgrade.SystemUpgrader;
+import wiki.thin.constant.enums.ResourceBaseUrlType;
 import wiki.thin.service.AppConfigService;
 
 import static wiki.thin.constant.ConfigConstant.*;
@@ -30,6 +31,7 @@ public class SystemVar extends BaseVariable {
         config.setWebSiteName(appConfigService.getSystemConfigValue(SYS_WEBSITE_NAME, () -> SYS_DEFAULT_WEBSITE_NAME));
         config.setWebSiteDescription(appConfigService.getSystemConfigValue(SYS_WEBSITE_DESCRIPTION, () -> SYS_DEFAULT_WEBSITE_DESCRIPTION));
         config.setWebSiteKeywords(appConfigService.getSystemConfigValue(SYS_WEBSITE_KEYWORDS, () -> SYS_DEFAULT_WEBSITE_KEYWORDS));
+        config.setResourceBaseUrlType(appConfigService.getSystemConfigValue(SYS_RESOURCE_BASE_URL_TYPE_KEY, ResourceBaseUrlType.LOCAL::getType));
         return config;
     }
 

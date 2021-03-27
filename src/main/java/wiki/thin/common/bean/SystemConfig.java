@@ -10,4 +10,5 @@ public class SystemConfig {
     private String webSiteName;
     private String webSiteDescription;
     private String webSiteKeywords;
+    private String resourceBaseUrlType;
 }

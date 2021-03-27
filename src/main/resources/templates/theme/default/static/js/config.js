@@ -7,6 +7,7 @@ $(document).ready(function () {
         reqData.webSiteName = $("#webSiteName").val();
         reqData.webSiteKeywords = $("#webSiteKeywords").val();
         reqData.webSiteDescription = $("#webSiteDescription").val();
+        reqData.resourceBaseUrlType = $("#resourceBaseUrlType").val();
 
         const index = layer.load(1, {
             shade: [0.1, '#fff'] //0.1透明度的白色背景
