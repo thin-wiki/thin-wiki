@@ -16,7 +16,7 @@ import java.util.Optional;
  */
 @Mapper
 @Repository
-@CacheNamespace(eviction = SoftCache.class, flushInterval = 1000 * 60 * 60)
+@CacheNamespace(eviction = SoftCache.class)
 public interface ArticleColumnMapper {
 
     /**

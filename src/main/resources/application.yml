@@ -38,7 +38,7 @@ mybatis:
   type-aliases-package: wiki.thin.entity
   configuration:
     map-underscore-to-camel-case: true
-    cache-enabled: false
+    cache-enabled: true
   type-handlers-package: wiki.thin.common.mybatis.convert
 
 logging:

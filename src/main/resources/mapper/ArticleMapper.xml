@@ -2,6 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="wiki.thin.mapper.ArticleMapper">
 
+    <cache-ref namespace="wiki.thin.mapper.ArticleMapper"/>
+
     <insert id="insertSelective" parameterType="wiki.thin.entity.Article">
         insert into article
         <trim prefix="(" suffix=")" suffixOverrides=",">
