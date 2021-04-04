@@ -31,6 +31,10 @@ tinymceEditor(function () {
         dataType: "json",
         success: function (data) {
             alert.close(index)
+            if(data.code !== 0){
+                alert.msg(data.msg);
+                return;
+            }
             if (modifyType === 'new') {
                 alert.msg("添加成功");
                 window.location.href = "/" + columnPath + "/" + data.data;
