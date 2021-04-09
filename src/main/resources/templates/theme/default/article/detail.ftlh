@@ -54,8 +54,8 @@
             <div class="flex-shrink-1 col-4 col-md-3 col-sm-4 col-xl-2 bd-sidebar h-100">
                 <#include "siderbar.ftlh"/>
             </div>
-            <main class="col-8 col-md-9 col-sm-8 col-xl-10 line-numbers flex-fill px-5 py-3 overflow-auto h-100" role="main" id="article-content">
-                <div class="detail-title">
+            <main class="col-8 col-md-9 col-sm-8 col-xl-10 line-numbers flex-fill px-5 overflow-auto h-100" role="main" id="article-content">
+                <div class="detail-title pt-3">
                     <p class="h1" style="display:inline-block">${article.title}</p>
                     <#if secVar.isLogin()>
                         <div class="share2" style="float:right">
@@ -77,7 +77,7 @@
                         </div>
                     </#if>
                 </div>
-                <div class="detail-body" id="detail-body">
+                <div class="detail-body pb-5 mb-5" id="detail-body">
                     ${article.content!?no_esc}
                 </div>
             </main>
