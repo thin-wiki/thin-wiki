@@ -25,19 +25,16 @@
 </@javascript>
 
 <@layout>
-    <input type="hidden" id="modifyType" value="new">
-    <input type="hidden" id="columnPath" value="${columnPath}">
-    <input type="hidden" id="articleId" value="${(articleId!0)?c}">
-    <div class="flex-xl-nowrap">
-        <main class="bd-content edit-content line-numbers" role="main">
-            <form>
-                <div class="form-group">
-                    <input type="text" class="form-control" id="title" placeholder="">
-                </div>
-                <div class="form-group">
-                    <textarea id="edit-content"></textarea>
-                </div>
-            </form>
-        </main>
+    <div class="container pt-3">
+        <input type="hidden" id="modifyType" value="new">
+        <input type="hidden" id="columnPath" value="${columnPath}">
+        <input type="hidden" id="articleId" value="${(articleId!0)?c}">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" id="title" placeholder="标题">
+            <button class="btn btn-outline-secondary save" type="button">保存</button>
+        </div>
+        <div class="mb-3">
+            <textarea class="form-control" id="edit-content" rows="3"></textarea>
+        </div>
     </div>
 </@layout>

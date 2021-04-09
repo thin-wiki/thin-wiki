@@ -6,33 +6,30 @@
 </@javascript>
 <@layout title="系统配置">
     <#assign config=sysVar.systemConfig()>
-    <div class="row flex-xl-nowrap storages">
-        <main class="bd-content" role="main" style="width: 100%">
-            <p class="h1">系统配置</p>
-            <form>
-                <div class="form-group">
-                    <label for="webSiteName">网站名称</label>
-                    <input type="email" class="form-control" id="webSiteName" value="${config.webSiteName}">
-                </div>
-                <div class="form-group">
-                    <label for="webSiteKeywords">网站关键字</label>
-                    <input type="email" class="form-control" id="webSiteKeywords" value="${config.webSiteKeywords}">
-                </div>
-                <div class="form-group">
-                    <label for="webSiteDescription">网站描述</label>
-                    <textarea class="form-control" id="webSiteDescription"
-                              rows="3">${config.webSiteDescription}</textarea>
-                </div>
-                <div class="form-group">
-                    <label for="resourceBaseUrlType">资源路径类型</label>
-                    <select class="custom-select form-control" id="resourceBaseUrlType">
-                        <option value="local" <#if config.resourceBaseUrlType == "local">selected</#if>>本地</option>
-                        <option value="jsdelivr" <#if config.resourceBaseUrlType == "jsdelivr">selected</#if>>jsdelivr</option>
-                    </select>
-                </div>
-
-                <a href="#" type="submit" id="updateConfig" class="btn btn-primary">更新配置</a>
-            </form>
-        </main>
+    <div class="container px-5">
+        <p class="h1">系统配置</p>
+        <form>
+            <div class="mb-3">
+                <label for="webSiteName" class="form-label">网站名称</label>
+                <input type="email" class="form-control" id="webSiteName" value="${config.webSiteName}">
+            </div>
+            <div class="mb-3">
+                <label for="webSiteKeywords" class="form-label">网站关键字</label>
+                <input type="email" class="form-control" id="webSiteKeywords" value="${config.webSiteKeywords}">
+            </div>
+            <div class="mb-3">
+                <label for="webSiteDescription" class="form-label">网站描述</label>
+                <textarea class="form-control" id="webSiteDescription"
+                          rows="3">${config.webSiteDescription}</textarea>
+            </div>
+            <div class="mb-3">
+                <label for="resourceBaseUrlType" class="form-label">资源路径类型</label>
+                <select class="custom-select form-control" id="resourceBaseUrlType">
+                    <option value="local" <#if config.resourceBaseUrlType == "local">selected</#if>>本地</option>
+                    <option value="jsdelivr" <#if config.resourceBaseUrlType == "jsdelivr">selected</#if>>jsdelivr</option>
+                </select>
+            </div>
+            <a href="#" type="submit" id="updateConfig" class="btn btn-primary">更新配置</a>
+        </form>
     </div>
 </@layout>

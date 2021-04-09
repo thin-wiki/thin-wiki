@@ -130,6 +130,15 @@ const tinymceEditor = function (save, targetId, sourceType) {
 //            }
 //        });
 //    },
+
+        setup: function () {
+            $(".save").click(function () {
+                if (typeof save == 'function'){
+                    save();
+                }
+            });
+        },
+
         images_upload_handler: function (blobInfo, success, failure, progress) {
             let xhr, formData;
             xhr = new XMLHttpRequest();

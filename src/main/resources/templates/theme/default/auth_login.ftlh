@@ -15,12 +15,12 @@
 
 
 <@layout title="首页">
-    <main class="login-box bd-content" role="main">
+    <div class="login-box bd-content">
         <form method="post" action="/auth_login">
-            <div class="form-group">
+            <div class="mb-3">
                 <input type="text" class="form-control" name="account" disabled value="${account!}">
             </div>
-            <div class="form-group">
+            <div class="mb-3">
                 <input type="password" class="form-control" name="password" autofocus="autofocus" placeholder="密码">
             </div>
             <#if errorMsg??>
@@ -28,5 +28,5 @@
             </#if>
             <button type="submit" class="login-btn btn btn-primary" id="login">登录</button>
         </form>
-    </main>
+    </div>
 </@layout>

@@ -23,23 +23,17 @@
 </@javascript>
 
 <@layout>
-    <input type="hidden" id="modifyType" value="new">
-    <div class="flex-xl-nowrap">
-        <main class="bd-content edit-content line-numbers" role="main">
-            <form>
-                <div class="form-group">
-                    <label for="title" class="form-label">标题</label>
-                    <input type="text" class="form-control" id="title" placeholder="标题">
-                </div>
-                <div class="form-group">
-                    <label for="path" class="form-label">路径</label>
-                    <input type="text" class="form-control" id="path" placeholder="路径">
-                </div>
-                <div class="form-group">
-                    <label for="edit-content" class="form-label">内容</label>
-                    <textarea id="edit-content"></textarea>
-                </div>
-            </form>
-        </main>
+    <div class="container pt-3">
+        <input type="hidden" id="modifyType" value="new">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" id="title" placeholder="标题">
+            <button class="btn btn-outline-secondary save" type="button">保存</button>
+        </div>
+        <div class="mb-3">
+            <input type="text" class="form-control" id="path" placeholder="路径,如：wiki">
+        </div>
+        <div class="mb-3">
+            <textarea class="form-control" id="edit-content" rows="3"></textarea>
+        </div>
     </div>
 </@layout>

@@ -6,18 +6,19 @@
 </@javascript>
 <@layout title="存储管理">
     <input type="hidden" value="gitee" id="currentTreeId">
-    <div class="row flex-xl-nowrap storages">
-        <div class=" bd-sidebar">
+    <div class="d-flex container">
+        <div class="w-25">
             <#include "siderbar.ftlh"/>
         </div>
-        <main class="bd-content line-numbers" role="main">
+        <div class="px-3 w-100">
             <p class="h1">Gitee存储</p>
-            <button type="button" data-target="#editModal" data-type="new" data-toggle="modal" class="btn btn-outline-success btn-sm storage-new">新增存储</button>
-            <ul class="list-group">
+            <button type="button" data-bs-target="#editModal" data-type="new" data-bs-toggle="modal" class="btn btn-outline-success btn-sm">新增存储</button>
+            <ul class="list-group mt-2">
                 <#list giteeStorages as giteeStorage>
-                    <li class="list-group-item"><a class="storage">${giteeStorage.name}</a>
-                        <div class="btn-group float-right" role="group">
-                            <button type="button" data-toggle="modal" data-target="#editModal" data-type="edit"
+                    <li class="list-group-item py-3">
+                        <span>${giteeStorage.name}</span>
+                        <div class="btn-group float-end" role="group">
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#editModal" data-type="edit"
                                     data-id="${giteeStorage.id?c}" data-name="${giteeStorage.name}" data-path="${giteeStorage.basePath}"
                                     data-description="${giteeStorage.description!}" data-token="${giteeStorage.token}"
                                     data-owner="${giteeStorage.owner}" data-repo="${giteeStorage.repo}"
@@ -32,17 +33,15 @@
                     </li>
                 </#list>
             </ul>
-        </main>
+        </div>
     </div>
 
     <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">新增本地存储</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <div class="modal-title h5" id="exampleModalLabel">新增本地存储</div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form>
@@ -79,7 +78,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
                     <button type="button" class="btn btn-primary" id="saveGiteeStorage">保存</button>
                 </div>
             </div>

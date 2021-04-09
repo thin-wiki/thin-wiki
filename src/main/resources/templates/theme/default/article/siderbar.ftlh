@@ -93,6 +93,8 @@
 
 <#assign columnTitleOptional = columnVar.columnTitle(columnPath)>
 <#if columnTitleOptional.present>
-    <a class="nav-column text-body" href="/${columnPath}/">${columnTitleOptional.get()}</a>
+    <div class="text-center">
+        <a class="text-body fs-5 pb-2 text-decoration-none d-inline-block w-100" href="/${columnPath}/">${columnTitleOptional.get()}</a>
+    </div>
 </#if>
 <ul id="treeMenu" class="ztree showIcon"></ul>

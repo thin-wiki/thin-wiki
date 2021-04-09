@@ -34,6 +34,7 @@ $(document).ready(function(){
                     alert.msg(data.msg)
                     return
                 }
+                $('#editModal').modal('hide');
                 alert.msg("提交成功");
                 window.location.reload();
             },
@@ -41,8 +42,6 @@ $(document).ready(function(){
                 alert.msg("提交失败" + JSON.stringify(message));
             }
         });
-
-        $('#editModal').modal('hide');
     });
 
     $('.deleteStorage').click(function(){

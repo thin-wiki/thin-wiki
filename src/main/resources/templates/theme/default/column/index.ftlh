@@ -50,11 +50,11 @@
     </@javascript>
 
     <@layout title=column.title>
-        <div class="row flex-xl-nowrap">
-            <div class="bd-sidebar">
+        <div class="d-flex px-4">
+            <div class="flex-shrink-1 col-4 col-md-3 col-sm-4 col-xl-3 bd-sidebar h-100">
                 <#include "../article/siderbar.ftlh"/>
             </div>
-            <main class="bd-content line-numbers" role="main" id="article-content">
+            <main class="bd-content line-numbers flex-fill px-5 py-3 overflow-auto h-100" role="main" id="article-content">
                 <div class="detail-title">
                     <p class="h1" style="display:inline-block">${column.title}</p>
                     <#if secVar.isLogin()>

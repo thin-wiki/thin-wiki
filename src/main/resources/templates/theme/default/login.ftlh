@@ -14,13 +14,12 @@
 
 
 <@layout title="首页">
-     <main class="login-box bd-content" role="main">
+     <div class="login-box bd-content">
          <form method="post" action="/login">
-             <div class="form-group">
+             <div class="mb-3">
                  <input type="text" class="form-control" name="account" placeholder="账号" value="${account!}">
-<#--                 <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>-->
              </div>
-             <div class="form-group">
+             <div class="mb-3">
                  <input type="password" class="form-control" name="password" placeholder="密码">
              </div>
              <#if errorMsg??>
@@ -28,5 +27,5 @@
              </#if>
              <button type="submit" class="login-btn btn btn-primary" id="login">登录</button>
          </form>
-     </main>
+     </div>
 </@layout>

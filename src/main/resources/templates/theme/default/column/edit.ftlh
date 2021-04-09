@@ -25,24 +25,18 @@
 <#assign column=articleColumnVar.getByPath("${columnPath}").get()/>
 
 <@layout>
-    <input type="hidden" id="modifyType" value="edit">
-    <input type="hidden" id="columnId" value="${column.id?c}">
-    <div class="flex-xl-nowrap">
-        <main class="bd-content edit-content line-numbers" role="main">
-            <form>
-                <div class="form-group">
-                    <label for="title" class="form-label">标题</label>
-                    <input type="text" class="form-control" value="${column.title}" id="title" placeholder="标题">
-                </div>
-                <div class="form-group">
-                    <label for="path" class="form-label">路径</label>
-                    <input type="text" class="form-control" value="${column.path}" id="path" placeholder="路径">
-                </div>
-                <div class="form-group">
-                    <label for="edit-content" class="form-label">内容</label>
-                    <textarea id="edit-content">${column.content!?no_esc}</textarea>
-                </div>
-            </form>
-        </main>
+    <div class="container pt-3">
+        <input type="hidden" id="modifyType" value="edit">
+        <input type="hidden" id="columnId" value="${column.id?c}">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" id="title" placeholder="标题" value="${column.title}">
+            <button class="btn btn-outline-secondary save" type="button">保存</button>
+        </div>
+        <div class="mb-3">
+            <input type="text" class="form-control" id="path" value="${column.path}" placeholder="路径,如：wiki">
+        </div>
+        <div class="mb-3">
+            <textarea class="form-control" id="edit-content" rows="3">${column.content!?no_esc}</textarea>
+        </div>
     </div>
 </@layout>
