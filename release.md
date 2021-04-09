@@ -2,3 +2,4 @@
 - 更新 spring boot 到 2.4.4
 - add favicon.ico
 - 添加资源base path 配置
+- 优化主题
