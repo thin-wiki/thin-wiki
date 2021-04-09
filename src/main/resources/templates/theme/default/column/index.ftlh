@@ -18,7 +18,7 @@
             <script>
                 $(function () {
                     $(document).keydown(function (e) {
-                        if (69 === e.keyCode) {
+                        if (e.target.localName!=='input' && 69 === e.keyCode) {
                             window.location.href = '/${columnPath}/edit';
                         }
                     });

@@ -18,7 +18,7 @@
             <script>
                 $(function () {
                     $(document).keydown(function (e) {
-                        if (69 === e.keyCode) {
+                        if (e.target.localName!=='input' && 69 === e.keyCode) {
                             window.location.href = '/${columnPath}/${articleId?c}/edit';
                         }
                     });
@@ -50,7 +50,7 @@
         </#if>
     </@javascript>
     <@layout title=article.title>
-        <div class="d-flex px-4 h-100">
+        <div class="d-flex px-4 h-100" id="main-content">
             <div class="flex-shrink-1 col-4 col-md-3 col-sm-4 col-xl-2 bd-sidebar h-100">
                 <#include "siderbar.ftlh"/>
             </div>
