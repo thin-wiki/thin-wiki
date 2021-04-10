@@ -3,13 +3,11 @@ package wiki.thin.storage.github;
 import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GitHub;
 import org.kohsuke.github.GitHubBuilder;
+import wiki.thin.common.util.FileUtils;
 import wiki.thin.entity.GithubStorage;
-import wiki.thin.entity.Storage;
-import wiki.thin.entity.StorageFile;
 import wiki.thin.exception.UnexpectedException;
-import wiki.thin.mapper.StorageFileMapper;
-import wiki.thin.storage.BaseStorageService;
 import wiki.thin.storage.StorageFileType;
+import wiki.thin.storage.StorageService;
 
 import java.io.IOException;
 import java.net.URI;
@@ -17,7 +15,7 @@ import java.net.URI;
 /**
  * @author Beldon
  */
-public class GithubStorageService extends BaseStorageService {
+public class GithubStorageService implements StorageService {
 
 
     /**
@@ -29,8 +27,7 @@ public class GithubStorageService extends BaseStorageService {
     private final GHRepository repository;
     private final GithubStorage githubStorage;
 
-    public GithubStorageService(StorageFileMapper storageFileMapper, Storage storage, GithubStorage githubStorage) {
-        super(storage, storageFileMapper);
+    public GithubStorageService(GithubStorage githubStorage) {
         this.githubStorage = githubStorage;
         try {
             github = new GitHubBuilder().withOAuthToken(githubStorage.getToken()).build();
@@ -43,11 +40,22 @@ public class GithubStorageService extends BaseStorageService {
 
     @Override
     public String getRelativePath(StorageFileType storageFileType, String originalFileName) {
-        String bastPath = githubStorage.getBasePath();
+        String basePath = githubStorage.getBasePath();
         if (StorageFileType.IMAGE.equals(storageFileType)) {
-            bastPath = bastPath + "/" + "images";
+            basePath = basePath + "/" + "images";
         }
-        return bastPath + "/" + super.getRelativePath(storageFileType, originalFileName);
+        return basePath + "/" + FileUtils.generateRelativePath(originalFileName);
+    }
+
+    @Override
+    public URI getUri(String relativePath) {
+        final String url = GHTHUB_RAW_URL
+                .replaceAll("\\{owner}", githubStorage.getOwner())
+                .replaceAll("\\{repo}", githubStorage.getRepo())
+                .replaceAll("\\{branch}", githubStorage.getBranch())
+                .replaceAll("\\{path}", relativePath);
+
+        return URI.create(url);
     }
 
     @Override
@@ -60,16 +68,4 @@ public class GithubStorageService extends BaseStorageService {
                 .commit();
     }
 
-    @Override
-    protected URI getUri(StorageFile file) {
-        final String relativePath = file.getRelativePath();
-
-        final String url = GHTHUB_RAW_URL
-                .replaceAll("\\{owner}", githubStorage.getOwner())
-                .replaceAll("\\{repo}", githubStorage.getRepo())
-                .replaceAll("\\{branch}", githubStorage.getBranch())
-                .replaceAll("\\{path}", relativePath);
-
-        return URI.create(url);
-    }
 }

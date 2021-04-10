@@ -1,11 +1,11 @@
 package wiki.thin.storage.local;
 
+import wiki.thin.common.util.FileUtils;
 import wiki.thin.entity.LocalStorage;
-import wiki.thin.entity.Storage;
-import wiki.thin.entity.StorageFile;
 import wiki.thin.exception.UnexpectedException;
-import wiki.thin.mapper.StorageFileMapper;
-import wiki.thin.storage.BaseStorageService;
+import wiki.thin.storage.StorageFileType;
+import wiki.thin.storage.StorageService;
+
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -16,12 +16,11 @@ import java.nio.file.Path;
 /**
  * @author Beldon
  */
-public class LocalStorageService extends BaseStorageService {
+public class LocalStorageService implements StorageService {
 
     private final LocalStorage localStorage;
 
-    public LocalStorageService(StorageFileMapper storageFileMapper, Storage storage, LocalStorage localStorage) {
-        super(storage, storageFileMapper);
+    public LocalStorageService(LocalStorage localStorage) {
         this.localStorage = localStorage;
     }
 
@@ -42,8 +41,16 @@ public class LocalStorageService extends BaseStorageService {
     }
 
     @Override
-    protected URI getUri(StorageFile file) {
-        return new File(localStorage.getBasePath(), file.getRelativePath()).toURI();
+    public String getRelativePath(StorageFileType storageFileType, String originalFileName) {
+        if (StorageFileType.IMAGE.equals(storageFileType)) {
+            return "images" + "/" + FileUtils.generateRelativePath(originalFileName);
+        }
+        return FileUtils.generateRelativePath(originalFileName);
+    }
+
+    @Override
+    public URI getUri(String relativePath) {
+        return new File(localStorage.getBasePath(), relativePath).toURI();
     }
 
 }

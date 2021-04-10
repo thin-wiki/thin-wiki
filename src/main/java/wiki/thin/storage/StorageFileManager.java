@@ -38,13 +38,11 @@ public interface StorageFileManager {
     /**
      * 仓库复制
      *
-     * @param sourceType 源仓库类型
-     * @param sourceId   源仓库id
      * @param targetType 目标仓库类型
      * @param targetId   目标仓库id
      */
     @Async
-    void copy(StorageType sourceType, Long sourceId, StorageType targetType, Long targetId);
+    void copy(StorageType targetType, Long targetId);
 
 
 }

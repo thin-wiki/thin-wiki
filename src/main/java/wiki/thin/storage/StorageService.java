@@ -1,7 +1,5 @@
 package wiki.thin.storage;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
 import java.net.URI;
 
@@ -12,16 +10,7 @@ public interface StorageService {
 
     /**
      * 保存文件
-     *
-     * @param file     file
-     * @param targetId targetId
-     * @return 文件id
-     * @throws IOException exception
-     */
-    StoredFile store(MultipartFile file, Long targetId) throws IOException;
-
-    /**
-     * 保存文件
+     * store
      *
      * @param data         上传的文件
      * @param relativePath relative path
@@ -32,25 +21,18 @@ public interface StorageService {
     /**
      * 获取文件类型
      *
-     * @param storageFileType
-     * @param originalFileName
-     * @return
+     * @param storageFileType  file type
+     * @param originalFileName originalFileName
+     * @return relative path
      */
     String getRelativePath(StorageFileType storageFileType, String originalFileName);
 
     /**
      * 文件地址， http:// file:// ftp://
      *
-     * @param fileId file id
+     * @param relativePath 相对路径
      * @return uri
      */
-    URI getUri(Long fileId);
+    URI getUri(String relativePath);
 
-
-    /**
-     * storage type
-     *
-     * @return storage id
-     */
-    Long storageId();
 }

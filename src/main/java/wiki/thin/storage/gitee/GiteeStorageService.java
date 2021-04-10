@@ -1,11 +1,9 @@
 package wiki.thin.storage.gitee;
 
+import wiki.thin.common.util.FileUtils;
 import wiki.thin.entity.GiteeStorage;
-import wiki.thin.entity.Storage;
-import wiki.thin.entity.StorageFile;
-import wiki.thin.mapper.StorageFileMapper;
-import wiki.thin.storage.BaseStorageService;
 import wiki.thin.storage.StorageFileType;
+import wiki.thin.storage.StorageService;
 
 import java.io.IOException;
 import java.net.URI;
@@ -14,38 +12,28 @@ import java.util.Base64;
 /**
  * @author Beldon
  */
-public class GiteeStorageService extends BaseStorageService {
+public class GiteeStorageService implements StorageService {
 
     private final GiteeClient giteeClient;
 
     private final GiteeStorage giteeStorage;
 
-    public GiteeStorageService(StorageFileMapper storageFileMapper,
-                               Storage storage,
-                               GiteeStorage giteeStorage) {
-        super(storage, storageFileMapper);
+    public GiteeStorageService(GiteeStorage giteeStorage) {
         this.giteeClient = new GiteeClient(giteeStorage);
         this.giteeStorage = giteeStorage;
     }
 
     @Override
     public String getRelativePath(StorageFileType storageFileType, String originalFileName) {
-        String bastPath = giteeStorage.getBasePath();
+        String basePath = giteeStorage.getBasePath();
         if (StorageFileType.IMAGE.equals(storageFileType)) {
-            bastPath = bastPath + "/" + "images";
+            basePath = basePath + "/" + "images";
         }
-        return bastPath + "/" + super.getRelativePath(storageFileType, originalFileName);
+        return basePath + "/" + FileUtils.generateRelativePath(originalFileName);
     }
 
     @Override
-    public void saveFile(byte[] data, String relativePath) throws IOException {
-        final String dataStr = Base64.getEncoder().encodeToString(data);
-        giteeClient.uploadFile(relativePath, dataStr);
-    }
-
-    @Override
-    protected URI getUri(StorageFile file) {
-        final String relativePath = file.getRelativePath();
+    public URI getUri(String relativePath) {
 
         final String url = GitConstant.HTML_URL
                 .replaceAll("\\{owner}", giteeStorage.getOwner())
@@ -54,6 +42,12 @@ public class GiteeStorageService extends BaseStorageService {
                 .replaceAll("\\{path}", relativePath);
 
         return URI.create(url);
+    }
+
+    @Override
+    public void saveFile(byte[] data, String relativePath) throws IOException {
+        final String dataStr = Base64.getEncoder().encodeToString(data);
+        giteeClient.uploadFile(relativePath, dataStr);
     }
 
 }
