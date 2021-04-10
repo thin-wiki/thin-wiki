@@ -9,6 +9,7 @@ import wiki.thin.mapper.GiteeStorageMapper;
 import wiki.thin.mapper.GithubStorageMapper;
 import wiki.thin.mapper.LocalStorageMapper;
 import wiki.thin.mapper.StorageMapper;
+import wiki.thin.storage.StorageFileManager;
 import wiki.thin.storage.StorageType;
 import wiki.thin.web.vo.ResponseVO;
 import wiki.thin.web.vo.StorageBindVO;
@@ -30,13 +31,16 @@ public class StorageApiController {
     private final LocalStorageMapper localStorageMapper;
     private final GiteeStorageMapper giteeStorageMapper;
     private final GithubStorageMapper githubStorageMapper;
+    private final StorageFileManager storageFileManager;
 
     public StorageApiController(StorageMapper storageMapper, LocalStorageMapper localStorageMapper,
-                                GiteeStorageMapper giteeStorageMapper, GithubStorageMapper githubStorageMapper) {
+                                GiteeStorageMapper giteeStorageMapper, GithubStorageMapper githubStorageMapper,
+                                StorageFileManager storageFileManager) {
         this.storageMapper = storageMapper;
         this.localStorageMapper = localStorageMapper;
         this.giteeStorageMapper = giteeStorageMapper;
         this.githubStorageMapper = githubStorageMapper;
+        this.storageFileManager = storageFileManager;
     }
 
     @PostMapping
@@ -77,6 +81,9 @@ public class StorageApiController {
         storage.setRefStorageType(bindVO.getRefStorageType());
         storage.setRefStorageId(bindVO.getRefStorageId());
         storageMapper.updateByIdSelective(storage);
+
+        storageFileManager.cleanCache();
+
         return ResponseVO.success();
     }
 

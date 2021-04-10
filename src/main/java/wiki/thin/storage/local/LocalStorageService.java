@@ -29,9 +29,11 @@ public class LocalStorageService extends BaseStorageService {
     public void saveFile(byte[] data, String relativePath) throws IOException {
         final File file = new File(localStorage.getBasePath(), relativePath);
         final File parentFile = file.getParentFile();
-        final boolean mkdirSuccess = parentFile.mkdirs();
-        if (!mkdirSuccess) {
-            throw new UnexpectedException("文件夹创建失败");
+        if (!parentFile.exists()) {
+            final boolean mkdirSuccess = parentFile.mkdirs();
+            if (!mkdirSuccess) {
+                throw new UnexpectedException("文件夹创建失败");
+            }
         }
 
         final Path fullFilePath = file.toPath();
