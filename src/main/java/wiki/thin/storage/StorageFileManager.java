@@ -2,6 +2,7 @@ package wiki.thin.storage;
 
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.multipart.MultipartFile;
+import wiki.thin.entity.Storage;
 
 import java.io.IOException;
 import java.net.URI;
@@ -38,11 +39,12 @@ public interface StorageFileManager {
     /**
      * 仓库复制
      *
+     * @param storage    storage
      * @param targetType 目标仓库类型
      * @param targetId   目标仓库id
      */
     @Async
-    void copy(StorageType targetType, Long targetId);
+    void copy(Storage storage, StorageType targetType, Long targetId);
 
 
 }

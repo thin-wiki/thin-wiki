@@ -109,7 +109,7 @@ $(document).ready(function () {
 
         console.log(reqData);
 
-        let reqUrl = '/api/storage/'+id+'/bind';
+        let reqUrl = '/api/storage/' + id + '/bind';
 
         $.ajax({
             type: 'PUT',
@@ -125,6 +125,44 @@ $(document).ready(function () {
                 $('#linkModal').modal('hide');
                 alert.msg("关联成功");
                 window.location.reload();
+            },
+            error: function (message) {
+                alert.msg("提交失败" + JSON.stringify(message));
+            }
+        });
+
+
+    });
+
+    $("#saveCopyStorage").click(function () {
+        const id = $("#selected-copy-storage-id").val();
+        const checkedStorage = $("input:radio[name=copy-storage]:checked").val();
+        if (!checkedStorage) {
+            alert.msg("未选择存储");
+            return
+        }
+        const arr = checkedStorage.split("-");
+
+        const reqData = {};
+        reqData.refStorageType = arr[0];
+        reqData.refStorageId = arr[1];
+
+        $.ajax({
+            type: 'PUT',
+            url: '/api/storage/' + id + '/copy',
+            contentType: "application/json",
+            data: JSON.stringify(reqData),
+            dataType: "json",
+            success: function (data) {
+                if (data.code !== 0) {
+                    alert.msg(data.msg)
+                    return
+                }
+                $('#linkModal').modal('hide');
+                alert.msg("复制中");
+                var myModalEl = document.getElementById('copyModal');
+                var modal = bootstrap.Modal.getInstance(myModalEl);
+                modal.hide();
             },
             error: function (message) {
                 alert.msg("提交失败" + JSON.stringify(message));
@@ -160,7 +198,7 @@ $('#editModal').on('show.bs.modal', function (event) {
         modal.find('.modal-body #storage-id').val(id);
         modal.find('.modal-body #storage-name').val(name);
         modal.find('.modal-body #storage-work-type').val(workType);
-        modal.find('.modal-body #storage-writable').prop('checked',writable === 'on');
+        modal.find('.modal-body #storage-writable').prop('checked', writable === 'on');
         modal.find('.modal-body #storage-description').val(description);
     } else {
         modal.find('.modal-title').text('新增存储')
@@ -186,5 +224,15 @@ $('#linkModal').on('show.bs.modal', function (event) {
 
     const value = refStorageType + '-' + refStorageId;
 
-    $("input:radio[name=storage][value="+value+"]").attr("checked",true);
+    $("input:radio[name=storage][value=" + value + "]").attr("checked", true);
+})
+
+$('#copyModal').on('show.bs.modal', function (event) {
+    const button = $(event.relatedTarget);
+    const modal = $(this)
+
+    const id = button.data('id');
+    const name = button.data('name');
+    modal.find('.modal-title').text('复制[' + name + ']存储');
+    modal.find('.modal-body #selected-copy-storage-id').val(id);
 })

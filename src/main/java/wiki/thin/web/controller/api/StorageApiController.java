@@ -120,6 +120,18 @@ public class StorageApiController {
         return ResponseVO.successWithData(storageVos);
     }
 
+    @PutMapping("/{storageId}/copy")
+    public ResponseVO copyFile(@PathVariable Long storageId, @Valid @RequestBody StorageBindVO bindVO) {
+        final Optional<Storage> storageOptional = storageMapper.findById(storageId);
+        if (storageOptional.isEmpty()) {
+            return ResponseVO.error("找不到指定记录");
+        }
+        Storage storage = storageOptional.get();
+        storageFileManager.copy(storage, bindVO.getRefStorageType(), bindVO.getRefStorageId());
+
+        return ResponseVO.success();
+    }
+
     private String getRefStorageName(StorageType refStorageType, Long refStorageId) {
 
         if (refStorageType == null || refStorageId == null) {

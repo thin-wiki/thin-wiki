@@ -69,8 +69,22 @@ public class DefaultStorageFileManager implements StorageFileManager {
     }
 
     @Override
-    public void copy(StorageType targetType, Long targetId) {
+    public void copy(Storage storage, StorageType targetType, Long targetId) {
+        final List<StorageFile> storageFiles = storageFileMapper.findAllByStorageId(storage.getId());
+        final StorageService storageService = storageServiceFactory.buildStorageService(storage);
 
+        final StorageService targetStorageService = storageServiceFactory.buildStorageService(targetType, targetId);
+
+        for (StorageFile file : storageFiles) {
+            try {
+                log.debug("copy file:{}", file.getId());
+                targetStorageService.saveFile(FileUtils.readAllByte(storageService.getUri(file.getRelativePath())),
+                        file.getRelativePath());
+            } catch (Exception e) {
+                log.error("copy file error,{}", file.getId(), e);
+            }
+        }
+        log.debug("复制完成");
     }
 
     private Long saveFile(MultipartFile file, String relativePath, Long targetId, Long storageId) {

@@ -18,6 +18,9 @@
                     <li class="list-group-item py-3">
                         <span>${storageVO.name}</span>
                         <div class="btn-group float-end" role="group">
+                            <button type="button" data-bs-target="#copyModal" data-bs-toggle="modal"
+                                    data-id="${storageVO.id?c}" data-name="${storageVO.name}"
+                                    class="btn btn-outline-success btn-sm">复制</button>
                             <button type="button" data-bs-target="#linkModal" data-bs-toggle="modal" data-id="${storageVO.id?c}"
                                     data-name="${storageVO.name}"
                                     data-ref-storage-id="${(storageVO.refStorageId?c)!}" data-ref-storage-type="${storageVO.refStorageType!}"
@@ -135,6 +138,54 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
                     <button type="button" class="btn btn-primary" id="saveLinkStorage">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="copyModal" tabindex="-1" role="dialog" aria-labelledby="linkModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="h5 modal-title" id="exampleModalLabel">存储复制</div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <input type="hidden" id="selected-copy-storage-id">
+                        <div class="mb-3">
+                            <label for="storage-name" class="form-label">本地存储:</label>
+                            <#list localStorages as localStorage>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" value="LOCAL-${localStorage.id?c}" id="local-${localStorage.id?c}" name="copy-storage" class="form-check-input">
+                                    <label class="form-check-label" for="local-${localStorage.id?c}">${localStorage.name}</label>
+                                </div>
+                            </#list>
+                        </div>
+                        <div class="mb-3">
+                            <label for="storage-name" class="form-label">Github存储:</label>
+                            <#list githubStorages as githubStorage>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" value="GITHUB-${githubStorage.id?c}" id="github-${githubStorage.id?c}" name="copy-storage" class="form-check-input">
+                                    <label class="form-check-label" for="github-${githubStorage.id?c}">${githubStorage.name}</label>
+                                </div>
+                            </#list>
+                        </div>
+                        <div class="mb-3">
+                            <label for="storage-name" class="form-label">Gitee存储:</label>
+                            <#list giteeStorages as giteeStorage>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" value="GITEE-${giteeStorage.id?c}" id="gitee-${giteeStorage.id?c}" name="copy-storage" class="form-check-input">
+                                    <label class="form-check-label" for="gitee-${giteeStorage.id?c}">${giteeStorage.name}</label>
+                                </div>
+                            </#list>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" id="saveCopyStorage">执行复制</button>
                 </div>
             </div>
         </div>
