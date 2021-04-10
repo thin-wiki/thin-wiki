@@ -42,7 +42,7 @@ public class GithubStorageService extends BaseStorageService {
     }
 
     @Override
-    protected String getRelativePath(StorageFileType storageFileType, String originalFileName) {
+    public String getRelativePath(StorageFileType storageFileType, String originalFileName) {
         String bastPath = githubStorage.getBasePath();
         if (StorageFileType.IMAGE.equals(storageFileType)) {
             bastPath = bastPath + "/" + "images";

@@ -74,7 +74,7 @@ public abstract class BaseStorageService implements StorageService {
      * @param originalFileName 原文件名
      * @return 文件相对路径
      */
-    protected String getRelativePath(StorageFileType storageFileType, String originalFileName) {
+    public String getRelativePath(StorageFileType storageFileType, String originalFileName) {
         return currentDir() + "/" + System.currentTimeMillis() + POINT + getSuffix(originalFileName);
     }
 

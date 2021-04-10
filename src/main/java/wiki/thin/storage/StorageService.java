@@ -30,6 +30,15 @@ public interface StorageService {
     void saveFile(byte[] data, String relativePath) throws IOException;
 
     /**
+     * 获取文件类型
+     *
+     * @param storageFileType
+     * @param originalFileName
+     * @return
+     */
+    String getRelativePath(StorageFileType storageFileType, String originalFileName);
+
+    /**
      * 文件地址， http:// file:// ftp://
      *
      * @param fileId file id
