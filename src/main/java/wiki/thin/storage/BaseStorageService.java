@@ -9,6 +9,8 @@ import wiki.thin.mapper.StorageFileMapper;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.util.Optional;
 
 /**
  * @author Beldon
@@ -47,6 +49,23 @@ public abstract class BaseStorageService implements StorageService {
     public Long storageId() {
         return storage.getId();
     }
+
+    @Override
+    public URI getUri(Long fileId) {
+        final Optional<StorageFile> fileStorageOptional = storageFileMapper.findById(fileId);
+        if (fileStorageOptional.isEmpty()) {
+            return null;
+        }
+        return getUri(fileStorageOptional.get());
+    }
+
+    /**
+     * 获取 文件 uri
+     *
+     * @param file storage file
+     * @return 文件 uri
+     */
+    protected abstract URI getUri(StorageFile file);
 
     /**
      * 获取文件相对路径

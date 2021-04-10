@@ -1,5 +1,1 @@
-- 添加 mybatis 二级缓存
-- 更新 spring boot 到 2.4.4
-- add favicon.ico
-- 添加资源base path 配置
-- 优化主题
+- 优化 github 图床

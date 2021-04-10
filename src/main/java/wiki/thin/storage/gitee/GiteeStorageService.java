@@ -10,7 +10,6 @@ import wiki.thin.storage.StorageFileType;
 import java.io.IOException;
 import java.net.URI;
 import java.util.Base64;
-import java.util.Optional;
 
 /**
  * @author Beldon
@@ -18,8 +17,6 @@ import java.util.Optional;
 public class GiteeStorageService extends BaseStorageService {
 
     private final GiteeClient giteeClient;
-
-    private final StorageFileMapper storageFileMapper;
 
     private final GiteeStorage giteeStorage;
 
@@ -29,7 +26,6 @@ public class GiteeStorageService extends BaseStorageService {
         super(storage, storageFileMapper);
         this.giteeClient = new GiteeClient(giteeStorage);
         this.giteeStorage = giteeStorage;
-        this.storageFileMapper = storageFileMapper;
     }
 
     @Override
@@ -48,13 +44,8 @@ public class GiteeStorageService extends BaseStorageService {
     }
 
     @Override
-    public URI getUri(Long fileId) {
-        final Optional<StorageFile> fileStorageOptional = storageFileMapper.findById(fileId);
-        if (fileStorageOptional.isEmpty()) {
-            return null;
-        }
-
-        final String relativePath = fileStorageOptional.get().getRelativePath();
+    protected URI getUri(StorageFile file) {
+        final String relativePath = file.getRelativePath();
 
         final String url = GitConstant.HTML_URL
                 .replaceAll("\\{owner}", giteeStorage.getOwner())
