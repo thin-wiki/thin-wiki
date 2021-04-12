@@ -108,7 +108,7 @@
         <dependency>
             <groupId>net.bull.javamelody</groupId>
             <artifactId>javamelody-spring-boot-starter</artifactId>
-            <version>1.86.0</version>
+            <version>1.87.0</version>
         </dependency>
         <dependency>
             <groupId>org.zeroturnaround</groupId>
