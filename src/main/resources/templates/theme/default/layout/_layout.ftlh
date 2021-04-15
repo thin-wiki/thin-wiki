@@ -52,7 +52,7 @@
 
     <footer class="footer mt-auto py-2 bg-light fixed-bottom">
         <div class="text-center">
-            <span class="text-muted">Copyright © 2021-2021 Thin Wiki. All rights reserved. Version: ${version!}</span>
+            <span class="text-muted">Copyright © 2021-2021 <a class="text-decoration-none" href="https://github.com/thin-wiki/thin-wiki">Thin Wiki</a>. All rights reserved. Version: ${version!}</span>
         </div>
     </footer>
 
