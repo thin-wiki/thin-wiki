@@ -22,30 +22,6 @@
         <tag>HEAD</tag>
     </scm>
 
-    <profiles>
-        <profile>
-            <id>mysql</id>
-            <properties>
-                <profileActive>mysql</profileActive>
-            </properties>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-        </profile>
-        <profile>
-            <id>h2</id>
-            <properties>
-                <profileActive>h2</profileActive>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>com.h2database</groupId>
-                    <artifactId>h2</artifactId>
-                </dependency>
-            </dependencies>
-        </profile>
-    </profiles>
-
     <dependencies>
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>

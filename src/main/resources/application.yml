@@ -8,13 +8,14 @@ server:
       io: 1
 
 spring:
-  profiles:
-    active: @profileActive@
   application:
     name: thin-wiki
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.zaxxer.hikari.HikariDataSource
+    username: root
+    password:
+    url: jdbc:mysql://localhost:3306/thin-wiki?characterEncoding=utf8&serverTimezone=GMT%2B8&useSSL=false
 
   freemarker:
     suffix: .ftlh
@@ -42,6 +43,8 @@ mybatis:
   type-handlers-package: wiki.thin.common.mybatis.convert
 
 logging:
+  level:
+    wiki.thin: debug
   file:
     path: logs/
     name: wiki.log
