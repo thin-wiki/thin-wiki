@@ -12,6 +12,7 @@ import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -49,8 +50,22 @@ public class BackupServiceImpl implements BackupService {
         try (outputStream) {
             outputStream.write(sql.getBytes(StandardCharsets.UTF_8));
         }
-        ZipUtil.packEntry(new File("./sql", fileName), new File("./sql", fileName + ".zip"));
+        ZipUtil.packEntry(new File(BACKUP_PATH, fileName), new File(BACKUP_PATH, fileName + ".zip"));
         Files.deleteIfExists(filePath);
+    }
+
+    @Override
+    public void backup(int retainFiles) throws IOException {
+        backup();
+
+        final List<BackupFile> files = list();
+
+        if (files.size() > retainFiles) {
+            files.sort(Comparator.comparing(BackupFile::getLastModified).reversed());
+            for (int i = retainFiles; i < files.size(); i++) {
+                Files.deleteIfExists(Paths.get(BACKUP_PATH, files.get(i).getFileName()));
+            }
+        }
     }
 
     @Override

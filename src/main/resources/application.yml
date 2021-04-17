@@ -61,3 +61,15 @@ javamelody:
     # to aggregate digits in http requests:
     http-transform-pattern: \d+
 #  management-endpoint-monitoring-enabled: true
+#app:
+#  backup:
+#    # 自动备份策略
+#    strategies[0]:
+#      modify-count: 1
+#      duration: 1
+#      time-unit: DAYS
+#    strategies[1]:
+#      modify-count: 10
+#      duration: 12
+#      time-unit: HOURS
+

@@ -17,6 +17,14 @@ public interface BackupService {
     void backup() throws IOException;
 
     /**
+     * 备份数据
+     *
+     * @param retainFiles 保留的文件数据
+     * @throws IOException exception
+     */
+    void backup(int retainFiles) throws IOException;
+
+    /**
      * 列出备份文件列表
      *
      * @return 备份文件列表
