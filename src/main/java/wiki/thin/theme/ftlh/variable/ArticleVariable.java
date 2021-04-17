@@ -4,9 +4,11 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import wiki.thin.constant.enums.SharableEnum;
 import wiki.thin.entity.Article;
+import wiki.thin.entity.mini.ArticleLastModifiedList;
 import wiki.thin.mapper.ArticleColumnMapper;
 import wiki.thin.mapper.ArticleMapper;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -34,6 +36,10 @@ public class ArticleVariable extends BaseVariable {
             return articleOptional;
         }
         return Optional.empty();
+    }
+
+    public List<ArticleLastModifiedList> lastModified() {
+        return articleMapper.findLastModified(15);
     }
 
     private boolean canView(Article article) {

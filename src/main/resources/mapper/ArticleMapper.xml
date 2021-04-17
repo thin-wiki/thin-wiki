@@ -86,4 +86,10 @@
         </foreach>
         order by title,created_date
     </select>
+    <select id="findLastModified" resultType="wiki.thin.entity.mini.ArticleLastModifiedList">
+        select
+        id, `title`, `column_id`,`last_modified_date`
+        from article
+        order by last_modified_date desc limit #{limit}
+    </select>
 </mapper>

@@ -3,6 +3,9 @@
         <a href="/" class="navbar-brand">${sysVar.systemConfig().webSiteName}</a>
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
             <li><a href="/" class="nav-link px-2 active link-dark">首页</a></li>
+            <#if secVar.isLogin()>
+                <li><a href="/last-modified" class="nav-link px-2 active link-dark">最近更新</a></li>
+            </#if>
             <#if secVar.isLogin() && columnPath??>
                 <li class="nav-item">
                     <#if articleId??>

@@ -5,6 +5,7 @@ import org.apache.ibatis.cache.decorators.SoftCache;
 import org.springframework.stereotype.Repository;
 import wiki.thin.constant.enums.SharableEnum;
 import wiki.thin.entity.Article;
+import wiki.thin.entity.mini.ArticleLastModifiedList;
 import wiki.thin.entity.mini.ArticleList;
 
 import java.util.List;
@@ -106,4 +107,12 @@ public interface ArticleMapper {
      */
     @Select("select * from article")
     List<Article> findAll();
+
+    /**
+     * find last modified data
+     *
+     * @param limit limit
+     * @return all article
+     */
+    List<ArticleLastModifiedList> findLastModified(@Param("limit") Integer limit);
 }
