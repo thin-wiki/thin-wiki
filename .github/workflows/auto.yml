@@ -18,13 +18,5 @@ jobs:
         with:
           java-version: 11
       - name: Build with Maven
-        run: mvn package -Dmaven.test.skip=true -Pmysql
-
-      - name: Release Maven package
-        uses: samuelmeuli/action-maven-publish@v1
-        with:
-          maven_profiles: lib
-          nexus_username: beldon
-          nexus_password: ${{ secrets.TOKEN }}
-          maven_args: "-DskipTests"
+        run: mvn package -Dmaven.test.skip=true
 
