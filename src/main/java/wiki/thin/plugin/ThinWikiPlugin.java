@@ -13,7 +13,7 @@ public abstract class ThinWikiPlugin extends SpringPlugin {
 
     private final ApplicationContext parentApplicationContext;
 
-    protected ThinWikiPlugin(PluginWrapper wrapper, ApplicationContext parentApplicationContext) {
+    public ThinWikiPlugin(PluginWrapper wrapper, ApplicationContext parentApplicationContext) {
         super(wrapper);
         this.parentApplicationContext = parentApplicationContext;
     }
