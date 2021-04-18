@@ -1,4 +1,4 @@
-name: Auto Deploy
+name: Auto Build
 on: [ push ]
 
 jobs:
@@ -17,10 +17,10 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
+      - name: Build with Maven
+        run: mvn clean package -Dmaven.test.skip=true -Plib
 
-      - uses: geirem/packages-helper@master
-        with:
-          repo_name: thin-wiki/thin-wiki
+      - name: Deploy
+        run: mvn deploy -Plib -s $GITHUB_WORKSPACE/settings.xml
         env:
-          GITHUB_PASSWORD: ${{ secrets.TOKEN }}
-
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
