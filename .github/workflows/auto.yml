@@ -21,11 +21,11 @@ jobs:
         run: mvn package -Dmaven.test.skip=true -Pmysql
 
       - name: Release
-          uses: qcastel/github-actions-maven-release@master
-          with:
-            release-branch-name: "master"
-            git-release-bot-name: "release-bot"
-            git-release-bot-email: "release-bot@thin.wiki"
-            maven-args: "-Plib -Dmaven.javadoc.skip=true -DskipTests"
-            access-token: ${{ secrets.TOKEN }}
+        uses: qcastel/github-actions-maven-release@master
+        with:
+          release-branch-name: "master"
+          git-release-bot-name: "release-bot"
+          git-release-bot-email: "release-bot@thin.wiki"
+          maven-args: "-Plib -Dmaven.javadoc.skip=true -DskipTests"
+          access-token: ${{ secrets.TOKEN }}
     
