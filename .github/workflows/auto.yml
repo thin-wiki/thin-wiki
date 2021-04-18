@@ -28,4 +28,8 @@ jobs:
           git-release-bot-email: "release-bot@thin.wiki"
           maven-args: "-Plib -Dmaven.javadoc.skip=true -DskipTests"
           access-token: ${{ secrets.TOKEN }}
+
+          maven-publish-args: "-Plib -Dmaven.javadoc.skip=true -DskipTests"
+          maven-release-publish: "true"
+          maven-snapshot-publish: "true"
     
