@@ -18,7 +18,6 @@ jobs:
         with:
           java-version: 11
 
-      - name: Deploy
       - uses: geirem/packages-helper@master
         with:
           repo_name: thin-wiki/thin-wiki
