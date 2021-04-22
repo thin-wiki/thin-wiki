@@ -68,7 +68,7 @@
         <dependency>
             <groupId>org.kohsuke</groupId>
             <artifactId>github-api</artifactId>
-            <version>1.127</version>
+            <version>1.128</version>
         </dependency>
         <dependency>
             <groupId>org.apache.lucene</groupId>
@@ -105,7 +105,7 @@
         <dependency>
             <groupId>com.github.Dansoftowner</groupId>
             <artifactId>Restart4j</artifactId>
-            <version>1.0</version>
+            <version>1.4.1</version>
         </dependency>
         <dependency>
             <groupId>com.github.oshi</groupId>
@@ -315,7 +315,7 @@
             <plugin>
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
-                <version>4.2.2</version>
+                <version>4.2.3</version>
                 <executions>
                     <execution>
                         <id>validate</id>
