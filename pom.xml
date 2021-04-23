@@ -147,6 +147,11 @@
             <artifactId>pf4j-spring</artifactId>
             <version>0.7.0</version>
         </dependency>
+        <dependency>
+            <groupId>wiki.thin</groupId>
+            <artifactId>installer</artifactId>
+            <version>0.0.1</version>
+        </dependency>
     </dependencies>
 
     <repositories>

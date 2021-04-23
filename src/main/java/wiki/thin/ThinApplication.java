@@ -7,8 +7,6 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Repository;
 import wiki.thin.core.startup.StartupApplication;
-import wiki.thin.install.InstallApplication;
-import wiki.thin.install.InstallManager;
 
 /**
  * @author Beldon
@@ -21,17 +19,7 @@ import wiki.thin.install.InstallManager;
 public class ThinApplication {
 
     public static void main(String[] args) {
-        Class<?> appClass;
-        if (InstallManager.isInstalled()) {
-            appClass = ThinApplication.class;
-        } else {
-            appClass = InstallApplication.class;
-        }
-        StartupApplication.run(args, app -> {
-            if (InstallApplication.class.equals(appClass)) {
-                app.setAdditionalProfiles("install");
-            }
-        }, appClass);
+        StartupApplication.run(args, ThinApplication.class);
     }
 
 }
