@@ -20,7 +20,7 @@ jobs:
       - name: Build with Maven
         run: mvn clean package -Dmaven.test.skip=true -Plib
 
-      - name: Deploy
-        run: mvn deploy -Plib -s $GITHUB_WORKSPACE/settings.xml
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+#      - name: Deploy
+#        run: mvn deploy -Plib -s $GITHUB_WORKSPACE/settings.xml
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.TOKEN }}
