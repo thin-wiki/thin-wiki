@@ -11,17 +11,33 @@
     <artifactId>thin-wiki</artifactId>
     <version>0.0.4-SNAPSHOT</version>
     <name>thin</name>
-    <description>thin</description>
+    <description>A Thin Wiki</description>
+    <url>https://github.com/thin-wiki/thin-wiki</url>
 
     <properties>
         <java.version>11</java.version>
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
         <pf4j.version>3.6.0</pf4j.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <scm>
         <developerConnection>scm:git:git@github.com:thin-wiki/thin-wiki</developerConnection>
+        <url>https://github.com/thin-wiki/thin-wiki</url>
+        <connection>https://github.com/thin-wiki/thin-wiki.git</connection>
         <tag>HEAD</tag>
     </scm>
+
+    <developers>
+        <developer>
+            <id>beldon</id>
+            <name>beldon</name>
+            <email>beldon@vip.qq.com</email>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>+8</timezone>
+        </developer>
+    </developers>
 
     <dependencies>
         <dependency>
@@ -220,24 +236,39 @@
         </profile>
         <profile>
             <id>lib</id>
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>ossrh</id>
+                    <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+                </snapshotRepository>
+                <repository>
+                    <id>ossrh</id>
+                    <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+                </repository>
+            </distributionManagement>
             <build>
                 <plugins>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-jar-plugin</artifactId>
                     </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.6</version>
+                        <executions>
+                            <execution>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
                 </plugins>
             </build>
         </profile>
     </profiles>
-
-    <distributionManagement>
-        <repository>
-            <id>github</id>
-            <name>thin-wiki</name>
-            <url>https://maven.pkg.github.com/thin-wiki/thin-wiki</url>
-        </repository>
-    </distributionManagement>
 
     <build>
         <finalName>thin-wiki</finalName>
@@ -270,6 +301,19 @@
                 <executions>
                     <execution>
                         <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${maven-javadoc-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
                         <goals>
                             <goal>jar</goal>
                         </goals>
