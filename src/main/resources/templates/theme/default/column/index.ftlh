@@ -51,7 +51,7 @@
 
     <@layout title=column.title>
         <div class="d-flex px-4 h-100">
-            <div class="flex-shrink-1 col-4 col-md-3 col-sm-4 col-xl-2 bd-sidebar h-100">
+            <div class="flex-shrink-1 col-4 col-md-3 col-sm-4 col-xl-2 bd-sidebar h-100 border-end">
                 <#include "../article/siderbar.ftlh"/>
             </div>
             <main class="container col-8 col-md-9 col-sm-8 col-xl-10 line-numbers flex-fill px-5 overflow-auto h-100" role="main" id="article-content">
