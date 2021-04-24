@@ -119,11 +119,6 @@
             <version>1.5.7</version>
         </dependency>
         <dependency>
-            <groupId>com.github.Dansoftowner</groupId>
-            <artifactId>Restart4j</artifactId>
-            <version>1.4.1</version>
-        </dependency>
-        <dependency>
             <groupId>com.github.oshi</groupId>
             <artifactId>oshi-core</artifactId>
             <version>5.7.1</version>
@@ -153,20 +148,6 @@
             <version>0.0.1</version>
         </dependency>
     </dependencies>
-
-    <repositories>
-        <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
-        </repository>
-        <repository>
-            <id>github</id>
-            <url>https://maven.pkg.github.com/thin-wiki/*</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
 
     <profiles>
         <profile>
