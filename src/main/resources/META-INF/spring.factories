@@ -1,2 +1,2 @@
 org.springframework.boot.env.EnvironmentPostProcessor=\
-wiki.thin.common.env.AppEnvPostProcessor
+wiki.thin.core.env.AppEnvPostProcessor

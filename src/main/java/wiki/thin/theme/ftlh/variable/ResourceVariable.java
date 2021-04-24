@@ -3,7 +3,7 @@ package wiki.thin.theme.ftlh.variable;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import wiki.thin.common.env.EnvManager;
+import wiki.thin.core.env.EnvManager;
 import wiki.thin.constant.ConfigConstant;
 import wiki.thin.service.AppConfigService;
 

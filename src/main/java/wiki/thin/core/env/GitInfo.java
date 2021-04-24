@@ -1,4 +1,4 @@
-package wiki.thin.common.env;
+package wiki.thin.core.env;
 
 import lombok.Getter;
 import lombok.ToString;

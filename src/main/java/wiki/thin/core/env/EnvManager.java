@@ -1,4 +1,4 @@
-package wiki.thin.common.env;
+package wiki.thin.core.env;
 
 import java.io.IOException;
 import java.io.InputStream;

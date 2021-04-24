@@ -1,4 +1,4 @@
-package wiki.thin.common.env;
+package wiki.thin.core.env;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.env.EnvironmentPostProcessor;

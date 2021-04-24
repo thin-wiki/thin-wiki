@@ -4,7 +4,7 @@ import freemarker.template.TemplateModelException;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
-import wiki.thin.common.env.EnvManager;
+import wiki.thin.core.env.EnvManager;
 import wiki.thin.theme.ThemeManager;
 
 /**

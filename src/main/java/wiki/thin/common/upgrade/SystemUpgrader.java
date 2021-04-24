@@ -5,7 +5,7 @@ import org.springframework.web.client.RestTemplate;
 import org.update4j.Archive;
 import org.update4j.Configuration;
 import org.update4j.UpdateOptions;
-import wiki.thin.common.env.EnvManager;
+import wiki.thin.core.env.EnvManager;
 import wiki.thin.common.properties.AppUpgradeProperties;
 import wiki.thin.common.util.JsonUtils;
 import wiki.thin.common.util.VersionUtils;
