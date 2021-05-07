@@ -9,7 +9,7 @@
     </parent>
     <groupId>wiki.thin</groupId>
     <artifactId>thin-wiki</artifactId>
-    <version>0.0.4-SNAPSHOT</version>
+    <version>0.0.4</version>
     <name>thin</name>
     <description>A Thin Wiki</description>
     <url>https://github.com/thin-wiki/thin-wiki</url>
@@ -24,7 +24,7 @@
         <developerConnection>scm:git:git@github.com:thin-wiki/thin-wiki</developerConnection>
         <url>https://github.com/thin-wiki/thin-wiki</url>
         <connection>https://github.com/thin-wiki/thin-wiki.git</connection>
-        <tag>HEAD</tag>
+        <tag>v0.0.4</tag>
     </scm>
 
     <developers>
