@@ -45,6 +45,14 @@ public interface SearchManager {
     void index(SearchItemProvider provider) throws IOException;
 
     /**
+     * delete by id
+     *
+     * @param articleId articleId
+     * @throws IOException IOException
+     */
+    void deleteById(Long articleId) throws IOException;
+
+    /**
      * delete all
      *
      * @throws IOException IOException

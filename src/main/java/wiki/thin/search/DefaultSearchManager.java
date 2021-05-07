@@ -68,6 +68,17 @@ public class DefaultSearchManager implements SearchManager {
     }
 
     @Override
+    public void deleteById(Long articleId) throws IOException {
+        try (IndexWriter writer = getWriter()) {
+            try {
+                writer.deleteDocuments(new QueryParser("id", ANALYZER).parse(articleId.toString()));
+            } catch (ParseException e) {
+                log.error("delete documents error", e);
+            }
+        }
+    }
+
+    @Override
     public void deleteAll() throws IOException {
         try (final IndexWriter writer = getWriter()) {
             writer.deleteAll();
@@ -78,8 +89,6 @@ public class DefaultSearchManager implements SearchManager {
     public Page<ArticleSearch> searchAll(String keyword, int currentPage, int pageSize) throws IOException, ParseException {
         QueryParser qp = new MultiFieldQueryParser(new String[]{"title", "content"}, ANALYZER);
         return search(qp.parse(keyword), currentPage, pageSize);
-
-
     }
 
     @Override

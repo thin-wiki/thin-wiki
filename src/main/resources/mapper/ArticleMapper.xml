@@ -80,6 +80,7 @@
         id, `title`, `parent_id`
         from article
         where column_id = #{columnId}
+        and `status` = #{status}
         and sharable in
         <foreach item="item" index="index" open="(" separator="," close=")" collection="sharableList">
             #{item}

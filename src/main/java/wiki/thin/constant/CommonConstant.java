@@ -25,6 +25,21 @@ public final class CommonConstant {
     public static final String DEFAULT_REMEMBER_ME_JWT_ISSUER = "thin-wiki";
 
     /**
+     * 回收站状态
+     */
+    public static final Integer STATUS_RECYCLE = -1;
+
+    /**
+     * 正常状态
+     */
+    public static final Integer STATUS_NORMAL = 0;
+
+    /**
+     * 默认父 id
+     */
+    public static final Long DEFAULT_PARENT_ID = 0L;
+
+    /**
      * @author Beldon
      */
     public static final class Session {

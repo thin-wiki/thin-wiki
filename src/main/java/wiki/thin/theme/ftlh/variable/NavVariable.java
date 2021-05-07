@@ -3,6 +3,7 @@ package wiki.thin.theme.ftlh.variable;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import wiki.thin.common.util.JsonUtils;
+import wiki.thin.constant.CommonConstant;
 import wiki.thin.constant.enums.SharableEnum;
 import wiki.thin.entity.mini.ArticleColumnShort;
 import wiki.thin.entity.mini.ArticleList;
@@ -47,7 +48,7 @@ public class NavVariable extends BaseVariable {
             final ArticleColumnShort column = columnOptional.get();
             final List<ArticleList> articles;
             if (isLogin()) {
-                articles = articleMapper.findListByColumnId(column.getId());
+                articles = articleMapper.findListByColumnIdAndStatus(column.getId(), CommonConstant.STATUS_NORMAL);
             } else {
                 final List<SharableEnum> sharableEnums;
                 if (SharableEnum.SHAREABLE.equals(column.getSharable())) {
@@ -55,7 +56,7 @@ public class NavVariable extends BaseVariable {
                 } else {
                     sharableEnums = Arrays.asList(SharableEnum.SHAREABLE);
                 }
-                articles = articleMapper.findSharedListByColumnId(column.getId(), sharableEnums);
+                articles = articleMapper.findSharedListByColumnId(column.getId(), CommonConstant.STATUS_NORMAL, sharableEnums);
             }
             for (ArticleList article : articles) {
                 NavBean navBean = new NavBean();

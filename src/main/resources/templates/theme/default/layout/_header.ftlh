@@ -33,6 +33,7 @@
                     我的
                 </a>
                 <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                    <li><a class="dropdown-item" href="/recycle">回收站</a></li>
                     <li><a class="dropdown-item" href="/column">类目管理</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="/storage">存储管理</a></li>

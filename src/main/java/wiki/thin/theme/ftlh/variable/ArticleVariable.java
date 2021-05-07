@@ -2,9 +2,11 @@ package wiki.thin.theme.ftlh.variable;
 
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+import wiki.thin.constant.CommonConstant;
 import wiki.thin.constant.enums.SharableEnum;
 import wiki.thin.entity.Article;
 import wiki.thin.entity.mini.ArticleLastModifiedList;
+import wiki.thin.entity.mini.ArticleList;
 import wiki.thin.mapper.ArticleColumnMapper;
 import wiki.thin.mapper.ArticleMapper;
 
@@ -40,6 +42,10 @@ public class ArticleVariable extends BaseVariable {
 
     public List<ArticleLastModifiedList> lastModified() {
         return articleMapper.findLastModified(15);
+    }
+
+    public List<ArticleList> recycleArticles() {
+        return articleMapper.findListByStatus(CommonConstant.STATUS_RECYCLE);
     }
 
     private boolean canView(Article article) {

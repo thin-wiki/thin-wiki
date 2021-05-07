@@ -43,7 +43,32 @@
                             }
                         });
                     });
+                    $(".delete").click(function (){
+                        layer.confirm('您确定要删除该文章么？', {
+                            btn: ['确实','取消']
+                        }, function(){
+                            $.ajax({
+                                type: "DELETE",
+                                url: "/api/article/${(article.id)?c}",
+                                contentType: "application/json",
+                                dataType: "json",
+                                success: function (data) {
+                                    if (data.code !== 0){
+                                        alert.msg(data.msg);
+                                        return;
+                                    }
+                                    alert.msg("删除成功");
+                                    window.location.href="/${columnPath}";
+                                },
+                                error: function (message) {
 
+                                }
+                            });
+
+                        }, function(){
+
+                        });
+                    });
                 });
                 const gallery = new Viewer(document.getElementById('detail-body'));
             </script>
@@ -59,6 +84,7 @@
                     <p class="h1" style="display:inline-block">${article.title}</p>
                     <#if secVar.isLogin()>
                         <div class="share2" style="float:right">
+                            <button type="button" class="btn-sm btn-outline-danger delete"><i class="bi bi-trash"></i></button>
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="sharable" id="sharable_share"
                                        value="SHAREABLE" <#if article.sharable.code==0>checked</#if>>

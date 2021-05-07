@@ -23,6 +23,12 @@ public interface ArticleSearchService {
     void index(Long articleId);
 
     /**
+     * delete by article Id
+     * @param articleId articleId
+     */
+    void delete(Long articleId);
+
+    /**
      * 重建栏目索引
      *
      * @param columnId columnId

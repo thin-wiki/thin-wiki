@@ -74,31 +74,56 @@ public interface ArticleMapper {
     int updateSharable(@Param("id") Long id, @Param("sharable") SharableEnum sharable);
 
     /**
+     * update status
+     *
+     * @param id     id
+     * @param status status
+     * @return update count
+     */
+    @Update("update article set status = #{status} where id = #{id}")
+    int updateStatus(@Param("id") Long id, @Param("status") int status);
+
+    /**
      * find
      *
      * @param columnId columnId
+     * @param status   status
      * @return Article
      */
-    @Select("select id, `title`, `parent_id` from article where column_id = #{columnId} order by title,created_date")
-    List<ArticleList> findListByColumnId(@Param("columnId") Long columnId);
+    @Select("select id, `title`, `parent_id` from article where column_id = #{columnId} and `status` = #{status}"
+            + " order by title,created_date")
+    List<ArticleList> findListByColumnIdAndStatus(@Param("columnId") Long columnId, @Param("status") Integer status);
+
+    /**
+     * find
+     *
+     * @param status status
+     * @return Article
+     */
+    @Select("select id, `title`, `parent_id` from article where `status` = #{status}"
+            + " order by title,created_date")
+    List<ArticleList> findListByStatus(@Param("status") Integer status);
 
     /**
      * find
      *
      * @param columnId     columnId
+     * @param status       status
      * @param sharableList sharableList
      * @return Article
      */
-    List<ArticleList> findSharedListByColumnId(@Param("columnId") Long columnId, @Param("sharableList") List<SharableEnum> sharableList);
+    List<ArticleList> findSharedListByColumnId(@Param("columnId") Long columnId, @Param("status") Integer status,
+                                               @Param("sharableList") List<SharableEnum> sharableList);
 
     /**
      * find all by column id
      *
      * @param columnId column id
+     * @param status   status
      * @return all article
      */
-    @Select("select * from article where column_id = #{columnId}")
-    List<Article> findAllByColumnId(@Param("columnId") Long columnId);
+    @Select("select * from article where column_id = #{columnId} and `status` = #{status}")
+    List<Article> findAllByColumnId(@Param("columnId") Long columnId, @Param("status") Integer status);
 
     /**
      * find all
@@ -115,4 +140,23 @@ public interface ArticleMapper {
      * @return all article
      */
     List<ArticleLastModifiedList> findLastModified(@Param("limit") Integer limit);
+
+    /**
+     * delete by status
+     *
+     * @param status status
+     * @return count
+     */
+    @Update("delete from article where `status` = #{status}")
+    int deleteByStatus(@Param("status") int status);
+
+    /**
+     * delete by id and status
+     *
+     * @param articleId articleId
+     * @param status    status
+     * @return delete count
+     */
+    @Update("delete from article where id = #{articleId} and `status` = #{status}")
+    int deleteByIdAndStatus(@Param("articleId") Long articleId, @Param("status") int status);
 }

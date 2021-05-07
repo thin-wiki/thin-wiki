@@ -1,6 +1,7 @@
 package wiki.thin.web.controller.api;
 
 import org.springframework.web.bind.annotation.*;
+import wiki.thin.constant.CommonConstant;
 import wiki.thin.constant.enums.SharableEnum;
 import wiki.thin.entity.Article;
 import wiki.thin.mapper.ArticleColumnMapper;
@@ -121,4 +122,17 @@ public class ArticleApiController {
         return ResponseVO.success();
     }
 
+    @DeleteMapping("/{articleId}")
+    public ResponseVO recycle(@PathVariable Long articleId) {
+        final var articleOptional = articleMapper.findById(articleId);
+        if (articleOptional.isEmpty()) {
+            return ResponseVO.error("找不到指定记录");
+        }
+
+        articleMapper.updateStatus(articleId, CommonConstant.STATUS_RECYCLE);
+
+        articleSearchService.delete(articleId);
+
+        return ResponseVO.success();
+    }
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import wiki.thin.common.bean.Page;
 import wiki.thin.common.util.HtmlUtils;
+import wiki.thin.constant.CommonConstant;
 import wiki.thin.constant.enums.SharableEnum;
 import wiki.thin.entity.Article;
 import wiki.thin.mapper.ArticleColumnMapper;
@@ -49,8 +50,17 @@ public class ArticleSearchServiceImpl implements ArticleSearchService {
     }
 
     @Override
+    public void delete(Long articleId) {
+        try {
+            searchManager.deleteById(articleId);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public void reBuildIndex(Long columnId) {
-        final List<Article> articles = articleMapper.findAllByColumnId(columnId);
+        final List<Article> articles = articleMapper.findAllByColumnId(columnId, CommonConstant.STATUS_NORMAL);
         for (Article article : articles) {
             try {
                 indexArticle(article);
