@@ -6,7 +6,7 @@
         const alert = layer;
         $(document).ready(function(){
             $(".clean-recycle").click(function (){
-                layer.confirm('您确定要清空回收站么么？', {
+                layer.confirm('您确定要清空回收站么？', {
                     btn: ['确实','取消']
                 }, function(){
                     $.ajax({
