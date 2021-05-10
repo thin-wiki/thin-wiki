@@ -26,8 +26,8 @@ public class WebConfig implements WebMvcConfigurer, ServletContextInitializer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/**").addResourceLocations("classpath:/templates/");
-        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/templates/static/");
+        registry.addResourceHandler("/**").addResourceLocations("file:./templates/", "classpath:/templates/");
+        registry.addResourceHandler("/static/**").addResourceLocations("file:./static/", "classpath:/templates/static/");
     }
 
     @Override
@@ -38,7 +38,7 @@ public class WebConfig implements WebMvcConfigurer, ServletContextInitializer {
     @Bean
     public WebServerFactoryCustomizer<ConfigurableWebServerFactory> webServerFactoryCustomizer() {
         return (factory -> {
-            ErrorPage errorPage404 = new ErrorPage(HttpStatus.NOT_FOUND, "/");
+            var errorPage404 = new ErrorPage(HttpStatus.NOT_FOUND, "/");
             factory.addErrorPages(errorPage404);
         });
 

@@ -40,6 +40,21 @@ public final class CommonConstant {
     public static final Long DEFAULT_PARENT_ID = 0L;
 
     /**
+     * 默认主题
+     */
+    public static final String THEME_DEFAULT = "default";
+
+    /**
+     * 主题类型-freemarker
+     */
+    public static final String THEME_TYPE_FREEMARKER = "freemarker";
+
+    /**
+     * 主题类型-single page
+     */
+    public static final String THEME_TYPE_SINGLE_PAGE = "single_page";
+
+    /**
      * @author Beldon
      */
     public static final class Session {

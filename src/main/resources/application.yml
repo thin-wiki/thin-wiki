@@ -19,10 +19,14 @@ spring:
 
   freemarker:
     suffix: .ftlh
-  web:
-    resources:
-      static-locations:
-        - classpath:/templates/
+    template-loader-path:
+      - file:./theme/
+      - classpath:/templates/theme/
+#  web:
+#    resources:
+#      static-locations:
+#        - classpath:/templates/
+#        - file:./theme/
   flyway:
     enabled: true
     clean-disabled: true

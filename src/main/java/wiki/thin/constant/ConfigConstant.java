@@ -55,4 +55,14 @@ public class ConfigConstant {
      */
     public static final String SYS_RESOURCE_BASE_URL_KEY = "resource_base_url";
 
+    /**
+     * 主题
+     */
+    public static final String THEME = "theme";
+
+    /**
+     * 主题类型，freemarker | single_page
+     */
+    public static final String THEME_TYPE = "theme_type";
+
 }
