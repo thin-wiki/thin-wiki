@@ -16,7 +16,9 @@ spring:
     username: root
     password:
     url: jdbc:mysql://localhost:3306/thin-wiki?characterEncoding=utf8&serverTimezone=GMT%2B8&useSSL=false
-
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
   freemarker:
     suffix: .ftlh
     template-loader-path:
