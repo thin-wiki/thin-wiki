@@ -18,7 +18,7 @@ public class AuthInterceptor implements MethodInterceptor {
         if (!AuthenticationContextHolder.isLogin()) {
             throw new NoLoginException();
         }
-        final NeedAuth needAuth = invocation.getMethod().getAnnotation(NeedAuth.class);
+        final var needAuth = invocation.getMethod().getAnnotation(NeedAuth.class);
         if (needAuth != null && !AuthenticationContextHolder.isAuthenticated()) {
             throw new NoAuthException();
         }
