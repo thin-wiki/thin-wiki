@@ -72,7 +72,7 @@ public interface AppConfigService {
      * @return app config
      */
     default AppConfig getConfig(String type, String key) {
-        return getConfig(type, key, null);
+        return getConfig(type, key, () -> null);
     }
 
     /**
