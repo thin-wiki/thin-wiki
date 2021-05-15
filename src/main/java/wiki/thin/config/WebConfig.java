@@ -26,7 +26,7 @@ public class WebConfig implements WebMvcConfigurer, ServletContextInitializer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/theme/**").addResourceLocations("file:./theme/", "classpath:/theme/");
+        registry.addResourceHandler("/theme/**").addResourceLocations("file:./theme/", "classpath:/theme/", "classpath:/templates/theme/");
         registry.addResourceHandler("/static/**").addResourceLocations("file:./static/", "classpath:/templates/static/");
     }
 
