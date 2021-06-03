@@ -19,7 +19,7 @@ public class ArticleController extends BaseController {
         this.articleViewHistoryService = articleViewHistoryService;
     }
 
-    @GetMapping("/{columnPath}/{articleId}")
+    @GetMapping("/{columnPath}/{articleId:\\d++}")
     public String page(@PathVariable String columnPath, @PathVariable Long articleId, Model model) {
         model.addAttribute("columnPath", columnPath);
         model.addAttribute("articleId", articleId);
