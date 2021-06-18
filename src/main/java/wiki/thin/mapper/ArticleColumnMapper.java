@@ -20,6 +20,14 @@ import java.util.Optional;
 public interface ArticleColumnMapper {
 
     /**
+     * count all
+     *
+     * @return count
+     */
+    @Select("select count(*) from article_column")
+    int countAll();
+
+    /**
      * find all article column
      *
      * @return article column

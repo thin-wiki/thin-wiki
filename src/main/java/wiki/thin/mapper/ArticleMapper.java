@@ -20,6 +20,14 @@ import java.util.Optional;
 public interface ArticleMapper {
 
     /**
+     * count all
+     *
+     * @return count
+     */
+    @Select("select count(*) from article")
+    int countAll();
+
+    /**
      * find
      *
      * @param id id
