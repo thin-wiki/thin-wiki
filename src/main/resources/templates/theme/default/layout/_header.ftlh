@@ -33,16 +33,9 @@
                     我的
                 </a>
                 <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-                    <li><a class="dropdown-item" href="/recycle">回收站</a></li>
                     <li><a class="dropdown-item" href="/column">类目管理</a></li>
-<#--                    <li><hr class="dropdown-divider"></li>-->
-<#--                    <li><a class="dropdown-item" href="/storage">存储管理</a></li>-->
-<#--                    <li><a class="dropdown-item" href="/config">系统配置</a></li>-->
-<#--&lt;#&ndash;                    <li><a class="dropdown-item" href="/upgrade">升级管理</a></li>&ndash;&gt;-->
-<#--                    <li><a class="dropdown-item" href="/backup">数据备份</a></li>-->
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" target="_blank" href="/admin/index.html">后台管理</a></li>
-                    <li><a class="dropdown-item" target="_blank" href="/admin/performance">监控</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="/logout">退出</a></li>
                 </ul>
