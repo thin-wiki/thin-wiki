@@ -7,6 +7,7 @@ import wiki.thin.constant.enums.SharableEnum;
 import wiki.thin.entity.Article;
 import wiki.thin.entity.mini.ArticleLastModifiedList;
 import wiki.thin.entity.mini.ArticleList;
+import wiki.thin.web.vo.ArticleDetailVO;
 
 import java.util.List;
 import java.util.Optional;
@@ -111,6 +112,14 @@ public interface ArticleMapper {
     @Select("select id, `title`, `parent_id` from article where `status` = #{status}"
             + " order by title,created_date")
     List<ArticleList> findListByStatus(@Param("status") Integer status);
+
+    /**
+     * find
+     *
+     * @param status status
+     * @return Article
+     */
+    List<ArticleDetailVO> findByStatus(@Param("status") Integer status);
 
     /**
      * find

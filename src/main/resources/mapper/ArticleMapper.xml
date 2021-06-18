@@ -93,4 +93,11 @@
         from article
         order by last_modified_date desc limit #{limit}
     </select>
+    <select id="findByStatus" resultType="wiki.thin.web.vo.ArticleDetailVO">
+        select a.id as id, a.title as title, a.column_id as columnId,
+               b.title as columnTitle, a.created_date as createdDate, a.last_modified_date as lastModifiedDate
+        from article a left join article_column b on a.column_id = b.id
+        where a.`status` = #{status}
+        order by a.last_modified_date desc
+    </select>
 </mapper>

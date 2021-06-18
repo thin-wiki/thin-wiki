@@ -4,8 +4,10 @@ import org.springframework.web.bind.annotation.*;
 import wiki.thin.constant.CommonConstant;
 import wiki.thin.entity.Article;
 import wiki.thin.mapper.ArticleMapper;
+import wiki.thin.web.vo.ArticleDetailVO;
 import wiki.thin.web.vo.ResponseVO;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -19,6 +21,17 @@ public class ArticleRecycleAdminController {
 
     public ArticleRecycleAdminController(ArticleMapper articleMapper) {
         this.articleMapper = articleMapper;
+    }
+
+    /**
+     * 获取回收站数据
+     *
+     * @return
+     */
+    @GetMapping
+    public ResponseVO list() {
+        final List<ArticleDetailVO> articleLists = articleMapper.findByStatus(CommonConstant.STATUS_RECYCLE);
+        return ResponseVO.successWithData(articleLists);
     }
 
     /**
