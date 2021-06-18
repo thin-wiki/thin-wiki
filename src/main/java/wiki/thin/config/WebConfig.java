@@ -7,6 +7,7 @@ import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -28,6 +29,7 @@ public class WebConfig implements WebMvcConfigurer, ServletContextInitializer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/theme/**").addResourceLocations("file:./theme/", "classpath:/theme/", "classpath:/templates/theme/");
         registry.addResourceHandler("/static/**").addResourceLocations("file:./static/", "classpath:/templates/static/");
+        registry.addResourceHandler("/admin/**").addResourceLocations(new ClassPathResource("/static/admin/"));
     }
 
     @Override
