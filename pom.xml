@@ -39,6 +39,21 @@
         </developer>
     </developers>
 
+    <repositories>
+        <repository>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+            <snapshots>
+                <updatePolicy>always</updatePolicy>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>ossrh-release</id>
+            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </repositories>
+
     <dependencies>
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
@@ -146,6 +161,11 @@
             <groupId>wiki.thin</groupId>
             <artifactId>installer</artifactId>
             <version>0.0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>wiki.thin</groupId>
+            <artifactId>thin-wiki-admin-ui</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
