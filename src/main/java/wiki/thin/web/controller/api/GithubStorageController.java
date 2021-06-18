@@ -18,6 +18,7 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/api/storage/github")
+@Deprecated
 public class GithubStorageController {
     private final GithubStorageMapper githubStorageMapper;
 

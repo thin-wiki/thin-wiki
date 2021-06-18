@@ -27,6 +27,7 @@ import java.util.stream.Collectors;
  */
 @Controller
 @RequestMapping("/storage")
+@Deprecated
 public class StorageController extends BaseController {
 
     private final StorageMapper storageMapper;

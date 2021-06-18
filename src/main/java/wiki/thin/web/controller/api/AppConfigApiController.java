@@ -14,6 +14,7 @@ import wiki.thin.web.vo.ResponseVO;
  */
 @RequestMapping("/api/config")
 @RestController
+@Deprecated
 public class AppConfigApiController {
 
     private final AppConfigService appConfigService;

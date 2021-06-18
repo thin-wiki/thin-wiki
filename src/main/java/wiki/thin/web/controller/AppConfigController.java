@@ -10,6 +10,7 @@ import wiki.thin.security.annotation.NeedAuth;
  */
 @Controller
 @RequestMapping("/config")
+@Deprecated
 public class AppConfigController extends BaseController {
 
     @GetMapping

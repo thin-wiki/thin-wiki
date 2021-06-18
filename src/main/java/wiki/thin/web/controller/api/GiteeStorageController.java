@@ -18,6 +18,7 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/api/storage/gitee")
+@Deprecated
 public class GiteeStorageController {
     private final GiteeStorageMapper giteeStorageMapper;
 

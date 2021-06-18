@@ -11,6 +11,7 @@ import java.io.IOException;
  */
 @RequestMapping("/api/backup")
 @RestController
+@Deprecated
 public class BackupApiController {
 
     private final BackupService backupService;

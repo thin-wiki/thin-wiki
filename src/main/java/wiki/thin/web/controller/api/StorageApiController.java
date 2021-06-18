@@ -26,6 +26,7 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/api/storage")
+@Deprecated
 public class StorageApiController {
     private final StorageMapper storageMapper;
     private final LocalStorageMapper localStorageMapper;

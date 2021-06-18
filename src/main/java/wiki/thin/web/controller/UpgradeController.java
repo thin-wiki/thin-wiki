@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/upgrade")
+@Deprecated
 public class UpgradeController extends BaseController {
 
     @GetMapping

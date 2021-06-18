@@ -16,6 +16,7 @@ import java.io.IOException;
  */
 @Controller
 @RequestMapping("/backup")
+@Deprecated
 public class BackupController extends BaseController {
 
     private final BackupService backupService;

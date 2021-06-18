@@ -1,4 +1,4 @@
-package wiki.thin.web.controller.api;
+package wiki.thin.web.controller.admin;
 
 import org.springframework.web.bind.annotation.*;
 import wiki.thin.constant.CommonConstant;
@@ -11,14 +11,13 @@ import java.util.Optional;
 /**
  * @author Beldon
  */
-@RequestMapping("/api/article/recycle")
+@RequestMapping("/api/admin/article/recycle")
 @RestController
-@Deprecated
-public class ArticleRecycleApiController {
+public class ArticleRecycleAdminController {
 
     private final ArticleMapper articleMapper;
 
-    public ArticleRecycleApiController(ArticleMapper articleMapper) {
+    public ArticleRecycleAdminController(ArticleMapper articleMapper) {
         this.articleMapper = articleMapper;
     }
 

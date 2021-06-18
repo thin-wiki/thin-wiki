@@ -8,6 +8,7 @@ import wiki.thin.security.annotation.NeedLogin;
  * @author Beldon
  */
 @Controller
+@Deprecated
 public class ArticleRecycleController extends BaseController {
 
     @NeedLogin
