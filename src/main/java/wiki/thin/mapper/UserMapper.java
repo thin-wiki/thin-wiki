@@ -33,4 +33,14 @@ public interface UserMapper {
      */
     @Update("update user set last_login_time = #{lastLoginTime} where id = #{userId}")
     int updateLastLoginTime(@Param("userId") Long userId, @Param("lastLoginTime") Date lastLoginTime);
+
+    /**
+     * update password
+     *
+     * @param userId      userId
+     * @param newPassword newPassword
+     * @return update count
+     */
+    @Update("update user set password = #{newPassword} where id = #{userId}")
+    int updatePassword(@Param("userId") Long userId, @Param("newPassword") String newPassword);
 }

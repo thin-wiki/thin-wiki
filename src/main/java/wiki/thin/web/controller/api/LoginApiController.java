@@ -16,7 +16,6 @@ import wiki.thin.web.vo.UserVO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.io.IOException;
 import java.util.Optional;
 
 /**
@@ -73,7 +72,7 @@ public class LoginApiController extends BaseController {
 
     @NeedLogin
     @GetMapping("/logout")
-    public ResponseVO logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public ResponseVO logout(HttpServletRequest request, HttpServletResponse response) {
         rememberMeService.logout(request, response);
         return ResponseVO.success();
     }
