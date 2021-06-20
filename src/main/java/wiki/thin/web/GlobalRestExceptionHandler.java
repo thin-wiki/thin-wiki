@@ -3,6 +3,8 @@ package wiki.thin.web;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.validation.BindException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
@@ -11,8 +13,14 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import wiki.thin.common.util.JsonUtils;
+import wiki.thin.exception.NoAuthException;
 import wiki.thin.web.vo.ResponseVO;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +29,7 @@ import java.util.List;
  *
  * @author Beldon.
  */
-@RestControllerAdvice("wiki.thin.web.controller.api")
+@RestControllerAdvice({"wiki.thin.web.controller.api", "wiki.thin.web.controller.admin"})
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @Slf4j
 public class GlobalRestExceptionHandler {
@@ -36,6 +44,21 @@ public class GlobalRestExceptionHandler {
     public ResponseVO defaultErrorHandler(Exception e) {
         log.error(e.getMessage(), e);
         return ResponseVO.error("内部异常，请查看日志");
+    }
+
+    @ExceptionHandler(value = {NoAuthException.class})
+    public void defaultErrorHandler(NoAuthException e, HttpServletResponse response) {
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        response.setStatus(HttpStatus.UNAUTHORIZED.value());
+        final ResponseVO forbidden = ResponseVO.error(HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.name());
+        final String responseData = JsonUtils.toJsonString(forbidden);
+        try {
+            final ServletOutputStream outputStream = response.getOutputStream();
+            outputStream.write(responseData.getBytes(StandardCharsets.UTF_8));
+            outputStream.flush();
+        } catch (IOException exception) {
+            log.error("write response error", exception);
+        }
     }
 
 

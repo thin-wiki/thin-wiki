@@ -2,7 +2,6 @@ package wiki.thin.web.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -67,36 +66,6 @@ public class LoginController extends BaseController {
         model.addAttribute("account", currentAccount());
         return "auth_login";
     }
-
-    @NeedLogin
-    @PostMapping("/auth_login")
-    public String doAuthLogin(@RequestParam("password") String password,
-                              HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
-        model.addAttribute("account", currentAccount());
-        final Optional<User> userOptional = userMapper.findByAccount(currentAccount());
-        if (userOptional.isEmpty()) {
-            model.addAttribute("errorMsg", "账号不存在");
-            return "auth_login";
-        }
-        final User user = userOptional.get();
-        boolean checkResult = passwordService.checkPassword(password, user.getPassword());
-        if (!checkResult) {
-            model.addAttribute("errorMsg", "密码错误");
-            return "auth_login";
-        }
-        rememberMeService.login(request, response, user);
-
-        String refererUrl = "/index";
-
-        final var referer = request.getHeader("referer");
-        if (StringUtils.hasText(referer) && !referer.endsWith(request.getRequestURI())) {
-            refererUrl = referer;
-        }
-
-        response.sendRedirect(refererUrl);
-        return "login";
-    }
-
 
     @NeedLogin
     @GetMapping("/logout")

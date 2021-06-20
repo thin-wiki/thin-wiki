@@ -9,10 +9,9 @@ import javax.validation.constraints.NotEmpty;
  */
 @Data
 public class LoginVO {
-    @NotEmpty(message = "account can't be empty")
     private String account;
 
-    @NotEmpty(message = "password can't be empty")
+    @NotEmpty(message = "密码不能为空")
     private String password;
 
 }

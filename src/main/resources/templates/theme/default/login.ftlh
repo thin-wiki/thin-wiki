@@ -12,20 +12,66 @@
     </style>
 </@css>
 
+<@javascript>
+    <script src="/static/layer/layer.js"></script>
+    <script type="text/javascript">
+        $("#login").click(function () {
+            const data = {
+                'account':$("#account").val(),
+                'password':$("#password").val()
+            };
+            const index = layer.load(1, {
+                shade: [0.1,'#fff'] //0.1透明度的白色背景
+            });
+            $.ajax({
+                type: 'POST',
+                url: '/api/pub/login',
+                contentType: "application/json",
+                data: JSON.stringify(data),
+                dataType: "json",
+                success: function (data) {
+                    layer.close(index)
+                    if(data.code !== 0){
+                        layer.msg(data.msg);
+                        return;
+                    }
+                    layer.msg("登录成功");
+                    var redirectUrl = '/';
+                    if (document.referrer){
+                        redirectUrl = document.referrer;
+                    }
+                    window.location.href = redirectUrl;
+                },
+                error: function (message) {
+                    console.log(message);
+                    layer.close(index)
+                    if (message.responseJSON && message.responseJSON.msg){
+                        layer.msg("登录失败:" + message.responseJSON.msg);
+                    }else{
+                        layer.msg("登录失败" + JSON.stringify(message));
+                    }
+
+
+                }
+            });
+        });
+    </script>
+</@javascript>
+
 
 <@layout title="首页">
      <div class="login-box bd-content">
-         <form method="post" action="/login">
+         <form method="post" action="return;">
              <div class="mb-3">
-                 <input type="text" class="form-control" name="account" placeholder="账号" value="${account!}">
+                 <input type="text" class="form-control" name="account" placeholder="账号" id="account" value="${account!}">
              </div>
              <div class="mb-3">
-                 <input type="password" class="form-control" name="password" placeholder="密码">
+                 <input type="password" class="form-control" name="password" id="password" placeholder="密码">
              </div>
              <#if errorMsg??>
                   <small class="form-text text-muted">${errorMsg}</small>
              </#if>
-             <button type="submit" class="login-btn btn btn-primary" id="login">登录</button>
+             <a type="submit" class="login-btn btn btn-primary" id="login">登录</a>
          </form>
      </div>
 </@layout>

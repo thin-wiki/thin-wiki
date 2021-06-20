@@ -1,6 +1,8 @@
 package wiki.thin.security;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.servlet.HandlerInterceptor;
 import wiki.thin.common.util.JsonUtils;
 import wiki.thin.web.vo.ResponseVO;
@@ -23,16 +25,16 @@ public class ApiInterceptor implements HandlerInterceptor {
         if (AuthenticationContextHolder.isLogin()) {
             return true;
         }
-        response.setContentType("application/json; charset=utf-8");
-        response.setStatus(401);
-        final ResponseVO forbidden = ResponseVO.error(401, "forbidden");
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        response.setStatus(HttpStatus.UNAUTHORIZED.value());
+        final ResponseVO forbidden = ResponseVO.error(HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.name());
         final String responseData = JsonUtils.toJsonString(forbidden);
         try {
             final ServletOutputStream outputStream = response.getOutputStream();
             outputStream.write(responseData.getBytes(StandardCharsets.UTF_8));
             outputStream.flush();
-        } catch (IOException e) {
-            log.error("write response error", e);
+        } catch (IOException exception) {
+            log.error("write response error", exception);
         }
 
         return false;
