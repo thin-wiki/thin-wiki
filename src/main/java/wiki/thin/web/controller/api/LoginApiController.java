@@ -71,7 +71,7 @@ public class LoginApiController extends BaseController {
     }
 
     @NeedLogin
-    @GetMapping("/logout")
+    @PutMapping("/logout")
     public ResponseVO logout(HttpServletRequest request, HttpServletResponse response) {
         rememberMeService.logout(request, response);
         return ResponseVO.success();
