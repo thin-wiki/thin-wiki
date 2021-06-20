@@ -26,6 +26,12 @@
         <connection>https://github.com/thin-wiki/thin-wiki.git</connection>
         <tag>HEAD</tag>
     </scm>
+    <licenses>
+        <license>
+            <name>GNU Affero General Public License v3.0</name>
+            <url>https://www.gnu.org/licenses/agpl-3.0</url>
+        </license>
+    </licenses>
 
     <developers>
         <developer>
@@ -50,7 +56,7 @@
         </repository>
         <repository>
             <id>ossrh-release</id>
-            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+            <url>https://s01.oss.sonatype.org/content/repositories/releases</url>
         </repository>
     </repositories>
 
@@ -165,7 +171,7 @@
         <dependency>
             <groupId>wiki.thin</groupId>
             <artifactId>thin-wiki-admin-ui</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>0.0.1</version>
         </dependency>
     </dependencies>
 
