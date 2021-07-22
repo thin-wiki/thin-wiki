@@ -4,7 +4,7 @@
     
     <cache-ref namespace="wiki.thin.mapper.ArticleColumnMapper"/>
 
-    <insert id="insertSelective" parameterType="wiki.thin.entity.ArticleColumn">
+    <insert id="insertSelective" parameterType="wiki.thin.entity.PostColumn">
         insert into article_column
         <trim prefix="(" suffix=")" suffixOverrides=",">
             id,
@@ -37,7 +37,7 @@
             </if>
         </trim>
     </insert>
-    <update id="updateByIdSelective" parameterType="wiki.thin.entity.ArticleColumn">
+    <update id="updateByIdSelective" parameterType="wiki.thin.entity.PostColumn">
         update article_column
         <set>
             <if test="path != null">

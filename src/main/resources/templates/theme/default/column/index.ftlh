@@ -30,7 +30,7 @@
                         });
                         $.ajax({
                             type: "PUT",
-                            url: "/api/article/column/${(column.id)?c}/share?shareable=" + that.value,
+                            url: "/api/post/column/${(column.id)?c}/share?shareable=" + that.value,
                             contentType: "application/json",
                             dataType: "json",
                             success: function (data) {
@@ -52,9 +52,9 @@
     <@layout title=column.title>
         <div class="d-flex px-4 h-100">
             <div class="flex-shrink-1 col-4 col-md-3 col-sm-4 col-xl-2 bd-sidebar h-100 border-end">
-                <#include "../article/siderbar.ftlh"/>
+                <#include "../post/siderbar.ftlh"/>
             </div>
-            <main class="container col-8 col-md-9 col-sm-8 col-xl-10 line-numbers flex-fill px-5 overflow-auto h-100" role="main" id="article-content">
+            <main class="container col-8 col-md-9 col-sm-8 col-xl-10 line-numbers flex-fill px-5 overflow-auto h-100" role="main" id="post-content">
                 <div class="detail-title pt-3">
                     <p class="h1" style="display:inline-block">${column.title}</p>
                     <#if secVar.isLogin()>

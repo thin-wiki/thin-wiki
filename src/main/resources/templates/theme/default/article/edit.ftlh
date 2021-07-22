@@ -1,5 +1,5 @@
 <#include "../layout/_layout.ftlh"/>
-<#assign article=articleVar.article(articleId).get() />
+<#assign post=articleVar.post(articleId).get() />
 
 <@css>
 <#--    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.4.1/build/styles/default.min.css">-->
@@ -23,7 +23,7 @@
 <#--    <script src="/static/prism/prism.js" referrerpolicy="origin"></script>-->
     <script src="${resVar.resourceBashPath}static/layer/layer.js" referrerpolicy="origin"></script>
     <script src="${resVar.resourceBashPath}${theme.themePath}static/js/tinymce-editor.js"></script>
-    <script src="${resVar.resourceBashPath}${theme.themePath}static/js/article.js"></script>
+    <script src="${resVar.resourceBashPath}${theme.themePath}static/js/post.js"></script>
 </@javascript>
 
 <@layout title="编辑">
@@ -32,11 +32,11 @@
         <input type="hidden" id="columnPath" value="${columnPath}">
         <input type="hidden" id="articleId" value="${(articleId!0)?c}">
         <div class="input-group mb-3">
-            <input type="text" class="form-control" id="title" placeholder="标题" value="${article.title}">
+            <input type="text" class="form-control" id="title" placeholder="标题" value="${post.title}">
             <button class="btn btn-outline-secondary save" type="button">保存</button>
         </div>
         <div class="mb-3">
-            <textarea class="form-control" id="edit-content" rows="3">${article.content?no_esc}</textarea>
+            <textarea class="form-control" id="edit-content" rows="3">${post.content?no_esc}</textarea>
         </div>
     </div>
 </@layout>

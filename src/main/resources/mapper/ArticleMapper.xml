@@ -4,8 +4,8 @@
 
     <cache-ref namespace="wiki.thin.mapper.ArticleMapper"/>
 
-    <insert id="insertSelective" parameterType="wiki.thin.entity.Article">
-        insert into article
+    <insert id="insertSelective" parameterType="wiki.thin.entity.Post">
+        insert into post
         <trim prefix="(" suffix=")" suffixOverrides=",">
             id,
             title,
@@ -53,8 +53,8 @@
             </if>
         </trim>
     </insert>
-    <update id="updateByIdSelective" parameterType="wiki.thin.entity.Article">
-        update article
+    <update id="updateByIdSelective" parameterType="wiki.thin.entity.Post">
+        update post
         <set>
             <if test="title != null">
                 title = #{title},
@@ -78,7 +78,7 @@
     <select id="findSharedListByColumnId" resultType="wiki.thin.entity.mini.ArticleList">
         select
         id, `title`, `parent_id`
-        from article
+        from post
         where column_id = #{columnId}
         and `status` = #{status}
         and sharable in
@@ -90,13 +90,13 @@
     <select id="findLastModified" resultType="wiki.thin.entity.mini.ArticleLastModifiedList">
         select
         id, `title`, `column_id`,`last_modified_date`
-        from article
+        from post
         order by last_modified_date desc limit #{limit}
     </select>
     <select id="findByStatus" resultType="wiki.thin.web.vo.ArticleDetailVO">
         select a.id as id, a.title as title, a.column_id as columnId,
                b.title as columnTitle, a.created_date as createdDate, a.last_modified_date as lastModifiedDate
-        from article a left join article_column b on a.column_id = b.id
+        from post a left join article_column b on a.column_id = b.id
         where a.`status` = #{status}
         order by a.last_modified_date desc
     </select>

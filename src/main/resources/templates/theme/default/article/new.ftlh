@@ -21,7 +21,7 @@
     <script src="${resVar.resourceBashPath}static/prism/prism.js" referrerpolicy="origin"></script>
     <script src="${resVar.resourceBashPath}static/layer/layer.js" referrerpolicy="origin"></script>
     <script src="${resVar.resourceBashPath}${theme.themePath}static/js/tinymce-editor.js"></script>
-    <script src="${resVar.resourceBashPath}${theme.themePath}static/js/article.js"></script>
+    <script src="${resVar.resourceBashPath}${theme.themePath}static/js/post.js"></script>
 </@javascript>
 
 <@layout>

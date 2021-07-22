@@ -1,35 +1,27 @@
 package wiki.thin.entity;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
 
-import java.util.Date;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * @author Beldon
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
-public class GiteeStorage extends BaseEntity {
+@Table("gitee_storage")
+public class GiteeStorage implements Serializable {
+    @Id
+    private Long id;
     private String name;
-
     private String description;
-
     private String token;
-
     private String owner;
-
     private String repo;
-
     private String branch;
-
     private String basePath;
-
-    private Long createdBy;
-
-    private Date createdDate;
-
-    private Long lastModifiedBy;
-
-    private Date lastModifiedDate;
+    private LocalDateTime createdDate;
+    private LocalDateTime lastModifiedDate;
 }

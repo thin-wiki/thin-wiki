@@ -1,36 +1,34 @@
 package wiki.thin.entity;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import org.apache.ibatis.type.MappedTypes;
-import wiki.thin.common.BaseCodeEnum;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.relational.core.mapping.Table;
 import wiki.thin.storage.StorageType;
 import wiki.thin.storage.StorageWorkType;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * @author Beldon
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
-@MappedTypes({BaseCodeEnum.class})
-public class Storage extends BaseEntity {
-
+@Table("storage")
+public class Storage implements Serializable {
+    @Id
+    private Long id;
     private String name;
-
     private String description;
-
     /**
      * 工作类型
      */
     private StorageWorkType workType;
-
     /**
      * 存储类型
      */
     private StorageType refStorageType;
-
     /**
      * 存储类型的id
      */
@@ -46,11 +44,8 @@ public class Storage extends BaseEntity {
      */
     private Boolean writable;
 
-    private Long createdBy;
-
+    @CreatedDate
     private Date createdDate;
-
-    private Long lastModifiedBy;
-
+    @LastModifiedDate
     private Date lastModifiedDate;
 }

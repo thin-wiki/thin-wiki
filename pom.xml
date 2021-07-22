@@ -10,7 +10,7 @@
     <groupId>wiki.thin</groupId>
     <artifactId>thin-wiki</artifactId>
     <version>0.1.0-SNAPSHOT</version>
-    <name>thin</name>
+    <name>thin-wiki</name>
     <description>A Thin Wiki</description>
     <url>https://github.com/thin-wiki/thin-wiki</url>
 
@@ -62,27 +62,21 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.mybatis.spring.boot</groupId>
-            <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>2.2.0</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-r2dbc</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-tomcat</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-undertow</artifactId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>dev.miku</groupId>
+            <artifactId>r2dbc-mysql</artifactId>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
@@ -93,10 +87,6 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-freemarker</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -112,17 +102,10 @@
             <artifactId>lucene-highlighter</artifactId>
             <version>8.9.0</version>
         </dependency>
-
         <dependency>
             <groupId>org.apache.lucene</groupId>
             <artifactId>lucene-queryparser</artifactId>
             <version>8.9.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>net.bull.javamelody</groupId>
-            <artifactId>javamelody-spring-boot-starter</artifactId>
-            <version>1.88.0</version>
         </dependency>
         <dependency>
             <groupId>org.zeroturnaround</groupId>
@@ -134,40 +117,40 @@
             <artifactId>jsoup</artifactId>
             <version>1.14.1</version>
         </dependency>
-        <dependency>
-            <groupId>org.update4j</groupId>
-            <artifactId>update4j</artifactId>
-            <version>1.5.7</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.oshi</groupId>
-            <artifactId>oshi-core</artifactId>
-            <version>5.8.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.update4j</groupId>-->
+<!--            <artifactId>update4j</artifactId>-->
+<!--            <version>1.5.7</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>com.github.oshi</groupId>-->
+<!--            <artifactId>oshi-core</artifactId>-->
+<!--            <version>5.8.0</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.flywaydb</groupId>-->
+<!--            <artifactId>flyway-core</artifactId>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-test</artifactId>-->
+<!--            <scope>test</scope>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
         </dependency>
-        <dependency>
-            <groupId>org.pf4j</groupId>
-            <artifactId>pf4j-spring</artifactId>
-            <version>0.7.0</version>
-        </dependency>
-        <dependency>
-            <groupId>wiki.thin</groupId>
-            <artifactId>installer</artifactId>
-            <version>0.0.2</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.pf4j</groupId>-->
+<!--            <artifactId>pf4j-spring</artifactId>-->
+<!--            <version>0.7.0</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>wiki.thin</groupId>-->
+<!--            <artifactId>installer</artifactId>-->
+<!--            <version>0.0.2</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>wiki.thin</groupId>
             <artifactId>thin-wiki-admin-ui</artifactId>
@@ -186,13 +169,13 @@
                     <plugin>
                         <groupId>org.springframework.boot</groupId>
                         <artifactId>spring-boot-maven-plugin</artifactId>
-                        <dependencies>
-                            <dependency>
-                                <groupId>org.springframework.boot.experimental</groupId>
-                                <artifactId>spring-boot-thin-layout</artifactId>
-                                <version>1.0.27.RELEASE</version>
-                            </dependency>
-                        </dependencies>
+<!--                        <dependencies>-->
+<!--                            <dependency>-->
+<!--                                <groupId>org.springframework.boot.experimental</groupId>-->
+<!--                                <artifactId>spring-boot-thin-layout</artifactId>-->
+<!--                                <version>1.0.27.RELEASE</version>-->
+<!--                            </dependency>-->
+<!--                        </dependencies>-->
                         <executions>
                             <execution>
                                 <goals>
@@ -209,21 +192,21 @@
                             </additionalProperties>
                         </configuration>
                     </plugin>
-                    <plugin>
-                        <groupId>org.springframework.boot.experimental</groupId>
-                        <artifactId>spring-boot-thin-maven-plugin</artifactId>
-                        <version>1.0.27.RELEASE</version>
-                        <executions>
-                            <execution>
-                                <id>resolve</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>resolve</goal>
-                                </goals>
-                                <inherited>false</inherited>
-                            </execution>
-                        </executions>
-                    </plugin>
+<!--                    <plugin>-->
+<!--                        <groupId>org.springframework.boot.experimental</groupId>-->
+<!--                        <artifactId>spring-boot-thin-maven-plugin</artifactId>-->
+<!--                        <version>1.0.27.RELEASE</version>-->
+<!--                        <executions>-->
+<!--                            <execution>-->
+<!--                                <id>resolve</id>-->
+<!--                                <phase>package</phase>-->
+<!--                                <goals>-->
+<!--                                    <goal>resolve</goal>-->
+<!--                                </goals>-->
+<!--                                <inherited>false</inherited>-->
+<!--                            </execution>-->
+<!--                        </executions>-->
+<!--                    </plugin>-->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-assembly-plugin</artifactId>
@@ -343,42 +326,42 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-pmd-plugin</artifactId>
-                <version>3.14.0</version>
-                <configuration>
-                    <rulesets>
-                        <ruleset>rulesets/java/ali-comment.xml</ruleset>
-                        <ruleset>rulesets/java/ali-concurrent.xml</ruleset>
-                        <ruleset>rulesets/java/ali-constant.xml</ruleset>
-                        <ruleset>rulesets/java/ali-exception.xml</ruleset>
-                        <ruleset>rulesets/java/ali-flowcontrol.xml</ruleset>
-                        <!--						<ruleset>rulesets/java/ali-naming.xml</ruleset>-->
-                        <ruleset>rulesets/java/ali-oop.xml</ruleset>
-                        <ruleset>rulesets/java/ali-orm.xml</ruleset>
-                        <ruleset>rulesets/java/ali-other.xml</ruleset>
-                        <ruleset>rulesets/java/ali-set.xml</ruleset>
-                    </rulesets>
-                    <printFailingErrors>true</printFailingErrors>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>validate</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>com.alibaba.p3c</groupId>
-                        <artifactId>p3c-pmd</artifactId>
-                        <version>2.1.1</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-pmd-plugin</artifactId>-->
+<!--                <version>3.14.0</version>-->
+<!--                <configuration>-->
+<!--                    <rulesets>-->
+<!--                        <ruleset>rulesets/java/ali-comment.xml</ruleset>-->
+<!--                        <ruleset>rulesets/java/ali-concurrent.xml</ruleset>-->
+<!--                        <ruleset>rulesets/java/ali-constant.xml</ruleset>-->
+<!--                        <ruleset>rulesets/java/ali-exception.xml</ruleset>-->
+<!--                        <ruleset>rulesets/java/ali-flowcontrol.xml</ruleset>-->
+<!--                        &lt;!&ndash;						<ruleset>rulesets/java/ali-naming.xml</ruleset>&ndash;&gt;-->
+<!--                        <ruleset>rulesets/java/ali-oop.xml</ruleset>-->
+<!--                        <ruleset>rulesets/java/ali-orm.xml</ruleset>-->
+<!--                        <ruleset>rulesets/java/ali-other.xml</ruleset>-->
+<!--                        <ruleset>rulesets/java/ali-set.xml</ruleset>-->
+<!--                    </rulesets>-->
+<!--                    <printFailingErrors>true</printFailingErrors>-->
+<!--                </configuration>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>validate</id>-->
+<!--                        <phase>validate</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>check</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--                <dependencies>-->
+<!--                    <dependency>-->
+<!--                        <groupId>com.alibaba.p3c</groupId>-->
+<!--                        <artifactId>p3c-pmd</artifactId>-->
+<!--                        <version>2.1.1</version>-->
+<!--                    </dependency>-->
+<!--                </dependencies>-->
+<!--            </plugin>-->
             <plugin>
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
@@ -393,34 +376,34 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.1.2</version>
-                <configuration>
-                    <!--					<configLocation>google_checks.xml</configLocation>-->
-                    <configLocation>${project.basedir}/style-for-idea.xml</configLocation>
-                    <encoding>UTF-8</encoding>
-                    <consoleOutput>true</consoleOutput>
-                    <failsOnError>true</failsOnError>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>com.puppycrawl.tools</groupId>
-                        <artifactId>checkstyle</artifactId>
-                        <version>8.30</version>
-                    </dependency>
-                </dependencies>
-                <executions>
-                    <execution>
-                        <id>validate</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-checkstyle-plugin</artifactId>-->
+<!--                <version>3.1.2</version>-->
+<!--                <configuration>-->
+<!--                    &lt;!&ndash;					<configLocation>google_checks.xml</configLocation>&ndash;&gt;-->
+<!--                    <configLocation>${project.basedir}/style-for-idea.xml</configLocation>-->
+<!--                    <encoding>UTF-8</encoding>-->
+<!--                    <consoleOutput>true</consoleOutput>-->
+<!--                    <failsOnError>true</failsOnError>-->
+<!--                </configuration>-->
+<!--                <dependencies>-->
+<!--                    <dependency>-->
+<!--                        <groupId>com.puppycrawl.tools</groupId>-->
+<!--                        <artifactId>checkstyle</artifactId>-->
+<!--                        <version>8.30</version>-->
+<!--                    </dependency>-->
+<!--                </dependencies>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>validate</id>-->
+<!--                        <phase>validate</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>check</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>

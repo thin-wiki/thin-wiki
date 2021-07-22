@@ -37,9 +37,9 @@ create table `article_column`
 ) engine = innodb
   default charset = utf8mb4;
 
--- article
-drop table if exists `article`;
-create table `article`
+-- post
+drop table if exists `post`;
+create table `post`
 (
     `id`                 bigint(20)  not null,
     `title`              varchar(20) not null,
@@ -204,5 +204,5 @@ create table `app_config`
   default charset = utf8mb4;
 
 # alter table article_column add column `sharable` int(1) default 0;
-# alter table article add column `sharable` int(1) default 2;
+# alter table post add column `sharable` int(1) default 2;
 # alter table article_history add column `sharable` int(1) default 2;

@@ -1,21 +1,13 @@
 package wiki.thin.config;
 
-import net.bull.javamelody.SessionListener;
 import org.springframework.boot.web.server.ConfigurableWebServerFactory;
 import org.springframework.boot.web.server.ErrorPage;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
-import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import wiki.thin.security.ApiInterceptor;
-
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
+import org.springframework.web.reactive.config.ResourceHandlerRegistry;
+import org.springframework.web.reactive.config.WebFluxConfigurer;
 
 /**
  * web config.
@@ -23,19 +15,19 @@ import javax.servlet.ServletException;
  * @author Beldon
  */
 @Configuration
-public class WebConfig implements WebMvcConfigurer, ServletContextInitializer {
+public class WebConfig implements WebFluxConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/theme/**").addResourceLocations("file:./theme/", "classpath:/theme/", "classpath:/templates/theme/");
         registry.addResourceHandler("/static/**").addResourceLocations("file:./static/", "classpath:/templates/static/");
-        registry.addResourceHandler("/admin/**").addResourceLocations(new ClassPathResource("/static/admin/"));
+//        registry.addResourceHandler("/admin/**").addResourceLocations(new ClassPathResource("/static/admin/"));
     }
 
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(apiInterceptor()).addPathPatterns("/api/**").excludePathPatterns("/api/pub/**");
-    }
+//    @Override
+//    public void addInterceptors(InterceptorRegistry registry) {
+//        registry.addInterceptor(apiInterceptor()).addPathPatterns("/api/**").excludePathPatterns("/api/pub/**");
+//    }
 
     @Bean
     public WebServerFactoryCustomizer<ConfigurableWebServerFactory> webServerFactoryCustomizer() {
@@ -46,13 +38,9 @@ public class WebConfig implements WebMvcConfigurer, ServletContextInitializer {
 
     }
 
-    @Bean
-    public ApiInterceptor apiInterceptor() {
-        return new ApiInterceptor();
-    }
+//    @Bean
+//    public ApiInterceptor apiInterceptor() {
+//        return new ApiInterceptor();
+//    }
 
-    @Override
-    public void onStartup(ServletContext servletContext) throws ServletException {
-        servletContext.addListener(SessionListener.class);
-    }
 }

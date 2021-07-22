@@ -1,42 +1,37 @@
 package wiki.thin.entity;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.relational.core.mapping.Table;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * @author Beldon
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
-public class StorageFile extends BaseEntity {
-
+@Table("storage_file")
+public class StorageFile implements Serializable {
+    @Id
+    private Long id;
     private Long targetId;
-
     private String originalFileName;
-
     private String suffix;
-
     private Long fileSize;
-
     private String contentType;
-
     /**
      * 相对路径
      */
     private String relativePath;
-
     /**
      * 存储类型id
      */
     private Long storageId;
-
-    private Long createdBy;
-
+    @CreatedDate
     private Date createdDate;
-
-    private Long lastModifiedBy;
-
+    @LastModifiedDate
     private Date lastModifiedDate;
 }

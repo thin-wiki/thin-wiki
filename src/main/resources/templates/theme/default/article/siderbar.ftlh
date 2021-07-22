@@ -45,7 +45,7 @@
                 }
                 $.ajax({
                     type: "PUT",
-                    url: "/api/article/" + id + "/pid?parentId=" + pid,
+                    url: "/api/post/" + id + "/pid?parentId=" + pid,
                     dataType: "json",
                     success: function (data) {
                         alert.msg("修改成功");

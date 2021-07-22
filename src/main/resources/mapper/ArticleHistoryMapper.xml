@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="wiki.thin.mapper.ArticleHistoryMapper">
 
-    <insert id="insertSelective" parameterType="wiki.thin.entity.ArticleHistory">
+    <insert id="insertSelective" parameterType="wiki.thin.entity.PostHistory">
         insert into article_history
         <trim prefix="(" suffix=")" suffixOverrides=",">
             id,

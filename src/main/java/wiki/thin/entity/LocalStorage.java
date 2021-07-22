@@ -1,31 +1,26 @@
 package wiki.thin.entity;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
 
-import java.util.Date;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * @author Beldon
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
-public class LocalStorage extends BaseEntity {
-
+@Table("local_storage")
+public class LocalStorage implements Serializable {
+    @Id
+    private Long id;
     private String name;
-
     private String description;
-
     /**
      * base path
      */
     private String basePath;
-
-    private Long createdBy;
-
-    private Date createdDate;
-
-    private Long lastModifiedBy;
-
-    private Date lastModifiedDate;
+    private LocalDateTime createdDate;
+    private LocalDateTime lastModifiedDate;
 }

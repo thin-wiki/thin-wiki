@@ -14,7 +14,7 @@
                 }, function(){
                     $.ajax({
                         type: "DELETE",
-                        url: "/api/article/column/"+columnId,
+                        url: "/api/post/column/"+columnId,
                         contentType: "application/json",
                         dataType: "json",
                         success: function (data) {

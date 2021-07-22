@@ -1,8 +1,8 @@
 <#include "../layout/_layout.ftlh"/>
-<#assign articleOptional=articleVar.article(articleId) />
+<#assign articleOptional=articleVar.post(articleId) />
 
 <#if articleOptional.present>
-    <#assign article=articleOptional.get() />
+    <#assign post=articleOptional.get() />
     <@css>
         <link rel="stylesheet" href="${resVar.resourceBashPath}static/prism/prism.css">
         <link href="https://cdn.bootcdn.net/ajax/libs/viewerjs/1.9.0/viewer.min.css" rel="stylesheet">
@@ -30,7 +30,7 @@
                         });
                         $.ajax({
                             type: "PUT",
-                            url: "/api/article/${(article.id)?c}/share?shareable=" + that.value,
+                            url: "/api/post/${(post.id)?c}/share?shareable=" + that.value,
                             contentType: "application/json",
                             dataType: "json",
                             success: function (data) {
@@ -49,7 +49,7 @@
                         }, function(){
                             $.ajax({
                                 type: "DELETE",
-                                url: "/api/article/${(article.id)?c}",
+                                url: "/api/post/${(post.id)?c}",
                                 contentType: "application/json",
                                 dataType: "json",
                                 success: function (data) {
@@ -74,37 +74,37 @@
             </script>
         </#if>
     </@javascript>
-    <@layout title=article.title>
+    <@layout title=post.title>
         <div class="d-flex px-4 h-100" id="main-content">
             <div class="flex-shrink-1 col-4 col-md-3 col-sm-4 col-xl-2 bd-sidebar h-100 border-end">
                 <#include "siderbar.ftlh"/>
             </div>
-            <main class="container col-8 col-md-9 col-sm-8 col-xl-10 line-numbers flex-fill px-5 overflow-auto h-100" role="main" id="article-content">
+            <main class="container col-8 col-md-9 col-sm-8 col-xl-10 line-numbers flex-fill px-5 overflow-auto h-100" role="main" id="post-content">
                 <div class="detail-title pt-3">
-                    <p class="h1" style="display:inline-block">${article.title}</p>
+                    <p class="h1" style="display:inline-block">${post.title}</p>
                     <#if secVar.isLogin()>
                         <div class="share2" style="float:right">
                             <button type="button" class="btn-sm btn-outline-danger delete"><i class="bi bi-trash"></i></button>
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="sharable" id="sharable_share"
-                                       value="SHAREABLE" <#if article.sharable.code==0>checked</#if>>
+                                       value="SHAREABLE" <#if post.sharable.code==0>checked</#if>>
                                 <label class="form-check-label" for="sharable_share">公开</label>
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="sharable" id="sharable_private"
-                                       value="PRIVATE" <#if article.sharable.code==1>checked</#if>>
+                                       value="PRIVATE" <#if post.sharable.code==1>checked</#if>>
                                 <label class="form-check-label" for="sharable_private">私有</label>
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="sharable" id="sharable_inherited"
-                                       value="INHERITED" <#if article.sharable.code==2>checked</#if>>
+                                       value="INHERITED" <#if post.sharable.code==2>checked</#if>>
                                 <label class="form-check-label" for="sharable_inherited">继承</label>
                             </div>
                         </div>
                     </#if>
                 </div>
                 <div class="detail-body pb-5 mb-5" id="detail-body">
-                    ${article.content!?no_esc}
+                    ${post.content!?no_esc}
                 </div>
             </main>
         </div>
