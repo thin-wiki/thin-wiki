@@ -1,8 +1,6 @@
 package wiki.thin.service.impl;
 
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
-import wiki.thin.common.util.ShaUtils;
 import wiki.thin.service.PasswordService;
 
 /**
@@ -12,8 +10,9 @@ import wiki.thin.service.PasswordService;
 public class PasswordServiceImpl implements PasswordService {
     @Override
     public String encode(String password) {
-        Assert.hasText(password, "password can not be empty");
-        return ShaUtils.sha256(password);
+//        Assert.hasText(password, "password can not be empty");
+//        return ShaUtils.sha256(password);
+        return null;
     }
 
     @Override
