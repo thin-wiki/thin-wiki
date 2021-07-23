@@ -2,26 +2,21 @@ name: Build Native
 on:
   push:
     branches: [ native ]
-
 jobs:
-  build-mac:
-    runs-on: macos-latest
+  build-linux:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Cache local Maven repository
-        uses: actions/cache@v2
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
       - name: set graalvm
         uses: ayltai/setup-graalvm@v1
         with:
           java-version: 11
-          graalvm-version: 21.0.0
+          graalvm-version: 21.1.0
           native-image: true
       - name: Build with Maven
         run: mvn -B -Pnative -DskipTests package --file pom.xml
       - name: ls
         run: ls -anh ./target/
+      - uses: actions/upload-artifact@v2
+        with:
+          path: ./target/thin-wiki

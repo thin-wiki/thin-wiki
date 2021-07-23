@@ -44,3 +44,4 @@ release.properties
 pom.xml.releaseBackup
 app.pid
 theme/
+*.log
