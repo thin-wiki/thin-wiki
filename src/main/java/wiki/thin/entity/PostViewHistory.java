@@ -18,7 +18,7 @@ import java.util.Date;
 public class PostViewHistory implements Serializable {
     @Id
     private Long id;
-    private Long articleId;
+    private Long postId;
     private Long viewCount;
     @CreatedDate
     private LocalDateTime createdDate;
