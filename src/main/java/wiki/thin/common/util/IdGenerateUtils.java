@@ -6,7 +6,7 @@ package wiki.thin.common.util;
 public class IdGenerateUtils {
     private static final long START_TIMESTAMP = 1608820163L;
 
-    private static final long SEQUENCE_BIT = 4;
+    private static final long SEQUENCE_BIT = 8;
 
     private static final long MAX_SEQUENCE = ~(-1L << SEQUENCE_BIT);
 

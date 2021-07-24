@@ -1,24 +1,24 @@
 //package wiki.thin.web.controller.admin;
 //
+//import lombok.AllArgsConstructor;
 //import lombok.extern.slf4j.Slf4j;
 //import org.springframework.web.bind.annotation.PutMapping;
 //import org.springframework.web.bind.annotation.RequestBody;
 //import org.springframework.web.bind.annotation.RequestMapping;
 //import org.springframework.web.bind.annotation.RestController;
+//import org.springframework.web.server.ServerWebExchange;
+//import reactor.core.publisher.Mono;
 //import wiki.thin.constant.ConfigConstant;
 //import wiki.thin.entity.User;
-//import wiki.thin.mapper.UserMapper;
-//import wiki.thin.security.OnlineUserManager;
+//import wiki.thin.repo.UserAutoRepo;
+//import wiki.thin.security.LoginService;
 //import wiki.thin.security.annotation.NeedAuth;
-//import wiki.thin.security.remember.RememberMeService;
 //import wiki.thin.service.AppConfigService;
 //import wiki.thin.service.PasswordService;
 //import wiki.thin.web.controller.BaseController;
 //import wiki.thin.web.vo.ChangePasswordVO;
 //import wiki.thin.web.vo.ResponseVO;
 //
-//import javax.servlet.http.HttpServletRequest;
-//import javax.servlet.http.HttpServletResponse;
 //import javax.validation.Valid;
 //import java.util.Optional;
 //import java.util.UUID;
@@ -30,24 +30,18 @@
 //@RestController
 //@NeedAuth
 //@Slf4j
+//@AllArgsConstructor
 //public class UserAdminController extends BaseController {
-//    private final UserMapper userMapper;
+//    private final UserAutoRepo userAutoRepo;
 //    private final PasswordService passwordService;
-//    private final RememberMeService rememberMeService;
 //    private final AppConfigService appConfigService;
-//    private final OnlineUserManager onlineUserManager;
+//    private final LoginService loginService;
 //
-//    public UserAdminController(UserMapper userMapper, PasswordService passwordService, RememberMeService rememberMeService,
-//                               AppConfigService appConfigService, OnlineUserManager onlineUserManager) {
-//        this.userMapper = userMapper;
-//        this.passwordService = passwordService;
-//        this.rememberMeService = rememberMeService;
-//        this.appConfigService = appConfigService;
-//        this.onlineUserManager = onlineUserManager;
-//    }
 //
 //    @PutMapping("/password")
-//    public ResponseVO changePass(@Valid @RequestBody ChangePasswordVO passwordVO, HttpServletRequest request, HttpServletResponse response) {
+//    public Mono<ResponseVO> changePass(@Valid @RequestBody ChangePasswordVO passwordVO, ServerWebExchange exchange) {
+//        final Mono<User> userMono = userAutoRepo.findByAccount(currentAccount());
+//
 //        final Optional<User> userOptional = userMapper.findByAccount(currentAccount());
 //        if (userOptional.isEmpty()) {
 //            return ResponseVO.error("用户不存在");
@@ -64,13 +58,13 @@
 //        userMapper.updatePassword(user.getId(), newPassEncode);
 //
 //        //退出登录
-//        rememberMeService.logout(request, response);
+//        loginService.logout(exchange);
 //
 //        //更新记住密码秘钥
 //        appConfigService.updateSysConfig(ConfigConstant.SYS_REMEMBER_ME_SECRET_KEY, UUID.randomUUID().toString());
 //
 //        //清除所有 session
-//        onlineUserManager.clearAll();
+////        onlineUserManager.clearAll();
 //
 //        return ResponseVO.success();
 //    }

@@ -14,22 +14,23 @@ public abstract class BaseController {
     }
 
     protected boolean isLogin() {
-        return AuthenticationContextHolder.isLogin();
+//        return AuthenticationContextHolder.isLogin();
+        return false;
     }
 
     protected Long currentUserId() {
-        final User user = AuthenticationContextHolder.currentUser();
-        if (user != null) {
-            return user.getId();
-        }
+//        final User user = AuthenticationContextHolder.currentUser();
+//        if (user != null) {
+//            return user.getId();
+//        }
         return null;
     }
 
     protected String currentAccount() {
-        final User user = AuthenticationContextHolder.currentUser();
-        if (user != null) {
-            return user.getAccount();
-        }
+//        final User user = AuthenticationContextHolder.currentUser();
+//        if (user != null) {
+//            return user.getAccount();
+//        }
         return null;
     }
 }
