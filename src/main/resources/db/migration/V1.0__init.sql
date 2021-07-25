@@ -22,13 +22,13 @@ values (1000, 'admin', '2020-12-21 21:12:20', '2020-12-21 21:12:27', '2020-12-21
 drop table if exists `post_column`;
 create table `post_column`
 (
-    `id`                 bigint(20) not null,
+    `id`                 bigint(20)   not null,
     `path`               varchar(255) not null,
     `title`              varchar(255) not null,
-    `content`            longtext default null,
-    `sharable`           bit(1)   default 0 comment '0-私有的，1-公开的，2-继承',
-    `created_date`       datetime default now(),
-    `last_modified_date` datetime default now() ON UPDATE now(),
+    `content`            longtext    default null,
+    `sharable`           varchar(10) default null,
+    `created_date`       datetime    default now(),
+    `last_modified_date` datetime    default now() ON UPDATE now(),
     primary key (`id`),
     unique key idx_path (path)
 ) engine = innodb
@@ -40,14 +40,14 @@ create table `post`
 (
     `id`                 bigint      not null,
     `title`              varchar(20) not null,
-    `content`            longtext default null,
-    `parent_id`          bigint   default 0,
+    `content`            longtext    default null,
+    `parent_id`          bigint      default 0,
     `column_id`          bigint      not null,
-    `sharable`           tinyint  default 2 comment '0-私有的，1-公开的，2-继承',
-    `status`             tinyint  default 0 comment '状态，0-正常，-1 回收站中',
-    `version`            int      default 0,
-    `created_date`       datetime default now(),
-    `last_modified_date` datetime default now() ON UPDATE now(),
+    `sharable`           varchar(10) default null,
+    `status`             tinyint     default 0 comment '状态，0-正常，-1 回收站中',
+    `version`            int         default 0,
+    `created_date`       datetime    default now(),
+    `last_modified_date` datetime    default now() ON UPDATE now(),
     primary key (`id`)
 ) engine = innodb
   default charset = utf8mb4;
@@ -56,17 +56,17 @@ create table `post`
 drop table if exists `post_history`;
 create table `post_history`
 (
-    `id`           bigint(20) not null,
-    `post_id`      bigint(20) not null,
+    `id`           bigint(20)  not null,
+    `post_id`      bigint(20)  not null,
     `title`        varchar(20) not null,
-    `content`      longtext default null,
-    `parent_id`    bigint(20) default 0,
-    `column_id`    bigint(20) not null,
-    `sharable`     int(1) default 2 comment '0-私有的，1-公开的，2-继承',
-    `version`      int      default 1,
-    `created_date` datetime default now(),
+    `content`      longtext    default null,
+    `parent_id`    bigint(20)  default 0,
+    `column_id`    bigint(20)  not null,
+    `sharable`     varchar(10) default null,
+    `version`      int         default 1,
+    `created_date` datetime    default now(),
     primary key (`id`),
-    index          idx_post_id (post_id)
+    index idx_post_id (post_id)
 ) engine = innodb
   default charset = utf8mb4;
 
@@ -80,7 +80,7 @@ create table `post_view_history`
     `created_date`       datetime default now(),
     `last_modified_date` datetime default now() ON UPDATE now(),
     primary key (`id`),
-    index                idx_post_id (post_id)
+    index idx_post_id (post_id)
 ) engine = innodb
   default charset = utf8mb4;
 
@@ -88,13 +88,13 @@ create table `post_view_history`
 drop table if exists `storage`;
 create table `storage`
 (
-    `id`                 bigint(20) not null,
+    `id`                 bigint(20)   not null,
     `name`               varchar(100) not null,
     `description`        varchar(255) default null,
-    `work_type`          tinyint(1) not null,
-    `ref_storage_type`   tinyint(1) default null,
-    `ref_storage_id`     bigint(20) default null,
-    `main_storage_id`    bigint(20) default null,
+    `work_type`          tinyint(1)   not null,
+    `ref_storage_type`   tinyint(1)   default null,
+    `ref_storage_id`     bigint(20)   default null,
+    `main_storage_id`    bigint(20)   default null,
     `writable`           bit(1)       default 1,
     `created_date`       datetime     default now(),
     `last_modified_date` datetime     default now() ON UPDATE now(),
@@ -106,7 +106,7 @@ create table `storage`
 drop table if exists `local_storage`;
 create table `local_storage`
 (
-    `id`                 bigint(20) not null,
+    `id`                 bigint(20)   not null,
     `name`               varchar(100) not null,
     `description`        varchar(255) default null,
     `base_path`          varchar(255) default null,
@@ -120,7 +120,7 @@ create table `local_storage`
 drop table if exists `github_storage`;
 create table `github_storage`
 (
-    `id`                 bigint(20) not null,
+    `id`                 bigint(20)   not null,
     `name`               varchar(100) not null,
     `description`        varchar(255) default null,
     `token`              varchar(255) default null,
@@ -138,7 +138,7 @@ create table `github_storage`
 drop table if exists `gitee_storage`;
 create table `gitee_storage`
 (
-    `id`                 bigint(20) not null,
+    `id`                 bigint(20)   not null,
     `name`               varchar(100) not null,
     `description`        varchar(255) default null,
     `token`              varchar(255) default null,
@@ -160,14 +160,14 @@ create table `storage_file`
     `target_id`          bigint(20) not null,
     `original_file_name` varchar(255) default null,
     `suffix`             varchar(20)  default null,
-    `file_size`          bigint(20) default null,
+    `file_size`          bigint(20)   default null,
     `content_type`       varchar(100) default null,
     `relative_path`      varchar(255) default null,
-    `storage_id`         bigint(20) default null,
+    `storage_id`         bigint(20)   default null,
     `created_date`       datetime     default now(),
     `last_modified_date` datetime     default now() ON UPDATE now(),
     primary key (`id`),
-    index                idx_target_id (target_id)
+    index idx_target_id (target_id)
 ) engine = innodb
   default charset = utf8mb4;
 
@@ -175,12 +175,12 @@ create table `storage_file`
 drop table if exists `app_config`;
 create table `app_config`
 (
-    `id`                 bigint(20) not null,
+    `id`                 bigint(20)  not null,
     `type`               varchar(50) not null,
     `key`                varchar(50) not null,
     `value`              longtext     default null,
     `description`        varchar(255) default null,
-    `created_by`         bigint(20) default null,
+    `created_by`         bigint(20)   default null,
     `created_date`       datetime     default now(),
     `last_modified_date` datetime     default now() ON UPDATE now(),
     primary key (`id`),

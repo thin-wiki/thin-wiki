@@ -1,17 +1,21 @@
 package wiki.thin.web.controller.api;
 
 import lombok.AllArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 import wiki.thin.constant.enums.SharableEnum;
 import wiki.thin.entity.PostColumn;
 import wiki.thin.repo.PostAutoRepo;
 import wiki.thin.repo.PostColumnAutoRepo;
+import wiki.thin.security.annotation.NeedLogin;
 import wiki.thin.service.ArticleSearchService;
-import wiki.thin.web.vo.ArticleColumnModifyVO;
+import wiki.thin.web.vo.PostColumnModifyVO;
+import wiki.thin.web.vo.PostColumnListVO;
 import wiki.thin.web.vo.ResponseVO;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * @author Beldon
@@ -27,7 +31,8 @@ public class PostColumnApiController {
 
 
     @PostMapping
-    public Mono<ResponseVO> saveColumn(@Valid @RequestBody ArticleColumnModifyVO modifyVO) {
+    @NeedLogin
+    public Mono<ResponseVO> saveColumn(@Valid @RequestBody PostColumnModifyVO modifyVO) {
 
         return postColumnAutoRepo.countByPath(modifyVO.getPath())
                 .flatMap(count -> {
@@ -46,7 +51,7 @@ public class PostColumnApiController {
     }
 
     @PutMapping("/{columnId}")
-    public Mono<ResponseVO> updateColumn(@PathVariable Long columnId, @Valid @RequestBody ArticleColumnModifyVO modifyVO) {
+    public Mono<ResponseVO> updateColumn(@PathVariable Long columnId, @Valid @RequestBody PostColumnModifyVO modifyVO) {
 
         return postColumnAutoRepo.findById(columnId)
                 .flatMap(column -> {
@@ -91,5 +96,16 @@ public class PostColumnApiController {
                             .doOnSuccess(c -> articleSearchService.reBuildIndex(c.getId()))
                             .thenReturn(ResponseVO.success());
                 }).defaultIfEmpty(ResponseVO.error("找不到指定类目"));
+    }
+
+    @GetMapping
+    public Mono<ResponseVO<List<PostColumnListVO>>> list() {
+        return postColumnAutoRepo.findAll()
+                .map(column -> {
+                    PostColumnListVO list = new PostColumnListVO();
+                    BeanUtils.copyProperties(column, list);
+                    return list;
+                }).collectList()
+                .map(ResponseVO::successWithData);
     }
 }

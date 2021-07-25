@@ -15,5 +15,6 @@ public class PostColumn extends BaseEntity {
     private String path;
     private String title;
     private String content;
+
     private SharableEnum sharable;
 }
