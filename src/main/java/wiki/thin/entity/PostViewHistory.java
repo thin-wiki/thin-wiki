@@ -1,27 +1,16 @@
 package wiki.thin.entity;
 
 import lombok.Data;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.LastModifiedDate;
+import lombok.EqualsAndHashCode;
 import org.springframework.data.relational.core.mapping.Table;
-
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  * @author Beldon
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Table("post_view_history")
-public class PostViewHistory implements Serializable {
-    @Id
-    private Long id;
+public class PostViewHistory extends BaseEntity {
     private Long postId;
     private Long viewCount;
-    @CreatedDate
-    private LocalDateTime createdDate;
-    @LastModifiedDate
-    private Date lastModifiedDate;
 }

@@ -1,6 +1,8 @@
 //package wiki.thin.web.controller.admin;
 //
+//import lombok.AllArgsConstructor;
 //import org.springframework.web.bind.annotation.*;
+//import reactor.core.publisher.Mono;
 //import wiki.thin.entity.GiteeStorage;
 //import wiki.thin.entity.GithubStorage;
 //import wiki.thin.entity.LocalStorage;
@@ -9,6 +11,10 @@
 //import wiki.thin.mapper.GithubStorageMapper;
 //import wiki.thin.mapper.LocalStorageMapper;
 //import wiki.thin.mapper.StorageMapper;
+//import wiki.thin.repo.GiteeStorageAutoRepo;
+//import wiki.thin.repo.GithubStorageAutoRepo;
+//import wiki.thin.repo.LocalStorageAutoRepo;
+//import wiki.thin.repo.StorageAutoRepo;
 //import wiki.thin.security.annotation.NeedAuth;
 //import wiki.thin.storage.StorageFileManager;
 //import wiki.thin.storage.StorageType;
@@ -23,6 +29,7 @@
 //import java.util.List;
 //import java.util.Map;
 //import java.util.Optional;
+//import java.util.function.Consumer;
 //import java.util.stream.Collectors;
 //
 ///**
@@ -31,49 +38,37 @@
 //@RestController
 //@RequestMapping("/api/admin/storage")
 //@NeedAuth
+//@AllArgsConstructor
 //public class StorageAdminController {
-//    private final StorageMapper storageMapper;
-//    private final LocalStorageMapper localStorageMapper;
-//    private final GiteeStorageMapper giteeStorageMapper;
-//    private final GithubStorageMapper githubStorageMapper;
-//    private final StorageFileManager storageFileManager;
-//
-//    public StorageAdminController(StorageMapper storageMapper, LocalStorageMapper localStorageMapper,
-//                                  GiteeStorageMapper giteeStorageMapper, GithubStorageMapper githubStorageMapper,
-//                                  StorageFileManager storageFileManager) {
-//        this.storageMapper = storageMapper;
-//        this.localStorageMapper = localStorageMapper;
-//        this.giteeStorageMapper = giteeStorageMapper;
-//        this.githubStorageMapper = githubStorageMapper;
-//        this.storageFileManager = storageFileManager;
-//    }
+//    private final StorageAutoRepo storageAutoRepo;
+//    private final LocalStorageAutoRepo localStorageAutoRepo;
+//    private final GiteeStorageAutoRepo giteeStorageAutoRepo;
+//    private final GithubStorageAutoRepo githubStorageAutoRepo;
 //
 //    @PostMapping
-//    public ResponseVO<Long> saveStorage(@Valid @RequestBody StorageModifyVO storageModifyVO) {
+//    public Mono<ResponseVO> saveStorage(@Valid @RequestBody StorageModifyVO storageModifyVO) {
 //        var storage = new Storage();
 //        storage.setName(storageModifyVO.getName());
 //        storage.setDescription(storageModifyVO.getDescription());
 //        storage.setWorkType(storageModifyVO.getWorkType());
 //        storage.setMainStorageId(storageModifyVO.getMainStorageId());
 //        storage.setWritable(storageModifyVO.getWritable());
-//        storageMapper.insertSelective(storage);
-//        return ResponseVO.successWithData(storage.getId());
+//        return storageAutoRepo.save(storage)
+//                .thenReturn(ResponseVO.success());
 //    }
 //
 //    @PutMapping("/{storageId}")
-//    public ResponseVO updateStorage(@PathVariable Long storageId, @Valid @RequestBody StorageModifyVO storageModifyVO) {
-//        final Optional<Storage> storageOptional = storageMapper.findById(storageId);
-//        if (storageOptional.isEmpty()) {
-//            return ResponseVO.error("找不到指定记录");
-//        }
-//        var storage = storageOptional.get();
-//        storage.setName(storageModifyVO.getName());
-//        storage.setDescription(storageModifyVO.getDescription());
-//        storage.setWorkType(storageModifyVO.getWorkType());
-//        storage.setMainStorageId(storageModifyVO.getMainStorageId());
-//        storage.setWritable(storageModifyVO.getWritable());
-//        storageMapper.updateByIdSelective(storage);
-//        return ResponseVO.success();
+//    public Mono<ResponseVO> updateStorage(@PathVariable Long storageId, @Valid @RequestBody StorageModifyVO storageModifyVO) {
+//        return storageAutoRepo.findById(storageId)
+//                .flatMap(storage -> {
+//                    storage.setName(storageModifyVO.getName());
+//                    storage.setDescription(storageModifyVO.getDescription());
+//                    storage.setWorkType(storageModifyVO.getWorkType());
+//                    storage.setMainStorageId(storageModifyVO.getMainStorageId());
+//                    storage.setWritable(storageModifyVO.getWritable());
+//                    return storageAutoRepo.save(storage).thenReturn(ResponseVO.success());
+//                }).defaultIfEmpty(ResponseVO.error("找不到指定记录"));
+//
 //    }
 //
 //    @PutMapping("/{storageId}/bind")
@@ -93,9 +88,9 @@
 //    }
 //
 //    @DeleteMapping("/{storageId}")
-//    public ResponseVO deleteStorage(@PathVariable Long storageId) {
-//        storageMapper.delete(storageId);
-//        return ResponseVO.success();
+//    public Mono<ResponseVO> deleteStorage(@PathVariable Long storageId) {
+//        return storageAutoRepo.deleteById(storageId)
+//                .thenReturn(ResponseVO.success());
 //    }
 //
 //    @GetMapping

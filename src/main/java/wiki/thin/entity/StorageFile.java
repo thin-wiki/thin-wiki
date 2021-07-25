@@ -1,22 +1,16 @@
 package wiki.thin.entity;
 
 import lombok.Data;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.LastModifiedDate;
+import lombok.EqualsAndHashCode;
 import org.springframework.data.relational.core.mapping.Table;
-
-import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @author Beldon
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Table("storage_file")
-public class StorageFile implements Serializable {
-    @Id
-    private Long id;
+public class StorageFile extends BaseEntity {
     private Long targetId;
     private String originalFileName;
     private String suffix;
@@ -30,8 +24,4 @@ public class StorageFile implements Serializable {
      * 存储类型id
      */
     private Long storageId;
-    @CreatedDate
-    private Date createdDate;
-    @LastModifiedDate
-    private Date lastModifiedDate;
 }
