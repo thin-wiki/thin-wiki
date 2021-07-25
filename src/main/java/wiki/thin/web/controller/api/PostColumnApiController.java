@@ -50,6 +50,7 @@ public class PostColumnApiController {
                 });
     }
 
+    @NeedLogin
     @PutMapping("/{columnId}")
     public Mono<ResponseVO> updateColumn(@PathVariable Long columnId, @Valid @RequestBody PostColumnModifyVO modifyVO) {
 
@@ -57,7 +58,6 @@ public class PostColumnApiController {
                 .flatMap(column -> {
 
                     column.setTitle(modifyVO.getTitle());
-                    column.setPath(modifyVO.getPath());
                     column.setContent(modifyVO.getContent());
 
                     if (!column.getPath().equals(modifyVO.getPath())) {
@@ -66,6 +66,7 @@ public class PostColumnApiController {
                                     if (count > 0) {
                                         return Mono.just(ResponseVO.error("path [" + modifyVO.getPath() + "] 已存在"));
                                     }
+                                    column.setPath(modifyVO.getPath());
                                     return postColumnAutoRepo.save(column)
                                             .thenReturn(ResponseVO.success());
                                 });
@@ -73,10 +74,11 @@ public class PostColumnApiController {
                         return postColumnAutoRepo.save(column)
                                 .thenReturn(ResponseVO.success());
                     }
-                });
+                }).defaultIfEmpty(ResponseVO.error("找不到指定记录"));
 
     }
 
+    @NeedLogin
     @DeleteMapping("/{columnId}")
     public Mono<ResponseVO> deleteColumn(@PathVariable Long columnId) {
         return postAutoRepo.countByColumnId(columnId).flatMap(count -> {
@@ -87,6 +89,7 @@ public class PostColumnApiController {
         });
     }
 
+    @NeedLogin
     @PutMapping("/{columnId}/share")
     public Mono<ResponseVO> updateSharable(@PathVariable Long columnId, @RequestParam("shareable") SharableEnum sharable) {
         return postColumnAutoRepo.findById(columnId)
