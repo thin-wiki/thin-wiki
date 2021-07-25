@@ -1,7 +1,11 @@
 package wiki.thin.web.controller;
 
+import reactor.core.publisher.Mono;
 import wiki.thin.entity.User;
+import wiki.thin.security.Authentication;
 import wiki.thin.security.AuthenticationContextHolder;
+
+import java.util.function.Function;
 
 /**
  * controller base
@@ -26,11 +30,8 @@ public abstract class BaseController {
         return null;
     }
 
-    protected String currentAccount() {
-//        final User user = AuthenticationContextHolder.currentUser();
-//        if (user != null) {
-//            return user.getAccount();
-//        }
-        return null;
+    protected Mono<String> currentAccount() {
+        return AuthenticationContextHolder.getAuthentication().map(authentication -> authentication.user().getAccount());
     }
+
 }

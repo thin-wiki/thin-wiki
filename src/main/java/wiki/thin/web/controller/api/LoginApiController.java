@@ -17,6 +17,7 @@ import wiki.thin.web.vo.ResponseVO;
 import wiki.thin.web.vo.UserVO;
 
 import javax.validation.Valid;
+import java.util.function.Function;
 
 /**
  * @author Beldon
@@ -34,10 +35,14 @@ public class LoginApiController extends BaseController {
     @PostMapping("/login")
     public Mono<ResponseVO> login(@Valid @RequestBody Mono<LoginVO> loginMono, ServerWebExchange exchange) {
 
-        return loginMono.doOnNext(loginVO -> {
+        return loginMono.flatMap(loginVO -> {
             if (ObjectUtils.isEmpty(loginVO.getAccount())) {
-                loginVO.setAccount(currentAccount());
+                return currentAccount().flatMap(account -> {
+                    loginVO.setAccount(account);
+                    return Mono.just(loginVO);
+                });
             }
+            return Mono.just(loginVO);
         }).flatMap(loginVO -> {
 
             if (ObjectUtils.isEmpty(loginVO.getAccount())) {
