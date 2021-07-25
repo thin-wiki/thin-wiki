@@ -15,4 +15,6 @@ public interface PostAutoRepo extends ReactiveSortingRepository<Post, Long> {
     Mono<Void> deleteByStatus(Integer status);
 
     Mono<Void> deleteByIdAndStatus(Long id, Integer status);
+
+    Mono<Long> countByColumnId(Long columnId);
 }

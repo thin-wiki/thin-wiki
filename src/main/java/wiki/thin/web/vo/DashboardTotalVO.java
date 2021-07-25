@@ -7,6 +7,6 @@ import lombok.Data;
  */
 @Data
 public class DashboardTotalVO {
-    private Integer columnCount;
-    private Integer articleCount;
+    private Long columnCount;
+    private Long postCount;
 }
