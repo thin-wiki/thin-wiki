@@ -26,6 +26,7 @@ public class Post implements Serializable {
     private Long parentId;
     private Long columnId;
     private SharableEnum sharable;
+    private Integer status;
     @Version
     private Integer version;
     private LocalDateTime createdDate;
