@@ -1,39 +1,55 @@
-//package wiki.thin.backup;
-//
-//import org.springframework.jdbc.core.JdbcTemplate;
-//import org.springframework.stereotype.Service;
-//
-//import java.sql.ResultSetMetaData;
-//import java.sql.Types;
-//import java.util.List;
-//import java.util.Objects;
-//
-///**
-// * @author Beldon
-// */
-//@Service
-//class MySqlService {
-//
-//    private final JdbcTemplate jdbcTemplate;
-//
-//    public MySqlService(JdbcTemplate jdbcTemplate) {
-//        this.jdbcTemplate = jdbcTemplate;
-//    }
-//
-//    public List<String> getAllTables(String database) {
-//        return jdbcTemplate.query("SHOW TABLE STATUS FROM `" + database + "`;",
-//                (resultSet, i) -> resultSet.getString("Name"));
-//    }
-//
-//    public String getQueryCreateTableSql(String table) {
-//        final List<String> data = jdbcTemplate.query("SHOW CREATE TABLE " + "`" + table + "`;",
-//                (resultSet, i) -> resultSet.getString(2));
-//        if (data.size() == 1) {
-//            return "DROP TABLE IF EXISTS `" + table + "`;\n" + data.get(0);
-//        }
-//        return null;
-//    }
-//
+package wiki.thin.backup;
+
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.r2dbc.core.R2dbcEntityTemplate;
+import org.springframework.r2dbc.core.DatabaseClient;
+import org.springframework.r2dbc.core.FetchSpec;
+import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+
+import java.sql.ResultSetMetaData;
+import java.sql.Types;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.function.Function;
+
+/**
+ * @author Beldon
+ */
+@Service
+@AllArgsConstructor
+public class MySqlService {
+
+    private final DatabaseClient databaseClient;
+
+    public Flux<String> getAllTables(String database) {
+        return databaseClient.sql("SHOW TABLE STATUS FROM `" + database + "`;")
+                .fetch()
+                .all()
+                .map(stringObjectMap -> stringObjectMap.get("Auto_increment").toString());
+    }
+
+    public Mono<String> getQueryCreateTableSql(String table) {
+        return databaseClient.sql("SHOW CREATE TABLE " + "`" + table + "`;")
+                .fetch()
+                .first()
+                .map(v -> "DROP TABLE IF EXISTS `" + table + "`;\n" + v.get("Table").toString())
+                .defaultIfEmpty("");
+    }
+
+    public Flux<Map<String, Object>> getDataInsertSql(String table) {
+        StringBuilder insertSql = new StringBuilder();
+        insertSql.append("INSERT INTO `").append(table).append("`(");
+        final Flux<Map<String, Object>> all = databaseClient.sql("SELECT * FROM `" + table + "`;")
+                .fetch()
+                .all();
+
+        return all;
+    }
+
 //    public String getDataInsertSql(String table) {
 //        StringBuilder insertSql = new StringBuilder();
 //        insertSql.append("INSERT INTO `").append(table).append("`(");
@@ -89,4 +105,4 @@
 //        insertSql.append(";");
 //        return insertSql.toString();
 //    }
-//}
+}

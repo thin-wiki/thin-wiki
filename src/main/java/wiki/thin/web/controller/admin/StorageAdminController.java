@@ -1,103 +1,96 @@
-//package wiki.thin.web.controller.admin;
-//
-//import org.springframework.web.bind.annotation.*;
-//import wiki.thin.entity.GiteeStorage;
-//import wiki.thin.entity.GithubStorage;
-//import wiki.thin.entity.LocalStorage;
-//import wiki.thin.entity.Storage;
-//import wiki.thin.mapper.GiteeStorageMapper;
-//import wiki.thin.mapper.GithubStorageMapper;
-//import wiki.thin.mapper.LocalStorageMapper;
-//import wiki.thin.mapper.StorageMapper;
-//import wiki.thin.security.annotation.NeedAuth;
-//import wiki.thin.storage.StorageFileManager;
-//import wiki.thin.storage.StorageType;
-//import wiki.thin.storage.StorageWorkType;
-//import wiki.thin.web.vo.ResponseVO;
-//import wiki.thin.web.vo.StorageBindVO;
-//import wiki.thin.web.vo.StorageModifyVO;
-//import wiki.thin.web.vo.StorageVO;
-//
-//import javax.validation.Valid;
-//import java.util.ArrayList;
-//import java.util.List;
-//import java.util.Map;
-//import java.util.Optional;
-//import java.util.stream.Collectors;
-//
-///**
-// * @author Beldon
-// */
-//@RestController
-//@RequestMapping("/api/admin/storage")
-//@NeedAuth
-//public class StorageAdminController {
-//    private final StorageMapper storageMapper;
-//    private final LocalStorageMapper localStorageMapper;
-//    private final GiteeStorageMapper giteeStorageMapper;
-//    private final GithubStorageMapper githubStorageMapper;
-//    private final StorageFileManager storageFileManager;
-//
-//    public StorageAdminController(StorageMapper storageMapper, LocalStorageMapper localStorageMapper,
-//                                  GiteeStorageMapper giteeStorageMapper, GithubStorageMapper githubStorageMapper,
-//                                  StorageFileManager storageFileManager) {
-//        this.storageMapper = storageMapper;
-//        this.localStorageMapper = localStorageMapper;
-//        this.giteeStorageMapper = giteeStorageMapper;
-//        this.githubStorageMapper = githubStorageMapper;
-//        this.storageFileManager = storageFileManager;
-//    }
-//
-//    @PostMapping
-//    public ResponseVO<Long> saveStorage(@Valid @RequestBody StorageModifyVO storageModifyVO) {
-//        var storage = new Storage();
-//        storage.setName(storageModifyVO.getName());
-//        storage.setDescription(storageModifyVO.getDescription());
-//        storage.setWorkType(storageModifyVO.getWorkType());
-//        storage.setMainStorageId(storageModifyVO.getMainStorageId());
-//        storage.setWritable(storageModifyVO.getWritable());
-//        storageMapper.insertSelective(storage);
-//        return ResponseVO.successWithData(storage.getId());
-//    }
-//
-//    @PutMapping("/{storageId}")
-//    public ResponseVO updateStorage(@PathVariable Long storageId, @Valid @RequestBody StorageModifyVO storageModifyVO) {
-//        final Optional<Storage> storageOptional = storageMapper.findById(storageId);
-//        if (storageOptional.isEmpty()) {
-//            return ResponseVO.error("找不到指定记录");
-//        }
-//        var storage = storageOptional.get();
-//        storage.setName(storageModifyVO.getName());
-//        storage.setDescription(storageModifyVO.getDescription());
-//        storage.setWorkType(storageModifyVO.getWorkType());
-//        storage.setMainStorageId(storageModifyVO.getMainStorageId());
-//        storage.setWritable(storageModifyVO.getWritable());
-//        storageMapper.updateByIdSelective(storage);
-//        return ResponseVO.success();
-//    }
-//
-//    @PutMapping("/{storageId}/bind")
-//    public ResponseVO bindStorage(@PathVariable Long storageId, @Valid @RequestBody StorageBindVO bindVO) {
-//        final Optional<Storage> storageOptional = storageMapper.findById(storageId);
-//        if (storageOptional.isEmpty()) {
-//            return ResponseVO.error("找不到指定记录");
-//        }
-//        var storage = storageOptional.get();
-//        storage.setRefStorageType(bindVO.getRefStorageType());
-//        storage.setRefStorageId(bindVO.getRefStorageId());
-//        storageMapper.updateByIdSelective(storage);
-//
-//        storageFileManager.cleanCache();
-//
-//        return ResponseVO.success();
-//    }
-//
-//    @DeleteMapping("/{storageId}")
-//    public ResponseVO deleteStorage(@PathVariable Long storageId) {
-//        storageMapper.delete(storageId);
-//        return ResponseVO.success();
-//    }
-//
+package wiki.thin.web.controller.admin;
+
+import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Mono;
+import wiki.thin.entity.Storage;
+import wiki.thin.repo.GiteeStorageAutoRepo;
+import wiki.thin.repo.GithubStorageAutoRepo;
+import wiki.thin.repo.LocalStorageAutoRepo;
+import wiki.thin.repo.StorageAutoRepo;
+import wiki.thin.security.annotation.NeedAuth;
+import wiki.thin.web.vo.ResponseVO;
+import wiki.thin.web.vo.StorageBindVO;
+import wiki.thin.web.vo.StorageModifyVO;
+
+import javax.validation.Valid;
+import java.util.function.Function;
+
+/**
+ * @author Beldon
+ */
+@RestController
+@RequestMapping("/api/admin/storage")
+@NeedAuth
+@AllArgsConstructor
+public class StorageAdminController {
+    private final StorageAutoRepo storageAutoRepo;
+    private final LocalStorageAutoRepo localStorageAutoRepo;
+    private final GiteeStorageAutoRepo giteeStorageAutoRepo;
+    private final GithubStorageAutoRepo githubStorageAutoRepo;
+
+    @PostMapping
+    public Mono<ResponseVO> saveStorage(@Valid @RequestBody StorageModifyVO storageModifyVO) {
+        var storage = new Storage();
+        storage.setName(storageModifyVO.getName());
+        storage.setDescription(storageModifyVO.getDescription());
+        storage.setWorkType(storageModifyVO.getWorkType());
+        storage.setMainStorageId(storageModifyVO.getMainStorageId());
+        storage.setWritable(storageModifyVO.getWritable());
+        return storageAutoRepo.save(storage)
+                .thenReturn(ResponseVO.success());
+    }
+
+    @PutMapping("/{storageId}")
+    public Mono<ResponseVO> updateStorage(@PathVariable Long storageId, @Valid @RequestBody StorageModifyVO storageModifyVO) {
+        return storageAutoRepo.findById(storageId)
+                .flatMap(storage -> {
+                    storage.setName(storageModifyVO.getName());
+                    storage.setDescription(storageModifyVO.getDescription());
+                    storage.setWorkType(storageModifyVO.getWorkType());
+                    storage.setMainStorageId(storageModifyVO.getMainStorageId());
+                    storage.setWritable(storageModifyVO.getWritable());
+                    return storageAutoRepo.save(storage).thenReturn(ResponseVO.success());
+                }).defaultIfEmpty(ResponseVO.error("找不到指定记录"));
+
+    }
+
+    @PutMapping("/{storageId}/bind")
+    public Mono<ResponseVO> bindStorage(@PathVariable Long storageId, @Valid @RequestBody StorageBindVO bindVO) {
+
+        return storageAutoRepo.findById(storageId)
+                .flatMap(new Function<Storage, Mono<ResponseVO>>() {
+                    @Override
+                    public Mono<ResponseVO> apply(Storage storage) {
+                        storage.setRefStorageType(bindVO.getRefStorageType());
+                        storage.setRefStorageId(bindVO.getRefStorageId());
+                        return storageAutoRepo.save(storage)
+                                .doOnNext(storage1 -> {
+//                                        storageFileManager.cleanCache();
+                                })
+                                .thenReturn(ResponseVO.success());
+                    }
+                }).defaultIfEmpty(ResponseVO.error("找不到指定记录"));
+
+    }
+
+    @DeleteMapping("/{storageId}")
+    public Mono<ResponseVO> deleteStorage(@PathVariable Long storageId) {
+        return storageAutoRepo.deleteById(storageId)
+                .thenReturn(ResponseVO.success());
+    }
+
+    @PutMapping("/{storageId}/copy")
+    public Mono<ResponseVO> copyFile(@PathVariable Long storageId, @Valid @RequestBody StorageBindVO bindVO) {
+
+        return storageAutoRepo.findById(storageId)
+                .doOnNext(storage -> {
+//                        storageFileManager.copy(storage, bindVO.getRefStorageType(), bindVO.getRefStorageId());
+                }).thenReturn(ResponseVO.success())
+                .defaultIfEmpty(ResponseVO.error("找不到指定记录"));
+
+    }
+
 //    @GetMapping
 //    public ResponseVO<List<StorageVO>> list(@RequestParam(required = false) StorageWorkType workType) {
 //        final List<Storage> storages = storageMapper.findAll();
@@ -131,17 +124,6 @@
 //        return ResponseVO.successWithData(storageVos);
 //    }
 //
-//    @PutMapping("/{storageId}/copy")
-//    public ResponseVO copyFile(@PathVariable Long storageId, @Valid @RequestBody StorageBindVO bindVO) {
-//        final Optional<Storage> storageOptional = storageMapper.findById(storageId);
-//        if (storageOptional.isEmpty()) {
-//            return ResponseVO.error("找不到指定记录");
-//        }
-//        var storage = storageOptional.get();
-//        storageFileManager.copy(storage, bindVO.getRefStorageType(), bindVO.getRefStorageId());
-//
-//        return ResponseVO.success();
-//    }
 //
 //    private String getRefStorageName(StorageType refStorageType, Long refStorageId) {
 //
@@ -160,4 +142,4 @@
 //                throw new RuntimeException("no support type");
 //        }
 //    }
-//}
+}

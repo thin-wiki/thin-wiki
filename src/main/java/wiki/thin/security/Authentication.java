@@ -9,19 +9,23 @@ import java.io.Serializable;
  */
 public class Authentication implements Serializable {
 
-    public static final Authentication GUEST = new Authentication(AuthType.GUEST);
+    public static final Authentication GUEST = new Authentication(AuthType.GUEST, null);
 
     private final AuthType authType;
 
-    private User user;
+    private final User user;
 
-    public Authentication(AuthType authType) {
+    private Authentication(AuthType authType, User user) {
+        this.user = user;
         this.authType = authType;
     }
 
-    public Authentication(AuthType authType, User user) {
-        this.user = user;
-        this.authType = authType;
+    public static Authentication authentication(User user) {
+        return new Authentication(AuthType.AUTHENTICATED, user);
+    }
+
+    public static Authentication rememberMe(User user) {
+        return new Authentication(AuthType.REMEMBER_ME, user);
     }
 
     public boolean isRememberMe() {

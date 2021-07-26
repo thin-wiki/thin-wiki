@@ -25,10 +25,10 @@ create table `post_column`
     `id`                 bigint(20)   not null,
     `path`               varchar(255) not null,
     `title`              varchar(255) not null,
-    `content`            longtext default null,
-    `sharable`           bit(1)   default 0 comment '0-私有的，1-公开的，2-继承',
-    `created_date`       datetime default now(),
-    `last_modified_date` datetime default now() ON UPDATE now(),
+    `content`            longtext    default null,
+    `sharable`           varchar(10) default null,
+    `created_date`       datetime    default now(),
+    `last_modified_date` datetime    default now() ON UPDATE now(),
     primary key (`id`),
     unique key idx_path (path)
 ) engine = innodb
@@ -40,13 +40,14 @@ create table `post`
 (
     `id`                 bigint      not null,
     `title`              varchar(20) not null,
-    `content`            longtext default null,
-    `parent_id`          bigint   default 0,
+    `content`            longtext    default null,
+    `parent_id`          bigint      default 0,
     `column_id`          bigint      not null,
-    `sharable`           tinyint  default 2 comment '0-私有的，1-公开的，2-继承',
-    `version`            int      default 0,
-    `created_date`       datetime default now(),
-    `last_modified_date` datetime default now() ON UPDATE now(),
+    `sharable`           varchar(10) default null,
+    `status`             tinyint     default 0 comment '状态，0-正常，-1 回收站中',
+    `version`            int         default 0,
+    `created_date`       datetime    default now(),
+    `last_modified_date` datetime    default now() ON UPDATE now(),
     primary key (`id`)
 ) engine = innodb
   default charset = utf8mb4;
@@ -58,12 +59,12 @@ create table `post_history`
     `id`           bigint(20)  not null,
     `post_id`      bigint(20)  not null,
     `title`        varchar(20) not null,
-    `content`      longtext   default null,
-    `parent_id`    bigint(20) default 0,
+    `content`      longtext    default null,
+    `parent_id`    bigint(20)  default 0,
     `column_id`    bigint(20)  not null,
-    `sharable`     int(1)     default 2 comment '0-私有的，1-公开的，2-继承',
-    `version`      int        default 1,
-    `created_date` datetime   default now(),
+    `sharable`     varchar(10) default null,
+    `version`      int         default 1,
+    `created_date` datetime    default now(),
     primary key (`id`),
     index idx_post_id (post_id)
 ) engine = innodb

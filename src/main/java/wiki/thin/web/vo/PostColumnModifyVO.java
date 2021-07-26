@@ -8,7 +8,7 @@ import javax.validation.constraints.NotEmpty;
  * @author Beldon
  */
 @Data
-public class ArticleColumnModifyVO {
+public class PostColumnModifyVO {
     @NotEmpty(message = "path不能为空")
     private String path;
 

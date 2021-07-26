@@ -1,28 +1,22 @@
 package wiki.thin.entity;
 
 import lombok.Data;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.LastModifiedDate;
+import lombok.EqualsAndHashCode;
+import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
-
-import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
  * @author Beldon
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Table("app_config")
-public class AppConfig implements Serializable {
-    @Id
-    private Long id;
+public class AppConfig extends BaseEntity {
+    @Column("`type`")
     private String type;
+    @Column("`key`")
     private String key;
+    @Column("`value`")
     private String value;
     private String description;
-    @CreatedDate
-    private LocalDateTime createdDate;
-    @LastModifiedDate
-    private LocalDateTime lastModifiedDate;
 }

@@ -1,78 +1,71 @@
-//package wiki.thin.web.controller.admin;
-//
-//import org.springframework.beans.BeanUtils;
-//import org.springframework.web.bind.annotation.*;
-//import wiki.thin.entity.LocalStorage;
-//import wiki.thin.mapper.LocalStorageMapper;
-//import wiki.thin.security.annotation.NeedAuth;
-//import wiki.thin.web.vo.LocalStorageModifyVO;
-//import wiki.thin.web.vo.LocalStorageVO;
-//import wiki.thin.web.vo.ResponseVO;
-//
-//import javax.validation.Valid;
-//import java.util.ArrayList;
-//import java.util.List;
-//import java.util.Optional;
-//
-///**
-// * @author Beldon
-// */
-//@RestController
-//@RequestMapping("/api/admin/storage/local")
-//@NeedAuth
-//public class LocalStorageAdminController {
-//    private final LocalStorageMapper localStorageMapper;
-//
-//    public LocalStorageAdminController(LocalStorageMapper localStorageMapper) {
-//        this.localStorageMapper = localStorageMapper;
-//    }
-//
-//    @PostMapping
-//    public ResponseVO saveStorage(@Valid @RequestBody LocalStorageModifyVO localStorageModifyVO) {
-//
-//        LocalStorage localStorage = new LocalStorage();
-//        localStorage.setName(localStorageModifyVO.getName());
-//        localStorage.setDescription(localStorageModifyVO.getDescription());
-//        localStorage.setBasePath(localStorageModifyVO.getBasePath());
-//
-//        localStorageMapper.insertSelective(localStorage);
-//
-//        return ResponseVO.successWithData(localStorage.getId());
-//    }
-//
-//    @PutMapping("/{storageId}")
-//    public ResponseVO updateStorage(@PathVariable Long storageId, @Valid @RequestBody LocalStorageModifyVO localStorageModifyVO) {
-//        final Optional<LocalStorage> localStorageOptional = localStorageMapper.findById(storageId);
-//        if (localStorageOptional.isEmpty()) {
-//            return ResponseVO.error("找不到指定记录");
-//        }
-//        final LocalStorage localStorage = localStorageOptional.get();
-//        localStorage.setName(localStorageModifyVO.getName());
-//        localStorage.setDescription(localStorageModifyVO.getDescription());
-//        localStorage.setBasePath(localStorageModifyVO.getBasePath());
-//
-//        localStorageMapper.updateByIdSelective(localStorage);
-//        return ResponseVO.successWithData(localStorage.getId());
-//    }
-//
-//    @DeleteMapping("/{storageId}")
-//    public ResponseVO deleteStorage(@PathVariable Long storageId) {
-//
-//        localStorageMapper.delete(storageId);
-//        return ResponseVO.success();
-//    }
-//
-//    @GetMapping
-//    public ResponseVO<List<LocalStorageVO>> listStorage() {
-//        List<LocalStorageVO> localStorageVoList = new ArrayList<>();
-//
-//        final List<LocalStorage> storages = localStorageMapper.findAll();
-//        for (LocalStorage storage : storages) {
-//            LocalStorageVO localStorageVO = new LocalStorageVO();
-//            BeanUtils.copyProperties(storage, localStorageVO);
-//            localStorageVoList.add(localStorageVO);
-//        }
-//        return ResponseVO.successWithData(localStorageVoList);
-//    }
-//
-//}
+package wiki.thin.web.controller.admin;
+
+import lombok.AllArgsConstructor;
+import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Sort;
+import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Mono;
+import wiki.thin.entity.LocalStorage;
+import wiki.thin.repo.LocalStorageAutoRepo;
+import wiki.thin.security.annotation.NeedAuth;
+import wiki.thin.web.vo.LocalStorageModifyVO;
+import wiki.thin.web.vo.LocalStorageVO;
+import wiki.thin.web.vo.ResponseVO;
+
+import javax.validation.Valid;
+import java.util.List;
+
+/**
+ * @author Beldon
+ */
+@RestController
+@RequestMapping("/api/admin/storage/local")
+@NeedAuth
+@AllArgsConstructor
+public class LocalStorageAdminController {
+
+    private final LocalStorageAutoRepo localStorageAutoRepo;
+
+    @PostMapping
+    public Mono<ResponseVO> saveStorage(@Valid @RequestBody LocalStorageModifyVO localStorageModifyVO) {
+
+        LocalStorage localStorage = new LocalStorage();
+        localStorage.setName(localStorageModifyVO.getName());
+        localStorage.setDescription(localStorageModifyVO.getDescription());
+        localStorage.setBasePath(localStorageModifyVO.getBasePath());
+
+        return localStorageAutoRepo.save(localStorage).thenReturn(ResponseVO.success());
+    }
+
+    @PutMapping("/{storageId}")
+    public Mono<ResponseVO> updateStorage(@PathVariable Long storageId, @Valid @RequestBody LocalStorageModifyVO localStorageModifyVO) {
+
+        return localStorageAutoRepo.findById(storageId)
+                .flatMap(localStorage -> {
+                    localStorage.setName(localStorageModifyVO.getName());
+                    localStorage.setDescription(localStorageModifyVO.getDescription());
+                    localStorage.setBasePath(localStorageModifyVO.getBasePath());
+                    return localStorageAutoRepo.save(localStorage)
+                            .thenReturn(ResponseVO.success());
+                }).defaultIfEmpty(ResponseVO.error("找不到指定记录"));
+    }
+
+    @DeleteMapping("/{storageId}")
+    public Mono<ResponseVO> deleteStorage(@PathVariable Long storageId) {
+        return localStorageAutoRepo.deleteById(storageId)
+                .thenReturn(ResponseVO.success());
+    }
+
+    @GetMapping
+    public Mono<ResponseVO<List<LocalStorageVO>>> listStorage() {
+        final Sort sort = Sort.by(Sort.Direction.ASC, "lastModifiedDate");
+        return localStorageAutoRepo.findAll(sort)
+                .map(localStorage -> {
+                    LocalStorageVO localStorageVO = new LocalStorageVO();
+                    BeanUtils.copyProperties(localStorage, localStorageVO);
+                    return localStorageVO;
+                }).collectList()
+                .map(ResponseVO::successWithData);
+    }
+
+}

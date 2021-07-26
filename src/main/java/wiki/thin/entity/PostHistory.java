@@ -1,22 +1,17 @@
 package wiki.thin.entity;
 
 import lombok.Data;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.Id;
+import lombok.EqualsAndHashCode;
 import org.springframework.data.relational.core.mapping.Table;
 import wiki.thin.constant.enums.SharableEnum;
-
-import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
  * @author Beldon
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Table("post_history")
-public class PostHistory implements Serializable {
-    @Id
-    private Long id;
+public class PostHistory extends BaseEntity {
     private Long articleId;
     private String title;
     private String content;
@@ -27,6 +22,4 @@ public class PostHistory implements Serializable {
     private Long parentId;
     private Long columnId;
     private SharableEnum sharable;
-    @CreatedDate
-    private LocalDateTime createdDate;
 }

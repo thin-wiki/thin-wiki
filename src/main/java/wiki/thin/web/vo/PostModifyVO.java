@@ -8,7 +8,7 @@ import javax.validation.constraints.NotEmpty;
  * @author Beldon
  */
 @Data
-public class ArticleModifyVO {
+public class PostModifyVO {
     /**
      * column 和 parentId 不能同时为空
      */

@@ -1,24 +1,18 @@
 package wiki.thin.entity;
 
 import lombok.Data;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.LastModifiedDate;
+import lombok.EqualsAndHashCode;
 import org.springframework.data.relational.core.mapping.Table;
 import wiki.thin.storage.StorageType;
 import wiki.thin.storage.StorageWorkType;
 
-import java.io.Serializable;
-import java.util.Date;
-
 /**
  * @author Beldon
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Table("storage")
-public class Storage implements Serializable {
-    @Id
-    private Long id;
+public class Storage extends BaseEntity {
     private String name;
     private String description;
     /**
@@ -43,9 +37,4 @@ public class Storage implements Serializable {
      * 是否可写
      */
     private Boolean writable;
-
-    @CreatedDate
-    private Date createdDate;
-    @LastModifiedDate
-    private Date lastModifiedDate;
 }
