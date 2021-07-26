@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 import wiki.thin.constant.ConfigConstant;
-import wiki.thin.entity.User;
 import wiki.thin.repo.UserAutoRepo;
 import wiki.thin.security.LoginService;
 import wiki.thin.security.annotation.NeedAuth;
@@ -21,7 +20,6 @@ import wiki.thin.web.vo.ResponseVO;
 
 import javax.validation.Valid;
 import java.util.UUID;
-import java.util.function.Function;
 
 /**
  * @author beldon

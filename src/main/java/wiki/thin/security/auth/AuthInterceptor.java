@@ -2,10 +2,7 @@ package wiki.thin.security.auth;
 
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
-import reactor.core.Disposable;
 import reactor.core.publisher.Mono;
-import reactor.util.context.ContextView;
-import wiki.thin.exception.NoAuthException;
 import wiki.thin.exception.NoLoginException;
 import wiki.thin.security.Authentication;
 import wiki.thin.security.AuthenticationContextHolder;
@@ -13,7 +10,6 @@ import wiki.thin.security.annotation.NeedAuth;
 
 import java.util.Objects;
 import java.util.function.Consumer;
-import java.util.function.Function;
 
 /**
  * api interceptor.
@@ -33,14 +29,11 @@ public class AuthInterceptor implements MethodInterceptor {
 
 //        System.out.println(abcd.isDisposed());
         return AuthenticationContextHolder.getAuthentication()
-                .doOnNext(new Consumer<Authentication>() {
-                    @Override
-                    public void accept(Authentication authentication) {
-                        if (Authentication.GUEST.equals(authentication)) {
-                            throw new NoLoginException();
-                        }
+                .doOnNext(authentication -> {
+                    if (Authentication.GUEST.equals(authentication)) {
+                        throw new NoLoginException();
                     }
-                }).then((Mono<? extends Object>) invocation.proceed());
+                }).then((Mono<Object>) invocation.proceed());
 
 //        return invocation.proceed();
     }

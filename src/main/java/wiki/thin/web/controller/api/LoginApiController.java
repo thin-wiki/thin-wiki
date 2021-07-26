@@ -17,7 +17,6 @@ import wiki.thin.web.vo.ResponseVO;
 import wiki.thin.web.vo.UserVO;
 
 import javax.validation.Valid;
-import java.util.function.Function;
 
 /**
  * @author Beldon

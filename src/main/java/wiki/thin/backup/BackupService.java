@@ -1,5 +1,7 @@
 package wiki.thin.backup;
 
+import reactor.core.publisher.Mono;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
@@ -11,10 +13,8 @@ public interface BackupService {
 
     /**
      * 备份数据
-     *
-     * @throws IOException exception
      */
-    void backup() throws IOException;
+    Mono<Void> backup();
 
     /**
      * 备份数据

@@ -2,6 +2,7 @@ package wiki.thin.storage;
 
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.multipart.MultipartFile;
+import reactor.core.publisher.Mono;
 import wiki.thin.entity.Storage;
 
 import java.io.IOException;
@@ -21,7 +22,7 @@ public interface StorageFileManager {
      * @throws IOException IOException
      */
 
-    Long store(MultipartFile file, Long targetId) throws IOException;
+    Mono<Long> store(MultipartFile file, Long targetId) throws IOException;
 
     /**
      * 获取文件 uri
@@ -29,7 +30,7 @@ public interface StorageFileManager {
      * @param fileId 文件id
      * @return 文件 uri
      */
-    URI getUri(Long fileId);
+    Mono<URI> getUri(Long fileId);
 
     /**
      * 清理缓存

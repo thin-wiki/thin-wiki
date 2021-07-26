@@ -59,17 +59,14 @@ public class StorageAdminController {
     public Mono<ResponseVO> bindStorage(@PathVariable Long storageId, @Valid @RequestBody StorageBindVO bindVO) {
 
         return storageAutoRepo.findById(storageId)
-                .flatMap(new Function<Storage, Mono<ResponseVO>>() {
-                    @Override
-                    public Mono<ResponseVO> apply(Storage storage) {
-                        storage.setRefStorageType(bindVO.getRefStorageType());
-                        storage.setRefStorageId(bindVO.getRefStorageId());
-                        return storageAutoRepo.save(storage)
-                                .doOnNext(storage1 -> {
+                .flatMap(storage -> {
+                    storage.setRefStorageType(bindVO.getRefStorageType());
+                    storage.setRefStorageId(bindVO.getRefStorageId());
+                    return storageAutoRepo.save(storage)
+                            .doOnNext(storage1 -> {
 //                                        storageFileManager.cleanCache();
-                                })
-                                .thenReturn(ResponseVO.success());
-                    }
+                            })
+                            .thenReturn(ResponseVO.success());
                 }).defaultIfEmpty(ResponseVO.error("找不到指定记录"));
 
     }
