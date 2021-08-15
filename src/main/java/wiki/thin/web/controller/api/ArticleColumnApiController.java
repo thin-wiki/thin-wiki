@@ -1,8 +1,12 @@
 package wiki.thin.web.controller.api;
 
 import org.springframework.web.bind.annotation.*;
+import wiki.thin.constant.CommonConstant;
 import wiki.thin.constant.enums.SharableEnum;
 import wiki.thin.entity.ArticleColumn;
+import wiki.thin.entity.mini.ArticleColumnList;
+import wiki.thin.entity.mini.ArticleColumnShort;
+import wiki.thin.entity.mini.ArticleList;
 import wiki.thin.mapper.ArticleColumnMapper;
 import wiki.thin.mapper.ArticleMapper;
 import wiki.thin.service.ArticleSearchService;
@@ -10,6 +14,7 @@ import wiki.thin.web.vo.ArticleColumnModifyVO;
 import wiki.thin.web.vo.ResponseVO;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -28,6 +33,16 @@ public class ArticleColumnApiController {
         this.articleColumnMapper = articleColumnMapper;
         this.articleMapper = articleMapper;
         this.articleSearchService = articleSearchService;
+    }
+
+    @GetMapping("/{columnPath}")
+    public ResponseVO getColumn(@PathVariable String columnPath) {
+        final Optional<ArticleColumnShort> columnOptional = articleColumnMapper.findShortByPath(columnPath);
+        if (columnOptional.isEmpty()) {
+            return ResponseVO.error("找不到指定记录");
+        }
+
+        return ResponseVO.successWithData(columnOptional.get());
     }
 
     @PostMapping
@@ -82,5 +97,22 @@ public class ArticleColumnApiController {
         articleColumnMapper.updateSharable(columnId, sharable);
         articleSearchService.reBuildIndex(columnId);
         return ResponseVO.success();
+    }
+
+    @GetMapping
+    public ResponseVO listAll() {
+        final List<ArticleColumnList> allList = articleColumnMapper.findAllList();
+        return ResponseVO.successWithData(allList);
+    }
+
+    @GetMapping("/{columnPath}/menu")
+    public ResponseVO menuList(@PathVariable String columnPath) {
+        final Optional<ArticleColumn> columnOptional = articleColumnMapper.findByPath(columnPath);
+
+        if (columnOptional.isEmpty()) {
+            return ResponseVO.error("找不到指定记录");
+        }
+        final List<ArticleList> articleLists = articleMapper.findListByColumnIdAndStatus(columnOptional.get().getId(), CommonConstant.STATUS_NORMAL);
+        return ResponseVO.successWithData(articleLists);
     }
 }
