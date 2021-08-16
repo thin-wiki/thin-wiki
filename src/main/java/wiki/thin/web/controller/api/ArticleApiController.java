@@ -35,6 +35,16 @@ public class ArticleApiController {
         this.articleHistoryService = articleHistoryService;
     }
 
+    @GetMapping("/{articleId}")
+    public ResponseVO getArticle(@PathVariable Long articleId) {
+        final var articleOptional = articleMapper.findById(articleId);
+        if (articleOptional.isEmpty()) {
+            return ResponseVO.error("找不到指定记录");
+        }
+
+        return ResponseVO.successWithData(articleOptional.get());
+    }
+
     /**
      * 添加
      *
