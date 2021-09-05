@@ -37,6 +37,16 @@ public class ArticleColumnApiController {
 
     @GetMapping("/{columnPath}")
     public ResponseVO getColumn(@PathVariable String columnPath) {
+        final Optional<ArticleColumn> columnOptional = articleColumnMapper.findByPath(columnPath);
+        if (columnOptional.isEmpty()) {
+            return ResponseVO.error("找不到指定记录");
+        }
+
+        return ResponseVO.successWithData(columnOptional.get());
+    }
+
+    @GetMapping("/{columnPath}/short")
+    public ResponseVO getColumnShort(@PathVariable String columnPath) {
         final Optional<ArticleColumnShort> columnOptional = articleColumnMapper.findShortByPath(columnPath);
         if (columnOptional.isEmpty()) {
             return ResponseVO.error("找不到指定记录");
