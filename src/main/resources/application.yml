@@ -39,6 +39,10 @@ spring:
     validate-on-migrate: true
     check-location: true
     baseline-on-migrate: true
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml
