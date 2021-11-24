@@ -2,17 +2,12 @@ package wiki.thin.common.upgrade;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.update4j.Archive;
-import org.update4j.Configuration;
-import org.update4j.UpdateOptions;
-import wiki.thin.core.env.EnvManager;
 import wiki.thin.common.properties.AppUpgradeProperties;
 import wiki.thin.common.util.JsonUtils;
 import wiki.thin.common.util.VersionUtils;
+import wiki.thin.core.env.EnvManager;
 
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -51,21 +46,21 @@ public class SystemUpgrader {
     }
 
     public void download(String version) throws IOException {
-        String configFileUri = appUpgradeProperties.getBaseUrl()
-                + appUpgradeProperties.getVersionBasePath() + "/"
-                + version
-                + "/"
-                + appUpgradeProperties.getVersionConfigFile();
-        URL url = new URL(configFileUri);
-        final InputStreamReader inputStreamReader = new InputStreamReader(url.openStream());
-        try (inputStreamReader) {
-            Configuration config = Configuration.read(inputStreamReader);
-            config.update(UpdateOptions.archive(getUpdateFilePath()));
-        }
+//        String configFileUri = appUpgradeProperties.getBaseUrl()
+//                + appUpgradeProperties.getVersionBasePath() + "/"
+//                + version
+//                + "/"
+//                + appUpgradeProperties.getVersionConfigFile();
+//        URL url = new URL(configFileUri);
+//        final InputStreamReader inputStreamReader = new InputStreamReader(url.openStream());
+//        try (inputStreamReader) {
+//            Configuration config = Configuration.read(inputStreamReader);
+//            config.update(UpdateOptions.archive(getUpdateFilePath()));
+//        }
     }
 
     public void install() throws IOException {
-        Archive.read(getUpdateFilePath()).install();
+//        Archive.read(getUpdateFilePath()).install();
         installed = true;
     }
 

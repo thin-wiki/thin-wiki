@@ -1,20 +1,11 @@
 package wiki.thin.mapper;
 
-import org.apache.ibatis.annotations.*;
-import org.apache.ibatis.cache.decorators.SoftCache;
-import org.springframework.stereotype.Repository;
-import wiki.thin.entity.User;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;import org.apache.ibatis.annotations.Select;import org.apache.ibatis.annotations.Update;import wiki.thin.entity.User;import java.util.Date;import java.util.Optional;
 
-import java.util.Date;
-import java.util.Optional;
-
-/**
- * @author Beldon
- */
 @Mapper
-@Repository
-@CacheNamespace(eviction = SoftCache.class)
-public interface UserMapper {
+public interface UserMapper extends BaseMapper<User> {
     /**
      * find
      *

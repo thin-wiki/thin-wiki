@@ -1,6 +1,5 @@
 package wiki.thin.config;
 
-import net.bull.javamelody.SessionListener;
 import org.springframework.boot.web.server.ConfigurableWebServerFactory;
 import org.springframework.boot.web.server.ErrorPage;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
@@ -53,6 +52,6 @@ public class WebConfig implements WebMvcConfigurer, ServletContextInitializer {
 
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
-        servletContext.addListener(SessionListener.class);
+//        servletContext.addListener(SessionListener.class);
     }
 }
