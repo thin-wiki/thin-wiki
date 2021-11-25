@@ -1,23 +1,11 @@
 package wiki.thin.mapper;
 
-import org.apache.ibatis.annotations.CacheNamespace;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.cache.decorators.SoftCache;
-import org.springframework.stereotype.Repository;
-import wiki.thin.entity.AppConfig;
+import org.apache.ibatis.annotations.Param;import org.apache.ibatis.annotations.Select;import wiki.thin.entity.AppConfig;import java.util.Optional;
 
-import java.util.Optional;
-
-/**
- * @author Beldon
- */
 @Mapper
-@Repository
-@CacheNamespace(eviction = SoftCache.class)
-public interface AppConfigMapper {
-
+public interface AppConfigMapper extends BaseMapper<AppConfig> {
     /**
      * find type
      *
@@ -27,31 +15,4 @@ public interface AppConfigMapper {
      */
     @Select("select * from app_config where `type` = #{type} and `key` = #{key}")
     Optional<AppConfig> findByTypeAndKey(@Param("type") String type, @Param("key") String key);
-
-    /**
-     * insert by selective
-     *
-     * @param config config
-     * @return insert count
-     */
-    int insertSelective(AppConfig config);
-
-    /**
-     * update
-     *
-     * @param config config
-     * @return update count
-     */
-    int updateByIdSelective(AppConfig config);
-
-    /**
-     * update
-     *
-     * @param type           type
-     * @param key            key
-     * @param value          value
-     * @param lastModifiedBy lastModifiedBy
-     * @return update count
-     */
-    int updateValue(@Param("type") String type, @Param("key") String key, @Param("value") String value, @Param("lastModifiedBy") Long lastModifiedBy);
 }

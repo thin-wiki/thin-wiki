@@ -4,7 +4,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 import wiki.thin.entity.GithubStorage;
 import wiki.thin.mapper.GithubStorageMapper;
-import wiki.thin.security.annotation.NeedAuth;
 import wiki.thin.web.vo.GithubStorageModifyVO;
 import wiki.thin.web.vo.GithubStorageVO;
 import wiki.thin.web.vo.ResponseVO;
@@ -19,7 +18,6 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/api/admin/storage/github")
-@NeedAuth
 public class GithubStorageAdminController {
     private final GithubStorageMapper githubStorageMapper;
 

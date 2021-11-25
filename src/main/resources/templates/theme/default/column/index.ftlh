@@ -61,12 +61,12 @@
                         <div class="share2" style="float:right">
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="sharable" id="sharable_share"
-                                       value="SHAREABLE" <#if column.sharable.code==0>checked</#if>>
+                                       value="SHAREABLE" <#if column.sharable.value==0>checked</#if>>
                                 <label class="form-check-label" for="sharable_share">公开</label>
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="sharable" id="sharable_private"
-                                       value="PRIVATE" <#if column.sharable.code==1>checked</#if>>
+                                       value="PRIVATE" <#if column.sharable.value==1>checked</#if>>
                                 <label class="form-check-label" for="sharable_private">私有</label>
                             </div>
                         </div>

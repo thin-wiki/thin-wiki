@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import wiki.thin.common.bean.Page;
 import wiki.thin.search.bean.ArticleSearch;
-import wiki.thin.security.annotation.NeedLogin;
 import wiki.thin.service.ArticleSearchService;
 import wiki.thin.web.vo.ResponseVO;
 
@@ -32,7 +31,6 @@ public class SearchController extends BaseController {
 
     @GetMapping("/reindex")
     @ResponseBody
-    @NeedLogin
     public ResponseVO reindex() {
         articleSearchService.reBuildIndex();
         return ResponseVO.success();

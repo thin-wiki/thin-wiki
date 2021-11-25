@@ -24,11 +24,11 @@ spring:
     template-loader-path:
       - file:./theme/
       - classpath:/templates/theme/
-#  web:
-#    resources:
-#      static-locations:
-#        - classpath:/templates/
-#        - file:./theme/
+  #  web:
+  #    resources:
+  #      static-locations:
+  #        - classpath:/templates/
+  #        - file:./theme/
   flyway:
     enabled: true
     clean-disabled: true
@@ -82,4 +82,6 @@ javamelody:
 #      modify-count: 10
 #      duration: 12
 #      time-unit: HOURS
-
+mybatis-plus:
+  configuration:
+    default-enum-type-handler: com.baomidou.mybatisplus.core.handlers.MybatisEnumTypeHandler

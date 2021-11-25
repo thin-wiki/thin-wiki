@@ -58,8 +58,8 @@ public class DefaultSearchManager implements SearchManager {
                 doc.add(new TextField("title", articleSearch.getTitle(), Field.Store.YES));
                 doc.add(new TextField("content", articleSearch.getContent(), Field.Store.YES));
                 doc.add(new StringField("columnId", articleSearch.getColumnId().toString(), Field.Store.YES));
-                doc.add(new StringField("selfSharable", String.valueOf(articleSearch.getSelfSharable().getCode()), Field.Store.YES));
-                doc.add(new StringField("finalSharable", String.valueOf(articleSearch.getFinalSharable().getCode()), Field.Store.YES));
+                doc.add(new StringField("selfSharable", String.valueOf(articleSearch.getSelfSharable().getValue()), Field.Store.YES));
+                doc.add(new StringField("finalSharable", String.valueOf(articleSearch.getFinalSharable().getValue()), Field.Store.YES));
                 doc.add(new StringField("lastModifiedDate", String.valueOf(articleSearch.getLastModifiedDate().getTime()), Field.Store.YES));
                 writer.addDocument(doc);
 
@@ -97,7 +97,7 @@ public class DefaultSearchManager implements SearchManager {
         final Query query = queryParser.parse(keyword);
 
         QueryParser finalSharableQueryParser = new QueryParser("finalSharable", ANALYZER);
-        Query finalSharableQuery = finalSharableQueryParser.parse(String.valueOf(SharableEnum.SHAREABLE.getCode()));
+        Query finalSharableQuery = finalSharableQueryParser.parse(String.valueOf(SharableEnum.SHAREABLE.getValue()));
 
         BooleanQuery.Builder builder = new BooleanQuery.Builder();
         builder.add(query, BooleanClause.Occur.MUST);

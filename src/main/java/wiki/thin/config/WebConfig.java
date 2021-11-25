@@ -13,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import wiki.thin.security.ApiInterceptor;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -35,8 +34,6 @@ public class WebConfig implements WebMvcConfigurer, ServletContextInitializer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-//        registry.addInterceptor(apiInterceptor()).addPathPatterns("/api/**").excludePathPatterns("/api/pub/**");
-        // 注册Sa-Token的路由拦截器
         registry.addInterceptor(new SaRouteInterceptor())
                 .addPathPatterns("/**")
                 .excludePathPatterns("/api/pub/**");
@@ -50,11 +47,6 @@ public class WebConfig implements WebMvcConfigurer, ServletContextInitializer {
         });
 
     }
-
-//    @Bean
-//    public ApiInterceptor apiInterceptor() {
-//        return new ApiInterceptor();
-//    }
 
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {

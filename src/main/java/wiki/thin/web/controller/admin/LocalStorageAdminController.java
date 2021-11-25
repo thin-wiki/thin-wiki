@@ -4,7 +4,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 import wiki.thin.entity.LocalStorage;
 import wiki.thin.mapper.LocalStorageMapper;
-import wiki.thin.security.annotation.NeedAuth;
 import wiki.thin.web.vo.LocalStorageModifyVO;
 import wiki.thin.web.vo.LocalStorageVO;
 import wiki.thin.web.vo.ResponseVO;
@@ -19,7 +18,6 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/api/admin/storage/local")
-@NeedAuth
 public class LocalStorageAdminController {
     private final LocalStorageMapper localStorageMapper;
 

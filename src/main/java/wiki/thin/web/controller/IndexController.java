@@ -4,7 +4,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import wiki.thin.common.AppSystem;
-import wiki.thin.security.annotation.NeedLogin;
 
 /**
  * @author Beldon
@@ -17,7 +16,6 @@ public class IndexController extends BaseController {
         return "index";
     }
 
-    @NeedLogin
     @GetMapping("/last-modified")
     public String lastModified() {
         return "last-modified";

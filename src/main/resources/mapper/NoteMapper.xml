@@ -6,11 +6,13 @@
     <!--@Table note-->
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="content" jdbcType="LONGVARCHAR" property="content" />
+    <result column="created_by" jdbcType="BIGINT" property="createdBy" />
     <result column="created_date" jdbcType="TIMESTAMP" property="createdDate" />
+    <result column="last_modified_by" jdbcType="BIGINT" property="lastModifiedBy" />
     <result column="last_modified_date" jdbcType="TIMESTAMP" property="lastModifiedDate" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    id, content, created_date, last_modified_date
+    id, content, created_by, created_date, last_modified_by, last_modified_date
   </sql>
 </mapper>

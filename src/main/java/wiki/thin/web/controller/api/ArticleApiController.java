@@ -1,5 +1,6 @@
 package wiki.thin.web.controller.api;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import wiki.thin.constant.CommonConstant;
 import wiki.thin.constant.enums.SharableEnum;
@@ -19,6 +20,7 @@ import javax.validation.Valid;
  */
 @RequestMapping("/api/article")
 @RestController
+@RequiredArgsConstructor
 public class ArticleApiController {
 
     private final ArticleMapper articleMapper;
@@ -26,17 +28,9 @@ public class ArticleApiController {
     private final ArticleSearchService articleSearchService;
     private final ArticleHistoryService articleHistoryService;
 
-    public ArticleApiController(ArticleMapper articleMapper, ArticleColumnMapper articleColumnMapper,
-                                ArticleSearchService articleSearchService,
-                                ArticleHistoryService articleHistoryService) {
-        this.articleMapper = articleMapper;
-        this.articleColumnMapper = articleColumnMapper;
-        this.articleSearchService = articleSearchService;
-        this.articleHistoryService = articleHistoryService;
-    }
 
     @GetMapping("/{articleId}")
-    public ResponseVO getArticle(@PathVariable Long articleId) {
+    public ResponseVO<?> getArticle(@PathVariable Long articleId) {
         final var articleOptional = articleMapper.findById(articleId);
         if (articleOptional.isEmpty()) {
             return ResponseVO.error("找不到指定记录");
@@ -52,7 +46,7 @@ public class ArticleApiController {
      * @return response
      */
     @PostMapping
-    public ResponseVO saveArticle(@RequestBody @Valid ArticleVO articleVO) {
+    public ResponseVO<?> saveArticle(@RequestBody @Valid ArticleVO articleVO) {
 
         final var columnPath = articleVO.getColumnPath();
         final var parentId = articleVO.getParentId();
@@ -100,7 +94,7 @@ public class ArticleApiController {
     }
 
     @PutMapping("/{articleId}")
-    public ResponseVO updateArticle(@PathVariable Long articleId, @RequestBody @Valid ArticleModifyVO articleVO) {
+    public ResponseVO<?> updateArticle(@PathVariable Long articleId, @RequestBody @Valid ArticleModifyVO articleVO) {
         final var articleOptional = articleMapper.findById(articleId);
         if (articleOptional.isEmpty()) {
             return ResponseVO.error("找不到指定记录");
@@ -118,13 +112,13 @@ public class ArticleApiController {
     }
 
     @PutMapping("/{articleId}/pid")
-    public ResponseVO updateParentId(@PathVariable Long articleId, @RequestParam("parentId") Long parentId) {
+    public ResponseVO<?> updateParentId(@PathVariable Long articleId, @RequestParam("parentId") Long parentId) {
         articleMapper.updatePid(articleId, parentId);
         return ResponseVO.success();
     }
 
     @PutMapping("/{articleId}/share")
-    public ResponseVO updateSharable(@PathVariable Long articleId, @RequestParam("shareable") SharableEnum sharable) {
+    public ResponseVO<?> updateSharable(@PathVariable Long articleId, @RequestParam("shareable") SharableEnum sharable) {
         articleMapper.updateSharable(articleId, sharable);
 
         articleSearchService.index(articleId);
@@ -133,7 +127,7 @@ public class ArticleApiController {
     }
 
     @DeleteMapping("/{articleId}")
-    public ResponseVO recycle(@PathVariable Long articleId) {
+    public ResponseVO<?> recycle(@PathVariable Long articleId) {
         final var articleOptional = articleMapper.findById(articleId);
         if (articleOptional.isEmpty()) {
             return ResponseVO.error("找不到指定记录");

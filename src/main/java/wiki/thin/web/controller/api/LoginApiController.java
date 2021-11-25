@@ -7,7 +7,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import wiki.thin.entity.User;
 import wiki.thin.mapper.UserMapper;
-import wiki.thin.security.annotation.NeedLogin;
 import wiki.thin.service.PasswordService;
 import wiki.thin.web.controller.BaseController;
 import wiki.thin.web.vo.LoginVO;
@@ -30,7 +29,7 @@ public class LoginApiController extends BaseController {
 
 
     @PostMapping("/login")
-    public ResponseVO login(@Valid @RequestBody LoginVO loginVO) {
+    public ResponseVO<Object> login(@Valid @RequestBody LoginVO loginVO) {
 
         String account = loginVO.getAccount();
         if (!StringUtils.hasText(account)) {
@@ -57,9 +56,8 @@ public class LoginApiController extends BaseController {
         return ResponseVO.successWithData(StpUtil.getTokenValue());
     }
 
-    @NeedLogin
     @PutMapping("/logout")
-    public ResponseVO logout() {
+    public ResponseVO<Object> logout() {
         StpUtil.logout();
         return ResponseVO.success();
     }

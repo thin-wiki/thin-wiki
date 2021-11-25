@@ -4,7 +4,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import wiki.thin.security.annotation.NeedLogin;
 
 /**
  * @author Beldon
@@ -18,19 +17,16 @@ public class ArticleColumnController extends BaseController {
         return "column/index";
     }
 
-    @NeedLogin
     @GetMapping("/column")
     public String list() {
         return "column/list";
     }
 
-    @NeedLogin
     @GetMapping("/column/new")
     public String newColumn() {
         return "column/new";
     }
 
-    @NeedLogin
     @GetMapping("/{columnPath}/edit")
     public String editColumn(@PathVariable String columnPath, Model model) {
         model.addAttribute("columnPath", columnPath);

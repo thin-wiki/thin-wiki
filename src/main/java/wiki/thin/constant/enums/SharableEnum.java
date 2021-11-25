@@ -1,13 +1,13 @@
 package wiki.thin.constant.enums;
 
-import wiki.thin.common.BaseCodeEnum;
+import com.baomidou.mybatisplus.annotation.IEnum;
 
 /**
  * 共享类型
  *
  * @author Beldon
  */
-public enum SharableEnum implements BaseCodeEnum {
+public enum SharableEnum implements IEnum<Integer> {
 
     /**
      * 共享的
@@ -30,11 +30,6 @@ public enum SharableEnum implements BaseCodeEnum {
         this.code = code;
     }
 
-    @Override
-    public int getCode() {
-        return code;
-    }
-
     public static SharableEnum fromCode(int code) {
         for (SharableEnum value : values()) {
             if (code == value.code) {
@@ -42,5 +37,10 @@ public enum SharableEnum implements BaseCodeEnum {
             }
         }
         return null;
+    }
+
+    @Override
+    public Integer getValue() {
+        return code;
     }
 }

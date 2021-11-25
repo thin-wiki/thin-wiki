@@ -4,7 +4,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 import wiki.thin.entity.GiteeStorage;
 import wiki.thin.mapper.GiteeStorageMapper;
-import wiki.thin.security.annotation.NeedAuth;
 import wiki.thin.web.vo.GiteeStorageModifyVO;
 import wiki.thin.web.vo.GiteeStorageVO;
 import wiki.thin.web.vo.ResponseVO;
@@ -19,7 +18,6 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/api/admin/storage/gitee")
-@NeedAuth
 public class GiteeStorageAdminController {
     private final GiteeStorageMapper giteeStorageMapper;
 

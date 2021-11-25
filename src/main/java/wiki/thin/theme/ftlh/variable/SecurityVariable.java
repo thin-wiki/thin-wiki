@@ -1,9 +1,9 @@
 package wiki.thin.theme.ftlh.variable;
 
+import cn.dev33.satoken.stp.StpUtil;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import wiki.thin.entity.User;
-import wiki.thin.security.AuthenticationContextHolder;
 
 /**
  * @author Beldon.
@@ -22,7 +22,7 @@ public class SecurityVariable extends BaseVariable {
      * @return is authenticated
      */
     public boolean isAuthenticated() {
-        return AuthenticationContextHolder.isAuthenticated();
+        return StpUtil.isLogin();
     }
 
     /**
@@ -31,7 +31,7 @@ public class SecurityVariable extends BaseVariable {
      * @return is remember me
      */
     public boolean isRememberMe() {
-        return AuthenticationContextHolder.isRememberMe();
+        return StpUtil.isLogin();
     }
 
     /**
@@ -40,7 +40,7 @@ public class SecurityVariable extends BaseVariable {
      * @return is guest
      */
     public boolean isGuest() {
-        return AuthenticationContextHolder.isGuest();
+        return StpUtil.isLogin();
     }
 
     /**
@@ -49,14 +49,14 @@ public class SecurityVariable extends BaseVariable {
      * @return is login
      */
     public boolean isLogin() {
-        return AuthenticationContextHolder.isLogin();
+        return StpUtil.isLogin();
     }
 
     /**
      * @return current user
      */
     public User getCurrentUser() {
-        return AuthenticationContextHolder.currentUser();
+        return null;
     }
 
 }

@@ -19,15 +19,15 @@ public class ResponseVO<T> {
         this.data = data;
     }
 
-    public static ResponseVO success() {
+    public static ResponseVO<Object> success() {
         return success(null);
     }
 
-    public static ResponseVO success(String msg) {
+    public static ResponseVO<Object> success(String msg) {
         return success(msg, null);
     }
 
-    public static <T> ResponseVO success(String msg, T data) {
+    public static <T> ResponseVO<T> success(String msg, T data) {
         return response(0, msg, data);
     }
 
@@ -35,11 +35,11 @@ public class ResponseVO<T> {
         return response(0, null, data);
     }
 
-    public static ResponseVO error(String msg) {
+    public static ResponseVO<Object> error(String msg) {
         return response(1, msg, null);
     }
 
-    public static ResponseVO error(Integer code, String msg) {
+    public static ResponseVO<Object> error(Integer code, String msg) {
         return response(code, msg, null);
     }
 

@@ -1,7 +1,6 @@
 package wiki.thin.web.controller;
 
-import wiki.thin.entity.User;
-import wiki.thin.security.AuthenticationContextHolder;
+import cn.dev33.satoken.stp.StpUtil;
 
 /**
  * controller base
@@ -14,22 +13,14 @@ public abstract class BaseController {
     }
 
     protected boolean isLogin() {
-        return AuthenticationContextHolder.isLogin();
+        return StpUtil.isLogin();
     }
 
     protected Long currentUserId() {
-        final User user = AuthenticationContextHolder.currentUser();
-        if (user != null) {
-            return user.getId();
-        }
-        return null;
+        return StpUtil.getLoginIdAsLong();
     }
 
     protected String currentAccount() {
-        final User user = AuthenticationContextHolder.currentUser();
-        if (user != null) {
-            return user.getAccount();
-        }
         return null;
     }
 }

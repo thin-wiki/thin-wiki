@@ -1,5 +1,6 @@
 package wiki.thin.web.controller.api;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import wiki.thin.constant.CommonConstant;
 import wiki.thin.constant.enums.SharableEnum;
@@ -22,18 +23,12 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/api/article/column")
+@RequiredArgsConstructor
 public class ArticleColumnApiController {
 
     private final ArticleColumnMapper articleColumnMapper;
     private final ArticleMapper articleMapper;
     private final ArticleSearchService articleSearchService;
-
-    public ArticleColumnApiController(ArticleColumnMapper articleColumnMapper, ArticleMapper articleMapper,
-                                      ArticleSearchService articleSearchService) {
-        this.articleColumnMapper = articleColumnMapper;
-        this.articleMapper = articleMapper;
-        this.articleSearchService = articleSearchService;
-    }
 
     @GetMapping("/{columnPath}")
     public ResponseVO getColumn(@PathVariable String columnPath) {
@@ -65,7 +60,7 @@ public class ArticleColumnApiController {
         articleColumn.setPath(modifyVO.getPath());
         articleColumn.setContent(modifyVO.getContent());
         articleColumn.setSharable(SharableEnum.SHAREABLE);
-        articleColumnMapper.insertSelective(articleColumn);
+        articleColumnMapper.insert(articleColumn);
         return ResponseVO.success();
     }
 
@@ -87,7 +82,7 @@ public class ArticleColumnApiController {
         articleColumn.setTitle(modifyVO.getTitle());
         articleColumn.setPath(modifyVO.getPath());
         articleColumn.setContent(modifyVO.getContent());
-        articleColumnMapper.updateByIdSelective(articleColumn);
+        articleColumnMapper.updateById(articleColumn);
         return ResponseVO.success();
     }
 

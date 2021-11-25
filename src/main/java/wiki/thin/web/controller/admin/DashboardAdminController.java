@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import wiki.thin.mapper.ArticleColumnMapper;
 import wiki.thin.mapper.ArticleMapper;
-import wiki.thin.security.annotation.NeedAuth;
 import wiki.thin.web.vo.DashboardTotalVO;
 import wiki.thin.web.vo.ResponseVO;
 
@@ -14,7 +13,6 @@ import wiki.thin.web.vo.ResponseVO;
  */
 @RequestMapping("/api/admin/dashboard")
 @RestController
-@NeedAuth
 public class DashboardAdminController {
 
     private final ArticleColumnMapper articleColumnMapper;

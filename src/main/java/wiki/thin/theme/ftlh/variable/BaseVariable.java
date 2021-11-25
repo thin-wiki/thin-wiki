@@ -1,10 +1,10 @@
 package wiki.thin.theme.ftlh.variable;
 
+import cn.dev33.satoken.stp.StpUtil;
 import freemarker.template.TemplateModelException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
-import wiki.thin.security.AuthenticationContextHolder;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -36,7 +36,7 @@ public abstract class BaseVariable {
     }
 
     protected boolean isLogin() {
-        return AuthenticationContextHolder.isLogin();
+        return StpUtil.isLogin();
     }
 
     @PreDestroy

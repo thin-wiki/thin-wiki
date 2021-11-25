@@ -87,17 +87,17 @@
                             <button type="button" class="btn-sm btn-outline-danger delete"><i class="bi bi-trash"></i></button>
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="sharable" id="sharable_share"
-                                       value="SHAREABLE" <#if article.sharable.code==0>checked</#if>>
+                                       value="SHAREABLE" <#if article.sharable.value==0>checked</#if>>
                                 <label class="form-check-label" for="sharable_share">公开</label>
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="sharable" id="sharable_private"
-                                       value="PRIVATE" <#if article.sharable.code==1>checked</#if>>
+                                       value="PRIVATE" <#if article.sharable.value==1>checked</#if>>
                                 <label class="form-check-label" for="sharable_private">私有</label>
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="sharable" id="sharable_inherited"
-                                       value="INHERITED" <#if article.sharable.code==2>checked</#if>>
+                                       value="INHERITED" <#if article.sharable.value==2>checked</#if>>
                                 <label class="form-check-label" for="sharable_inherited">继承</label>
                             </div>
                         </div>

@@ -31,12 +31,12 @@ public class AppConfigServiceImpl implements AppConfigService {
 
         final Optional<AppConfig> configOptional = appConfigMapper.findByTypeAndKey(type, key);
         if (configOptional.isEmpty()) {
-            appConfigMapper.insertSelective(appConfig);
+            appConfigMapper.insert(appConfig);
             return;
         }
 
         appConfig.setId(configOptional.get().getId());
-        appConfigMapper.updateByIdSelective(appConfig);
+        appConfigMapper.updateById(appConfig);
 
     }
 

@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * @author Beldon
  */
-@Component
+//@Component
 @Intercepts(@Signature(type = Executor.class, method = "update", args = {MappedStatement.class, Object.class}))
 @Slf4j
 public class MybatisModifyCountInterceptor implements Interceptor {
