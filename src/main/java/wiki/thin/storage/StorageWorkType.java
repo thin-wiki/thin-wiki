@@ -1,13 +1,13 @@
 package wiki.thin.storage;
 
-import wiki.thin.common.BaseCodeEnum;
+import com.baomidou.mybatisplus.annotation.IEnum;
 
 /**
  * storage 工作类型
  *
  * @author Beldon
  */
-public enum StorageWorkType implements BaseCodeEnum {
+public enum StorageWorkType implements IEnum<Integer> {
     /**
      * 主库
      */
@@ -17,14 +17,14 @@ public enum StorageWorkType implements BaseCodeEnum {
      */
     BACKUP(2);
 
-    private final int code;
+    private final int value;
 
-    StorageWorkType(int code) {
-        this.code = code;
+    StorageWorkType(int value) {
+        this.value = value;
     }
 
     @Override
-    public int getCode() {
-        return code;
+    public Integer getValue() {
+        return value;
     }
 }

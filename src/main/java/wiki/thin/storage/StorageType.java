@@ -1,11 +1,11 @@
 package wiki.thin.storage;
 
-import wiki.thin.common.BaseCodeEnum;
+import com.baomidou.mybatisplus.annotation.IEnum;
 
 /**
  * @author Beldon
  */
-public enum StorageType implements BaseCodeEnum {
+public enum StorageType implements IEnum<Integer> {
     /**
      * 本地文件
      */
@@ -19,14 +19,14 @@ public enum StorageType implements BaseCodeEnum {
      */
     GITHUB(3);
 
-    private final int code;
+    private final int value;
 
-    StorageType(int code) {
-        this.code = code;
+    StorageType(int value) {
+        this.value = value;
     }
 
     @Override
-    public int getCode() {
-        return code;
+    public Integer getValue() {
+        return value;
     }
 }

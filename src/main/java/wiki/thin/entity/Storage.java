@@ -2,8 +2,6 @@ package wiki.thin.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.apache.ibatis.type.MappedTypes;
-import wiki.thin.common.BaseCodeEnum;
 import wiki.thin.storage.StorageType;
 import wiki.thin.storage.StorageWorkType;
 
@@ -14,7 +12,6 @@ import java.util.Date;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-@MappedTypes({BaseCodeEnum.class})
 public class Storage extends BaseEntity {
 
     private String name;
