@@ -1,20 +1,18 @@
 package wiki.thin.web.controller.api;
 
+import cn.dev33.satoken.stp.StpUtil;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import wiki.thin.entity.User;
 import wiki.thin.mapper.UserMapper;
 import wiki.thin.security.annotation.NeedLogin;
-import wiki.thin.security.remember.RememberMeService;
 import wiki.thin.service.PasswordService;
 import wiki.thin.web.controller.BaseController;
 import wiki.thin.web.vo.LoginVO;
 import wiki.thin.web.vo.ResponseVO;
-import wiki.thin.web.vo.UserVO;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.Optional;
 
@@ -24,24 +22,15 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/pub")
 @Slf4j
+@RequiredArgsConstructor
 public class LoginApiController extends BaseController {
 
     private final UserMapper userMapper;
-
     private final PasswordService passwordService;
 
-    private final RememberMeService rememberMeService;
-
-    public LoginApiController(UserMapper userMapper, PasswordService passwordService,
-                              RememberMeService rememberMeService) {
-        this.userMapper = userMapper;
-        this.passwordService = passwordService;
-        this.rememberMeService = rememberMeService;
-    }
 
     @PostMapping("/login")
-    public ResponseVO login(@Valid @RequestBody LoginVO loginVO, HttpServletRequest request,
-                            HttpServletResponse response) {
+    public ResponseVO login(@Valid @RequestBody LoginVO loginVO) {
 
         String account = loginVO.getAccount();
         if (!StringUtils.hasText(account)) {
@@ -63,17 +52,15 @@ public class LoginApiController extends BaseController {
             log.warn("[{}] pass error", account);
             return ResponseVO.error("password error");
         }
-        rememberMeService.login(request, response, user);
-        UserVO userVO = new UserVO();
-        userVO.setId(user.getId());
-        userVO.setAccount(user.getAccount());
-        return ResponseVO.successWithData(userVO);
+        StpUtil.login(user.getId());
+
+        return ResponseVO.successWithData(StpUtil.getTokenValue());
     }
 
     @NeedLogin
     @PutMapping("/logout")
-    public ResponseVO logout(HttpServletRequest request, HttpServletResponse response) {
-        rememberMeService.logout(request, response);
+    public ResponseVO logout() {
+        StpUtil.logout();
         return ResponseVO.success();
     }
 }

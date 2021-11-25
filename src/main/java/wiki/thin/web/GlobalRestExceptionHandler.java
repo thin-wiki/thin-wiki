@@ -1,5 +1,6 @@
 package wiki.thin.web;
 
+import cn.dev33.satoken.exception.NotLoginException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -18,6 +19,7 @@ import wiki.thin.exception.NoAuthException;
 import wiki.thin.web.vo.ResponseVO;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -123,6 +125,28 @@ public class GlobalRestExceptionHandler {
             log.debug(e.getMessage(), e);
         }
         String message = "不支持'" + e.getContentType() + "'内容";
+        return ResponseVO.error(message);
+    }
+
+    @ExceptionHandler(NotLoginException.class)
+    public ResponseVO handlerNotLoginException(NotLoginException nle) {
+        // 判断场景值，定制化异常信息
+        String message = "";
+        if (nle.getType().equals(NotLoginException.NOT_TOKEN)) {
+            message = "未提供token";
+        } else if (nle.getType().equals(NotLoginException.INVALID_TOKEN)) {
+            message = "token无效";
+        } else if (nle.getType().equals(NotLoginException.TOKEN_TIMEOUT)) {
+            message = "token已过期";
+        } else if (nle.getType().equals(NotLoginException.BE_REPLACED)) {
+            message = "token已被顶下线";
+        } else if (nle.getType().equals(NotLoginException.KICK_OUT)) {
+            message = "token已被踢下线";
+        } else {
+            message = "当前会话未登录";
+        }
+
+        // 返回给前端
         return ResponseVO.error(message);
     }
 

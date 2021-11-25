@@ -1,30 +1,22 @@
 package wiki.thin.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
-import org.hibernate.annotations.GenericGenerator;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import lombok.EqualsAndHashCode;
 
-import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Date;
 
 @Data
-@Entity
-@Table(name = "note")
-@EntityListeners(AuditingEntityListener.class)
-public class Note implements Serializable {
-    @Id
-    @GenericGenerator(name = "customIDGenerator", strategy = "wiki.thin.common.CustomIDGenerator" )
-    @GeneratedValue(generator = "customIDGenerator")
-    private Long id;
-
-    @Column(columnDefinition = "longtext")
+@EqualsAndHashCode(callSuper = true)
+@TableName(value = "note")
+public class Note extends BaseEntity {
+    @TableField(value = "content")
     private String content;
 
-    @CreatedDate
+    @TableField(value = "created_date")
     private Date createdDate;
-    @LastModifiedDate
+
+    @TableField(value = "last_modified_date")
     private Date lastModifiedDate;
 }

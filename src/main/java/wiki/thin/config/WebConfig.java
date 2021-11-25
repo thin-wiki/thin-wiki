@@ -1,5 +1,6 @@
 package wiki.thin.config;
 
+import cn.dev33.satoken.interceptor.SaRouteInterceptor;
 import net.bull.javamelody.SessionListener;
 import org.springframework.boot.web.server.ConfigurableWebServerFactory;
 import org.springframework.boot.web.server.ErrorPage;
@@ -34,7 +35,11 @@ public class WebConfig implements WebMvcConfigurer, ServletContextInitializer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(apiInterceptor()).addPathPatterns("/api/**").excludePathPatterns("/api/pub/**");
+//        registry.addInterceptor(apiInterceptor()).addPathPatterns("/api/**").excludePathPatterns("/api/pub/**");
+        // 注册Sa-Token的路由拦截器
+        registry.addInterceptor(new SaRouteInterceptor())
+                .addPathPatterns("/**")
+                .excludePathPatterns("/api/pub/**");
     }
 
     @Bean
@@ -46,10 +51,10 @@ public class WebConfig implements WebMvcConfigurer, ServletContextInitializer {
 
     }
 
-    @Bean
-    public ApiInterceptor apiInterceptor() {
-        return new ApiInterceptor();
-    }
+//    @Bean
+//    public ApiInterceptor apiInterceptor() {
+//        return new ApiInterceptor();
+//    }
 
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {

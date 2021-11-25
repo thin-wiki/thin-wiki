@@ -3,9 +3,8 @@ package wiki.thin.theme.ftlh.variable;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import wiki.thin.common.bean.SystemConfig;
-import wiki.thin.core.env.EnvManager;
-import wiki.thin.common.upgrade.SystemUpgrader;
 import wiki.thin.constant.enums.ResourceBaseUrlType;
+import wiki.thin.core.env.EnvManager;
 import wiki.thin.service.AppConfigService;
 
 import static wiki.thin.constant.ConfigConstant.*;
@@ -18,12 +17,10 @@ import static wiki.thin.constant.ConfigConstant.*;
 public class SystemVar extends BaseVariable {
 
     private final AppConfigService appConfigService;
-    private final SystemUpgrader systemUpgrader;
 
-    protected SystemVar(AppConfigService appConfigService, SystemUpgrader systemUpgrader) {
+    protected SystemVar(AppConfigService appConfigService) {
         super("sysVar");
         this.appConfigService = appConfigService;
-        this.systemUpgrader = systemUpgrader;
     }
 
     public SystemConfig systemConfig() {
@@ -40,14 +37,14 @@ public class SystemVar extends BaseVariable {
     }
 
     public String getNewestVersion() {
-        return systemUpgrader.getNewestVersion();
+        return "";
     }
 
     public boolean isInstall() {
-        return systemUpgrader.isInstalled();
+        return true;
     }
 
     public boolean hasNewVersion() {
-        return systemUpgrader.hasNewVersion();
+        return false;
     }
 }
