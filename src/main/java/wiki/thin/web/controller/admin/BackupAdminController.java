@@ -1,7 +1,7 @@
 package wiki.thin.web.controller.admin;
 
 import org.springframework.web.bind.annotation.*;
-import wiki.thin.backup.BackupService;
+import wiki.thin.module.backup.BackupService;
 import wiki.thin.web.vo.ResponseVO;
 
 import javax.servlet.http.HttpServletResponse;

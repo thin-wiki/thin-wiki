@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import wiki.thin.common.util.UriUtil;
-import wiki.thin.storage.StorageFileManager;
+import wiki.thin.module.storage.StorageFileManager;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;

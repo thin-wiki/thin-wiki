@@ -3,7 +3,7 @@ package wiki.thin.common.properties;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
-import wiki.thin.backup.BackupStrategy;
+import wiki.thin.module.backup.BackupStrategy;
 
 import java.util.List;
 

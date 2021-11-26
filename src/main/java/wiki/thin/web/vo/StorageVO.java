@@ -1,8 +1,8 @@
 package wiki.thin.web.vo;
 
 import lombok.Data;
-import wiki.thin.storage.StorageType;
-import wiki.thin.storage.StorageWorkType;
+import wiki.thin.module.storage.StorageType;
+import wiki.thin.module.storage.StorageWorkType;
 
 import java.util.Date;
 

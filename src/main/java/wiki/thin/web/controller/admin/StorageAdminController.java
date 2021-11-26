@@ -9,9 +9,9 @@ import wiki.thin.mapper.GiteeStorageMapper;
 import wiki.thin.mapper.GithubStorageMapper;
 import wiki.thin.mapper.LocalStorageMapper;
 import wiki.thin.mapper.StorageMapper;
-import wiki.thin.storage.StorageFileManager;
-import wiki.thin.storage.StorageType;
-import wiki.thin.storage.StorageWorkType;
+import wiki.thin.module.storage.StorageFileManager;
+import wiki.thin.module.storage.StorageType;
+import wiki.thin.module.storage.StorageWorkType;
 import wiki.thin.web.vo.ResponseVO;
 import wiki.thin.web.vo.StorageBindVO;
 import wiki.thin.web.vo.StorageModifyVO;
@@ -21,7 +21,6 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**

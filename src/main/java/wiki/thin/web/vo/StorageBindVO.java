@@ -1,7 +1,7 @@
 package wiki.thin.web.vo;
 
 import lombok.Data;
-import wiki.thin.storage.StorageType;
+import wiki.thin.module.storage.StorageType;
 
 /**
  * @author Beldon

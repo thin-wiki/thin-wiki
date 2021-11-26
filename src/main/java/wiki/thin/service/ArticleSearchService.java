@@ -3,7 +3,7 @@ package wiki.thin.service;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.springframework.scheduling.annotation.Async;
 import wiki.thin.common.bean.Page;
-import wiki.thin.search.bean.ArticleSearch;
+import wiki.thin.module.search.bean.ArticleSearch;
 
 import java.io.IOException;
 

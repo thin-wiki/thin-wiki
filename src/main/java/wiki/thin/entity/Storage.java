@@ -4,8 +4,8 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import wiki.thin.storage.StorageType;
-import wiki.thin.storage.StorageWorkType;
+import wiki.thin.module.storage.StorageType;
+import wiki.thin.module.storage.StorageWorkType;
 
 import java.util.Date;
 

@@ -39,7 +39,7 @@ logs/
 log/
 sql/
 lib/
-config/
+./config/
 release.properties
 pom.xml.releaseBackup
 app.pid

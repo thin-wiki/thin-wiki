@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import wiki.thin.common.bean.Page;
-import wiki.thin.search.bean.ArticleSearch;
+import wiki.thin.module.search.bean.ArticleSearch;
 import wiki.thin.service.ArticleSearchService;
 import wiki.thin.web.vo.ResponseVO;
 

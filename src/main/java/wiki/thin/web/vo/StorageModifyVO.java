@@ -1,7 +1,7 @@
 package wiki.thin.web.vo;
 
 import lombok.Data;
-import wiki.thin.storage.StorageWorkType;
+import wiki.thin.module.storage.StorageWorkType;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;

@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import wiki.thin.entity.Storage;
-import wiki.thin.storage.StorageWorkType;
+import wiki.thin.module.storage.StorageWorkType;
 
 import java.util.List;
 

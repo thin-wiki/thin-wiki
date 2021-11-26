@@ -12,8 +12,8 @@ import wiki.thin.constant.enums.SharableEnum;
 import wiki.thin.entity.Article;
 import wiki.thin.mapper.ArticleColumnMapper;
 import wiki.thin.mapper.ArticleMapper;
-import wiki.thin.search.SearchManager;
-import wiki.thin.search.bean.ArticleSearch;
+import wiki.thin.module.search.SearchManager;
+import wiki.thin.module.search.bean.ArticleSearch;
 import wiki.thin.service.ArticleSearchService;
 
 import java.io.IOException;
@@ -80,7 +80,7 @@ public class ArticleSearchServiceImpl implements ArticleSearchService {
 
         final List<Article> all = articleMapper.findAll();
         for (Article article : all) {
-            wiki.thin.search.bean.ArticleSearch articleSearch = new wiki.thin.search.bean.ArticleSearch();
+            wiki.thin.module.search.bean.ArticleSearch articleSearch = new wiki.thin.module.search.bean.ArticleSearch();
             articleSearch.setId(article.getId());
             articleSearch.setTitle(article.getTitle());
             articleSearch.setContent(cleanHtml(article.getContent()));
