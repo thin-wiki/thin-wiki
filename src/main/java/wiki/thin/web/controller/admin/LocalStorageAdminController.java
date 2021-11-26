@@ -33,7 +33,7 @@ public class LocalStorageAdminController {
         localStorage.setDescription(localStorageModifyVO.getDescription());
         localStorage.setBasePath(localStorageModifyVO.getBasePath());
 
-        localStorageMapper.insertSelective(localStorage);
+        localStorageMapper.insert(localStorage);
 
         return ResponseVO.successWithData(localStorage.getId());
     }
@@ -49,14 +49,14 @@ public class LocalStorageAdminController {
         localStorage.setDescription(localStorageModifyVO.getDescription());
         localStorage.setBasePath(localStorageModifyVO.getBasePath());
 
-        localStorageMapper.updateByIdSelective(localStorage);
+        localStorageMapper.updateById(localStorage);
         return ResponseVO.successWithData(localStorage.getId());
     }
 
     @DeleteMapping("/{storageId}")
     public ResponseVO deleteStorage(@PathVariable Long storageId) {
 
-        localStorageMapper.delete(storageId);
+        localStorageMapper.deleteById(storageId);
         return ResponseVO.success();
     }
 

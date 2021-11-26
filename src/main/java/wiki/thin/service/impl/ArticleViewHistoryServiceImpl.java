@@ -29,7 +29,7 @@ public class ArticleViewHistoryServiceImpl implements ArticleViewHistoryService 
             ArticleViewHistory history = new ArticleViewHistory();
             history.setArticleId(articleId);
             history.setCreatedBy(userId);
-            articleViewHistoryMapper.insertSelective(history);
+            articleViewHistoryMapper.insert(history);
         }
         // articleViewHistoryMapper.clearMore(userId, 11, 1000);
     }

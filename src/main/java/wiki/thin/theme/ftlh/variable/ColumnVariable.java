@@ -28,9 +28,9 @@ public class ColumnVariable extends BaseVariable {
     }
 
     public String columnPath(Long columnId) {
-        final Optional<ArticleColumn> columnOptional = articleColumnMapper.findById(columnId);
-        if (columnOptional.isPresent()) {
-            return columnOptional.get().getPath();
+        final ArticleColumn column = articleColumnMapper.selectById(columnId);
+        if (column != null) {
+            return column.getPath();
         }
         return "";
     }

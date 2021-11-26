@@ -37,7 +37,7 @@ public class GiteeStorageAdminController {
         giteeStorage.setBranch(giteeStorageModifyVO.getBranch());
         giteeStorage.setBasePath(giteeStorageModifyVO.getBasePath());
 
-        giteeStorageMapper.insertSelective(giteeStorage);
+        giteeStorageMapper.insert(giteeStorage);
 
         return ResponseVO.successWithData(giteeStorage.getId());
     }
@@ -57,14 +57,14 @@ public class GiteeStorageAdminController {
         giteeStorage.setBranch(giteeStorageModifyVO.getBranch());
         giteeStorage.setBasePath(giteeStorageModifyVO.getBasePath());
 
-        giteeStorageMapper.updateByIdSelective(giteeStorage);
+        giteeStorageMapper.updateById(giteeStorage);
         return ResponseVO.successWithData(giteeStorage.getId());
     }
 
     @DeleteMapping("/{storageId}")
     public ResponseVO deleteStorage(@PathVariable Long storageId) {
 
-        giteeStorageMapper.delete(storageId);
+        giteeStorageMapper.deleteById(storageId);
 
         return ResponseVO.success();
     }

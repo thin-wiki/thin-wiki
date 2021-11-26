@@ -52,15 +52,15 @@ public class DefaultStorageFileManager implements StorageFileManager {
     @Override
     public URI getUri(Long fileId) {
 
-        final Optional<StorageFile> fileStorageOptional = storageFileMapper.findById(fileId);
-        if (fileStorageOptional.isEmpty()) {
+        final StorageFile storageFile = storageFileMapper.selectById(fileId);
+        if (storageFile == null) {
             return null;
         }
 
         final Storage storage = chooseStorage();
         final StorageService storageService = storageServiceFactory.buildStorageService(storage);
 
-        return storageService.getUri(fileStorageOptional.get().getRelativePath());
+        return storageService.getUri(storageFile.getRelativePath());
     }
 
     @Override
@@ -99,7 +99,7 @@ public class DefaultStorageFileManager implements StorageFileManager {
         storageFile.setContentType(file.getContentType());
         storageFile.setRelativePath(relativePath);
         storageFile.setStorageId(storageId);
-        storageFileMapper.insertSelective(storageFile);
+        storageFileMapper.insert(storageFile);
 
         return storageFile.getId();
     }

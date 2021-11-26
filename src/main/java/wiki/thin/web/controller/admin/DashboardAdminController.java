@@ -1,5 +1,6 @@
 package wiki.thin.web.controller.admin;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,7 +27,7 @@ public class DashboardAdminController {
     @GetMapping("/total")
     public ResponseVO<DashboardTotalVO> total() {
         DashboardTotalVO totalVO = new DashboardTotalVO();
-        totalVO.setColumnCount(articleColumnMapper.countAll());
+        totalVO.setColumnCount(articleColumnMapper.selectCount(new QueryWrapper<>()).intValue());
         totalVO.setArticleCount(articleMapper.countAll());
         return ResponseVO.successWithData(totalVO);
     }

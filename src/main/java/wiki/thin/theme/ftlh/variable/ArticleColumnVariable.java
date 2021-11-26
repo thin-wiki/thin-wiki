@@ -1,5 +1,7 @@
 package wiki.thin.theme.ftlh.variable;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.conditions.query.QueryChainWrapper;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import wiki.thin.constant.enums.SharableEnum;
@@ -25,7 +27,7 @@ public class ArticleColumnVariable extends BaseVariable {
     }
 
     public List<ArticleColumn> getAll() {
-        return articleColumnMapper.findAll();
+        return articleColumnMapper.selectList(new QueryWrapper<>());
     }
 
     public List<ArticleColumnList> getAllList() {

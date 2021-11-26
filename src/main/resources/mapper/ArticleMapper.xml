@@ -1,102 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="wiki.thin.mapper.ArticleMapper">
+    <resultMap id="BaseResultMap" type="wiki.thin.entity.Article">
+        <!--@mbg.generated-->
+        <!--@Table article-->
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="content" property="content"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="column_id" property="columnId"/>
+        <result column="sharable" property="sharable"/>
+        <result column="status" property="status"/>
+        <result column="version" property="version"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="created_date" property="createdDate"/>
+        <result column="last_modified_by" property="lastModifiedBy"/>
+        <result column="last_modified_date" property="lastModifiedDate"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id, title, content, parent_id, column_id, sharable, `status`, version, created_by,
+        created_date, last_modified_by, last_modified_date
+    </sql>
 
-    <cache-ref namespace="wiki.thin.mapper.ArticleMapper"/>
+    <!--    <cache-ref namespace="wiki.thin.mapper.ArticleMapper" />-->
 
-    <insert id="insertSelective" parameterType="wiki.thin.entity.Article">
-        insert into article
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            id,
-            title,
-            sharable,
-            <if test="content != null">
-                content,
-            </if>
-            <if test="parentId != null">
-                parent_id,
-            </if>
-            <if test="columnId != null">
-                column_id,
-            </if>
-            <if test="version != null">
-                `version`,
-            </if>
-            <if test="createdBy != null">
-                created_by,
-            </if>
-            <if test="lastModifiedBy != null">
-                last_modified_by,
-            </if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            #{id},
-            #{title},
-            #{sharable},
-            <if test="content != null">
-                #{content},
-            </if>
-            <if test="parentId != null">
-                #{parentId},
-            </if>
-            <if test="columnId != null">
-                #{columnId},
-            </if>
-            <if test="version != null">
-                #{version},
-            </if>
-            <if test="createdBy != null">
-                #{createdBy},
-            </if>
-            <if test="lastModifiedBy != null">
-                #{last_modified_by},
-            </if>
-        </trim>
-    </insert>
-    <update id="updateByIdSelective" parameterType="wiki.thin.entity.Article">
-        update article
-        <set>
-            <if test="title != null">
-                title = #{title},
-            </if>
-            <if test="content != null">
-                content = #{content},
-            </if>
-            <if test="parentId != null">
-                parent_id = #{parentId},
-            </if>
-            <if test="columnId != null">
-                column_id = #{columnId},
-            </if>
-            <if test="lastModifiedBy != null">
-                last_modified_by = #{lastModifiedBy},
-            </if>
-            version = version + 1
-        </set>
-        where id = #{id}
-    </update>
     <select id="findSharedListByColumnId" resultType="wiki.thin.entity.mini.ArticleList">
-        select
-        id, `title`, `parent_id`
+        select id,
+               `title`,
+               `parent_id`
         from article
-        where column_id = #{columnId}
-        and `status` = #{status}
-        and sharable in
-        <foreach item="item" index="index" open="(" separator="," close=")" collection="sharableList">
+                where column_id = #{columnId}
+                  and `status` = #{status}
+                  and sharable in
+        <foreach close=")" collection="sharableList" index="index" item="item" open="(" separator=",">
             #{item}
         </foreach>
-        order by title,created_date
+        order by title, created_date
     </select>
     <select id="findLastModified" resultType="wiki.thin.entity.mini.ArticleLastModifiedList">
-        select
-        id, `title`, `column_id`,`last_modified_date`
+        select id,
+               `title`,
+               `column_id`,
+               `last_modified_date`
         from article
-        order by last_modified_date desc limit #{limit}
+        order by last_modified_date desc
+        limit #{limit}
     </select>
     <select id="findByStatus" resultType="wiki.thin.web.vo.ArticleDetailVO">
-        select a.id as id, a.title as title, a.column_id as columnId,
-               b.title as columnTitle, a.created_date as createdDate, a.last_modified_date as lastModifiedDate
-        from article a left join article_column b on a.column_id = b.id
+        select a.id                 as id,
+               a.title              as title,
+               a.column_id          as columnId,
+               b.title              as columnTitle,
+               a.created_date       as createdDate,
+               a.last_modified_date as lastModifiedDate
+        from article a
+                     left join article_column b on a.column_id = b.id
         where a.`status` = #{status}
         order by a.last_modified_date desc
     </select>

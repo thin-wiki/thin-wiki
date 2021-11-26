@@ -66,23 +66,21 @@ public class ArticleColumnApiController {
 
     @PutMapping("/{columnId}")
     public ResponseVO<?> updateColumn(@PathVariable Long columnId, @Valid @RequestBody ArticleColumnModifyVO modifyVO) {
-        final Optional<ArticleColumn> columnOptional = articleColumnMapper.findById(columnId);
+        final ArticleColumn column = articleColumnMapper.selectById(columnId);
 
-        if (columnOptional.isEmpty()) {
+        if (column == null) {
             return ResponseVO.error("找不到指定记录");
         }
 
-        ArticleColumn articleColumn = columnOptional.get();
-
-        if (!articleColumn.getPath().equals(modifyVO.getPath())
+        if (!column.getPath().equals(modifyVO.getPath())
                 && articleColumnMapper.countByPath(modifyVO.getPath()) > 0) {
             return ResponseVO.error("path [" + modifyVO.getPath() + "] 已存在");
         }
 
-        articleColumn.setTitle(modifyVO.getTitle());
-        articleColumn.setPath(modifyVO.getPath());
-        articleColumn.setContent(modifyVO.getContent());
-        articleColumnMapper.updateById(articleColumn);
+        column.setTitle(modifyVO.getTitle());
+        column.setPath(modifyVO.getPath());
+        column.setContent(modifyVO.getContent());
+        articleColumnMapper.updateById(column);
         return ResponseVO.success();
     }
 

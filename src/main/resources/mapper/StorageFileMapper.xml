@@ -1,66 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="wiki.thin.mapper.StorageFileMapper">
+    <resultMap id="BaseResultMap" type="wiki.thin.entity.StorageFile">
+        <!--@mbg.generated-->
+        <!--@Table storage_file-->
+        <id column="id" property="id"/>
+        <result column="target_id" property="targetId"/>
+        <result column="original_file_name" property="originalFileName"/>
+        <result column="suffix" property="suffix"/>
+        <result column="file_size" property="fileSize"/>
+        <result column="content_type" property="contentType"/>
+        <result column="relative_path" property="relativePath"/>
+        <result column="storage_id" property="storageId"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="created_date" property="createdDate"/>
+        <result column="last_modified_by" property="lastModifiedBy"/>
+        <result column="last_modified_date" property="lastModifiedDate"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id, target_id, original_file_name, suffix, file_size, content_type, relative_path,
+        storage_id, created_by, created_date, last_modified_by, last_modified_date
+    </sql>
 
-    <cache-ref namespace="wiki.thin.mapper.StorageFileMapper"/>
-
-    <insert id="insertSelective" parameterType="wiki.thin.entity.StorageFile">
-        insert into storage_file
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            id,
-            target_id,
-            <if test="originalFileName != null">
-                `original_file_name`,
-            </if>
-            <if test="suffix != null">
-                suffix,
-            </if>
-            <if test="fileSize != null">
-                file_size,
-            </if>
-            <if test="contentType != null">
-                content_type,
-            </if>
-            <if test="relativePath != null">
-                relative_path,
-            </if>
-            <if test="storageId != null">
-                storage_id,
-            </if>
-            <if test="createdBy != null">
-                created_by,
-            </if>
-            <if test="lastModifiedBy != null">
-                last_modified_by,
-            </if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            #{id},
-            #{targetId},
-            <if test="originalFileName != null">
-                #{originalFileName},
-            </if>
-            <if test="suffix != null">
-                #{suffix},
-            </if>
-            <if test="fileSize != null">
-                #{fileSize},
-            </if>
-            <if test="contentType != null">
-                #{contentType},
-            </if>
-            <if test="relativePath != null">
-                #{relativePath},
-            </if>
-            <if test="storageId != null">
-                #{storageId},
-            </if>
-            <if test="createdBy != null">
-                #{createdBy},
-            </if>
-            <if test="lastModifiedBy != null">
-                #{lastModifiedBy},
-            </if>
-        </trim>
-    </insert>
+    <!--    <cache-ref namespace="wiki.thin.mapper.StorageFileMapper" />-->
 </mapper>

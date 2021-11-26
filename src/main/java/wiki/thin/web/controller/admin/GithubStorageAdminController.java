@@ -37,7 +37,7 @@ public class GithubStorageAdminController {
         githubStorage.setBranch(giteeStorageModifyVO.getBranch());
         githubStorage.setBasePath(giteeStorageModifyVO.getBasePath());
 
-        githubStorageMapper.insertSelective(githubStorage);
+        githubStorageMapper.insert(githubStorage);
 
         return ResponseVO.successWithData(githubStorage.getId());
     }
@@ -57,13 +57,13 @@ public class GithubStorageAdminController {
         githubStorage.setBranch(giteeStorageModifyVO.getBranch());
         githubStorage.setBasePath(giteeStorageModifyVO.getBasePath());
 
-        githubStorageMapper.updateByIdSelective(githubStorage);
+        githubStorageMapper.updateById(githubStorage);
         return ResponseVO.successWithData(githubStorage.getId());
     }
 
     @DeleteMapping("/{storageId}")
     public ResponseVO deleteStorage(@PathVariable Long storageId) {
-        githubStorageMapper.delete(storageId);
+        githubStorageMapper.deleteById(storageId);
         return ResponseVO.success();
     }
 

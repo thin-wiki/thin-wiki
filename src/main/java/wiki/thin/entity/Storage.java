@@ -1,5 +1,7 @@
 package wiki.thin.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import wiki.thin.storage.StorageType;
@@ -7,47 +9,40 @@ import wiki.thin.storage.StorageWorkType;
 
 import java.util.Date;
 
-/**
- * @author Beldon
- */
-@EqualsAndHashCode(callSuper = true)
 @Data
+@EqualsAndHashCode(callSuper = true)
+@TableName(value = "`storage`")
 public class Storage extends BaseEntity {
-
+    @TableField(value = "`name`")
     private String name;
 
+    @TableField(value = "description")
     private String description;
 
-    /**
-     * 工作类型
-     */
+    @TableField(value = "work_type")
     private StorageWorkType workType;
 
-    /**
-     * 存储类型
-     */
+    @TableField(value = "ref_storage_type")
     private StorageType refStorageType;
 
-    /**
-     * 存储类型的id
-     */
+    @TableField(value = "ref_storage_id")
     private Long refStorageId;
 
-    /**
-     * 主库id，当库类型是 备库时候，该字段有意义
-     */
+    @TableField(value = "main_storage_id")
     private Long mainStorageId;
 
-    /**
-     * 是否可写
-     */
+    @TableField(value = "writable")
     private Boolean writable;
 
+    @TableField(value = "created_by")
     private Long createdBy;
 
+    @TableField(value = "created_date")
     private Date createdDate;
 
+    @TableField(value = "last_modified_by")
     private Long lastModifiedBy;
 
+    @TableField(value = "last_modified_date")
     private Date lastModifiedDate;
 }

@@ -1,5 +1,6 @@
 package wiki.thin.web.controller.admin;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.web.bind.annotation.*;
 import wiki.thin.constant.CommonConstant;
 import wiki.thin.entity.Article;

@@ -1,21 +1,10 @@
 package wiki.thin.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Repository;
 import wiki.thin.entity.ArticleHistory;
 
-/**
- * @author Beldon
- */
 @Mapper
-@Repository
-public interface ArticleHistoryMapper {
+public interface ArticleHistoryMapper extends BaseMapper<ArticleHistory> {
 
-    /**
-     * insert
-     *
-     * @param articleHistory articleHistory
-     * @return count
-     */
-    int insertSelective(ArticleHistory articleHistory);
 }

@@ -1,29 +1,45 @@
 package wiki.thin.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import java.util.Date;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import wiki.thin.constant.enums.SharableEnum;
 
-import java.util.Date;
-
-/**
- * @author Beldon
- */
-@EqualsAndHashCode(callSuper = true)
 @Data
+@EqualsAndHashCode(callSuper = true)
+@TableName(value = "article_history")
 public class ArticleHistory extends BaseEntity {
-
+    @TableField(value = "article_id")
     private Long articleId;
+
+    @TableField(value = "title")
     private String title;
+
+    @TableField(value = "content")
     private String content;
-    private Integer version;
+
+    @TableField(value = "parent_id")
+    private Long parentId;
+
+    @TableField(value = "column_id")
+    private Long columnId;
 
     /**
-     * 父id，若为 0 则表示 column 一级
+     * 0-私有的，1-公开的，2-继承
      */
-    private Long parentId;
-    private Long columnId;
+    @TableField(value = "sharable")
     private SharableEnum sharable;
+
+    @TableField(value = "version")
+    private Integer version;
+
+    @TableField(value = "modified_by")
     private Long modifiedBy;
+
+    @TableField(value = "modified_date")
     private Date modifiedDate;
 }

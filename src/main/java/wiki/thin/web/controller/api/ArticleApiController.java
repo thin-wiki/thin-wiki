@@ -84,7 +84,7 @@ public class ArticleApiController {
         article.setParentId(realParentId);
         article.setColumnId(realColumnId);
         article.setSharable(SharableEnum.INHERITED);
-        articleMapper.insertSelective(article);
+        articleMapper.insert(article);
 
 
         articleSearchService.index(article.getId());
@@ -103,7 +103,7 @@ public class ArticleApiController {
         final var article = articleOptional.get();
         article.setTitle(articleVO.getTitle());
         article.setContent(articleVO.getContent());
-        articleMapper.updateByIdSelective(article);
+        articleMapper.updateById(article);
 
         articleSearchService.index(article.getId());
         articleHistoryService.saveArticleHistory(article.getId());

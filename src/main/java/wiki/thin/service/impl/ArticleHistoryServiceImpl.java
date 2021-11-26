@@ -38,7 +38,7 @@ public class ArticleHistoryServiceImpl implements ArticleHistoryService {
             history.setVersion(article.getVersion());
             history.setModifiedBy(article.getLastModifiedBy());
             history.setModifiedDate(article.getLastModifiedDate());
-            articleHistoryMapper.insertSelective(history);
+            articleHistoryMapper.insert(history);
         }
     }
 }

@@ -1,20 +1,11 @@
 package wiki.thin.mapper;
 
-import org.apache.ibatis.annotations.*;
-import org.apache.ibatis.cache.decorators.SoftCache;
-import org.springframework.stereotype.Repository;
-import wiki.thin.entity.LocalStorage;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;import org.apache.ibatis.annotations.Select;import org.apache.ibatis.annotations.Update;import wiki.thin.entity.LocalStorage;import java.util.List;import java.util.Optional;
 
-import java.util.List;
-import java.util.Optional;
-
-/**
- * @author Beldon
- */
 @Mapper
-@Repository
-@CacheNamespace(eviction = SoftCache.class)
-public interface LocalStorageMapper {
+public interface LocalStorageMapper extends BaseMapper<LocalStorage> {
     /**
      * find all
      *
@@ -31,29 +22,4 @@ public interface LocalStorageMapper {
      */
     @Select("select * from local_storage where id = #{id}")
     Optional<LocalStorage> findById(@Param("id") Long id);
-
-    /**
-     * insert
-     *
-     * @param localStorage localStorage
-     * @return insert count
-     */
-    int insertSelective(LocalStorage localStorage);
-
-    /**
-     * update
-     *
-     * @param localStorage localStorage
-     * @return update count
-     */
-    int updateByIdSelective(LocalStorage localStorage);
-
-    /**
-     * delete
-     *
-     * @param id id
-     * @return delete count
-     */
-    @Update("delete from local_storage where id = #{id}")
-    int delete(@Param("id") Long id);
 }

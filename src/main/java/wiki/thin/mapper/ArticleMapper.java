@@ -1,8 +1,10 @@
 package wiki.thin.mapper;
 
-import org.apache.ibatis.annotations.*;
-import org.apache.ibatis.cache.decorators.SoftCache;
-import org.springframework.stereotype.Repository;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import wiki.thin.constant.enums.SharableEnum;
 import wiki.thin.entity.Article;
 import wiki.thin.entity.mini.ArticleLastModifiedList;
@@ -12,14 +14,8 @@ import wiki.thin.web.vo.ArticleDetailVO;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * @author Beldon
- */
 @Mapper
-@Repository
-@CacheNamespace(eviction = SoftCache.class)
-public interface ArticleMapper {
-
+public interface ArticleMapper extends BaseMapper<Article> {
     /**
      * count all
      *
@@ -45,22 +41,6 @@ public interface ArticleMapper {
      */
     @Select("select count(*) from article where column_id = #{columnId}")
     int countByColumnId(@Param("columnId") Long columnId);
-
-    /**
-     * insert
-     *
-     * @param article article
-     * @return insert count
-     */
-    int insertSelective(Article article);
-
-    /**
-     * update
-     *
-     * @param article article
-     * @return update count
-     */
-    int updateByIdSelective(Article article);
 
     /**
      * update pid

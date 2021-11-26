@@ -54,36 +54,34 @@ public class StorageAdminController {
         storage.setWorkType(storageModifyVO.getWorkType());
         storage.setMainStorageId(storageModifyVO.getMainStorageId());
         storage.setWritable(storageModifyVO.getWritable());
-        storageMapper.insertSelective(storage);
+        storageMapper.insert(storage);
         return ResponseVO.successWithData(storage.getId());
     }
 
     @PutMapping("/{storageId}")
     public ResponseVO updateStorage(@PathVariable Long storageId, @Valid @RequestBody StorageModifyVO storageModifyVO) {
-        final Optional<Storage> storageOptional = storageMapper.findById(storageId);
-        if (storageOptional.isEmpty()) {
+        final Storage storage = storageMapper.selectById(storageId);
+        if (storage == null) {
             return ResponseVO.error("找不到指定记录");
         }
-        var storage = storageOptional.get();
         storage.setName(storageModifyVO.getName());
         storage.setDescription(storageModifyVO.getDescription());
         storage.setWorkType(storageModifyVO.getWorkType());
         storage.setMainStorageId(storageModifyVO.getMainStorageId());
         storage.setWritable(storageModifyVO.getWritable());
-        storageMapper.updateByIdSelective(storage);
+        storageMapper.updateById(storage);
         return ResponseVO.success();
     }
 
     @PutMapping("/{storageId}/bind")
     public ResponseVO bindStorage(@PathVariable Long storageId, @Valid @RequestBody StorageBindVO bindVO) {
-        final Optional<Storage> storageOptional = storageMapper.findById(storageId);
-        if (storageOptional.isEmpty()) {
+        final Storage storage = storageMapper.selectById(storageId);
+        if (storage == null) {
             return ResponseVO.error("找不到指定记录");
         }
-        var storage = storageOptional.get();
         storage.setRefStorageType(bindVO.getRefStorageType());
         storage.setRefStorageId(bindVO.getRefStorageId());
-        storageMapper.updateByIdSelective(storage);
+        storageMapper.updateById(storage);
 
         storageFileManager.cleanCache();
 
@@ -92,7 +90,7 @@ public class StorageAdminController {
 
     @DeleteMapping("/{storageId}")
     public ResponseVO deleteStorage(@PathVariable Long storageId) {
-        storageMapper.delete(storageId);
+        storageMapper.deleteById(storageId);
         return ResponseVO.success();
     }
 
@@ -131,11 +129,10 @@ public class StorageAdminController {
 
     @PutMapping("/{storageId}/copy")
     public ResponseVO copyFile(@PathVariable Long storageId, @Valid @RequestBody StorageBindVO bindVO) {
-        final Optional<Storage> storageOptional = storageMapper.findById(storageId);
-        if (storageOptional.isEmpty()) {
+        final Storage storage = storageMapper.selectById(storageId);
+        if (storage == null) {
             return ResponseVO.error("找不到指定记录");
         }
-        var storage = storageOptional.get();
         storageFileManager.copy(storage, bindVO.getRefStorageType(), bindVO.getRefStorageId());
 
         return ResponseVO.success();

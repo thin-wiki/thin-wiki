@@ -1,27 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="wiki.thin.mapper.ArticleViewHistoryMapper">
+    <resultMap id="BaseResultMap" type="wiki.thin.entity.ArticleViewHistory">
+        <!--@mbg.generated-->
+        <!--@Table article_view_history-->
+        <id column="id" property="id"/>
+        <result column="article_id" property="articleId"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="last_modified_date" property="lastModifiedDate"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id, article_id, created_by, last_modified_date
+    </sql>
 
-    <insert id="insertSelective" parameterType="wiki.thin.entity.ArticleViewHistory">
-        insert into article_view_history
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            id,
-            article_id,
-            <if test="createdBy != null">
-                created_by,
-            </if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            #{id},
-            #{articleId},
-            <if test="createdBy != null">
-                #{createdBy},
-            </if>
-        </trim>
-    </insert>
-    <update id="clearMore">
-        delete from article_view_history
-        where id in
-              (select id from article_view_history where created_by = #{userId} order by last_modified_date desc limit #{start}, #{end})
-    </update>
 </mapper>

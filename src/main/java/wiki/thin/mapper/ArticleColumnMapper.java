@@ -15,21 +15,6 @@ import java.util.Optional;
 
 @Mapper
 public interface ArticleColumnMapper extends BaseMapper<ArticleColumn> {
-    /**
-     * count all
-     *
-     * @return count
-     */
-    @Select("select count(*) from article_column")
-    int countAll();
-
-    /**
-     * find all article column
-     *
-     * @return article column
-     */
-    @Select("select * from article_column")
-    List<ArticleColumn> findAll();
 
     /**
      * find all article column
@@ -47,15 +32,6 @@ public interface ArticleColumnMapper extends BaseMapper<ArticleColumn> {
      */
     @Select("select id,`path`, `title`,`sharable` from article_column where sharable=#{sharable}")
     List<ArticleColumnList> findSharedList(@Param("sharable") SharableEnum sharable);
-
-    /**
-     * find article column by id
-     *
-     * @param id id
-     * @return article column
-     */
-    @Select("select * from article_column where id = #{id}")
-    Optional<ArticleColumn> findById(@Param("id") Long id);
 
     /**
      * find article column by path
@@ -83,15 +59,6 @@ public interface ArticleColumnMapper extends BaseMapper<ArticleColumn> {
      */
     @Select("select count(*) from article_column where path = #{path}")
     int countByPath(@Param("path") String path);
-
-    /**
-     * delete
-     *
-     * @param id id
-     * @return delete count
-     */
-    @Update("delete from article_column where id = #{id}")
-    int deleteById(@Param("id") Long id);
 
     /**
      * update sharable
